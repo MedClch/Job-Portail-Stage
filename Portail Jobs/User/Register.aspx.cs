@@ -30,7 +30,7 @@ namespace Portail_Jobs.User
                                     values (@Username,@Password,@Name,@Address,@Mobile,@Email,@Country)";
                 cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Username", txtUserName.Text.Trim());
-                cmd.Parameters.AddWithValue("@Password", txtPassword.Text.Trim());
+                cmd.Parameters.AddWithValue("@Password", txtConfirmPassword.Text.Trim());
                 cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
                 cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
                 cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
@@ -65,9 +65,10 @@ namespace Portail_Jobs.User
                 {
                     Response.Write("<script>alert('"+ex.Message+"');</script>");
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex1)
             {
-                Response.Write("<script>alert('"+ex.Message+"');</script>");
+                Response.Write("<script>alert('"+ex1.Message+"');</script>");
             }
             finally
             {
