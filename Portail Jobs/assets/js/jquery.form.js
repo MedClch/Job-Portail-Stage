@@ -1,13 +1,4 @@
-/*!
- * jQuery Form Plugin
- * version: 3.32.0-2013.04.09
- * @requires jQuery v1.5 or later
- * Copyright (c) 2013 M. Alsup
- * Examples and documentation at: http://malsup.com/jquery/form/
- * Project repository: https://github.com/malsup/form
- * Dual licensed under the MIT and GPL licenses.
- * https://github.com/malsup/form#copyright-and-license
- */
+
 /*global ActiveXObject */
 ;(function($) {
 "use strict";
@@ -78,7 +69,7 @@ $.fn.attr2 = function() {
 $.fn.ajaxSubmit = function(options) {
     /*jshint scripturl:true */
 
-    // fast fail if nothing selected (http://dev.jquery.com/ticket/2752)
+    // fast fail if nothing selected 
     if (!this.length) {
         log('ajaxSubmit: skipping submit process - no element selected');
         return this;
@@ -186,10 +177,6 @@ $.fn.ajaxSubmit = function(options) {
         }
     };
 
-    // are there files to upload?
-
-    // [value] (issue #113), also see comment:
-    // https://github.com/malsup/form/commit/588306aedba1de01388032d5f42a60159eea9228#commitcomment-2180219
     var fileInputs = $('input[type=file]:enabled[value!=""]', this);
 
     var hasFileInputs = fileInputs.length > 0;
@@ -203,10 +190,7 @@ $.fn.ajaxSubmit = function(options) {
     var jqxhr;
 
     // options.iframe allows user to force iframe mode
-    // 06-NOV-09: now defaulting to iframe mode if file input is detected
     if (options.iframe !== false && (options.iframe || shouldUseFrame)) {
-        // hack to fix Safari hang (thanks to Tim Molendijk for this)
-        // see:  http://groups.google.com/group/jquery-dev/browse_thread/thread/36395b7ab510dd5d
         if (options.closeKeepAlive) {
             $.get(options.closeKeepAlive, function() {
                 jqxhr = fileUploadIframe(a);
@@ -411,7 +395,6 @@ $.fn.ajaxSubmit = function(options) {
              * carry the protocol property in ie8, when running under ssl
              * frame.document is the only valid response document, since
              * the protocol is know but not on the other two objects. strange?
-             * "Same origin policy" http://en.wikipedia.org/wiki/Same_origin_policy
              */
             
             var doc = null;
@@ -993,11 +976,10 @@ $.fn.fieldSerialize = function(successful) {
  *  v == ['C1']
  *
  * The successful argument controls whether or not the field element must be 'successful'
- * (per http://www.w3.org/TR/html4/interact/forms.html#successful-controls).
  * The default value of the successful argument is true.  If this value is false the value(s)
  * for each element is returned.
  *
- * Note: This method *always* returns an array.  If no valid value can be determined the
+ * This method *always* returns an array.  If no valid value can be determined the
  *    array will be empty, otherwise it will contain one or more values.
  */
 $.fn.fieldValue = function(successful) {
