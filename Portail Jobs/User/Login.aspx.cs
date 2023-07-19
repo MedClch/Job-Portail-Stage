@@ -13,6 +13,7 @@ namespace Portail_Jobs.User
     {
         SqlConnection conn;
         SqlCommand cmd;
+        SqlDataReader reader;
         string str = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
         string username, password = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
@@ -24,33 +25,67 @@ namespace Portail_Jobs.User
         {
             try
             {
-                username = ConfigurationManager.AppSettings["username"];
-                password = ConfigurationManager.AppSettings["password"];
-                if(username == txtUserName.Text.Trim() && password == txtPassword.Text.Trim()) 
+                if (ddlLoginType.SelectedValue=="Admin")
                 {
-                    Session["admin"]=username;
-                    Response.Redirect("../Admin/Dashboard.aspx",false);
+                    username = ConfigurationManager.AppSettings["username"];
+                    password = ConfigurationManager.AppSettings["password"];
+                    if (username == txtUserName.Text.Trim() && password == txtPassword.Text.Trim())
+                    {
+                        Session["admin"]=username;
+                        clear();
+                        lblMsg.Visible = false;
+                        Response.Redirect("../Admin/Dashboard.aspx", false);
+                    }
+                    else
+                    {
+                        showErrorMessage("Admin");
+                        clear();
+                    }
                 }
                 else
                 {
-                    showErrorMessage("Admin");
+                    conn = new SqlConnection(str);
+                    string query = @"Select * from [User] where Username=@Username and Password=@Password";
+                    cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Username", txtUserName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Password", txtPassword.Text.Trim());
+                    conn.Open();
+                    reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        Session["user"]=reader["Username"].ToString();
+                        Session["userId"]=reader["UserId"].ToString();
+                        clear();
+                        lblMsg.Visible = false;
+                        Response.Redirect("Default.aspx", false);
+                    }
+                    else
+                    {
+                        showErrorMessage("User");
+                        clear();
+                    }
+                    conn.Close();
                 }
             }
             catch (Exception ex1)
             {
                 Response.Write("<script>alert('"+ex1.Message+"');</script>");
-            }
-            finally
-            {
                 conn.Close();
             }
         }
 
-        private void showErrorMessage(string user)
+        private void showErrorMessage(string userT)
         {
             lblMsg.Visible = true;
-            lblMsg.Text = "<b>"+user+"</b> credentials are incorrect, please try again ";
+            lblMsg.Text = "<b>"+userT+"</b> credentials are incorrect, please try again ";
             lblMsg.CssClass="alert alert-danger";
+        }
+
+        private void clear()
+        {
+            txtUserName.Text=string.Empty;
+            txtPassword.Text=string.Empty;
+            ddlLoginType.ClearSelection();
         }
     }
 }
