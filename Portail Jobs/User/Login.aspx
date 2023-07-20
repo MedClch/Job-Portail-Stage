@@ -21,7 +21,7 @@
                                     <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" placeholder="Enter username" required></asp:TextBox>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Password</label>
                                     <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="Enter password " TextMode="Password" required></asp:TextBox>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Services.Description;
 using System.Web.UI;
@@ -60,6 +61,7 @@ namespace Portail_Jobs.User
                     lblMsg.Visible = true;
                     lblMsg.Text = "<b>"+txtUserName.Text.Trim()+"<b> already exists, please try again !";
                     lblMsg.CssClass="alert alert-danger";
+                    clear();
                 }
                 else
                 {
@@ -86,5 +88,25 @@ namespace Portail_Jobs.User
             txtEmail.Text=string.Empty;
             ddlCountry.ClearSelection();
         }
+
+        //private int check(string userName)
+        //{
+        //    SqlDataReader reader;
+        //    conn = new SqlConnection(str);
+        //    conn.Open();
+        //    string query = @"Select * from [User] where Username=@Username";
+        //    cmd = new SqlCommand(query, conn);
+        //    reader = cmd.ExecuteReader();
+        //    if (reader.HasRows)
+        //    {
+        //        conn.Close();
+        //        return 0;
+        //    }
+        //    else
+        //    {
+        //        conn.Close();
+        //        return 1;
+        //    }
+        //}
     }
 }

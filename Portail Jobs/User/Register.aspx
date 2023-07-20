@@ -22,14 +22,12 @@
                                 <div class="form-group">
                                     <label>Username</label>
                                     <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" placeholder="Enter username" required></asp:TextBox>
-                                    <%--                           <textarea class="form-control w-100" runat="server" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message" required></textarea>--%>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Password</label>
                                     <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="Enter password " TextMode="Password" required></asp:TextBox>
-                                    <%--                              <input class="form-control valid" runat="server"  name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name" required>--%>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -39,7 +37,6 @@
                                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Password and confirm password should match !"
                                         ControlToCompare="txtPassword" ControlToValidate="txtConfirmPassword" ForeColor="Red" Display="Dynamic"
                                         SetFocusOnError="true" Font-Size="Small"></asp:CompareValidator>
-                                    <%--                             <input class="form-control valid" runat="server"  name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email" required>--%>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -82,10 +79,19 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Country</label>
+
+                                    <%--<div style="height: 150px; overflow-y: auto;">
+                                        <asp:DropDownList ID="ddlCountry" runat="server" DataSourceID="SqlDataSource1" CssClass="form-contact w-100"
+                                            AppendDataBoundItems="true" DataTextField="CountryName" DataValueField="CountryName" size="10">
+                                            <asp:ListItem Value="0">Select country</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>--%>
+
                                     <asp:DropDownList ID="ddlCountry" runat="server" DataSourceID="SqlDataSource1" CssClass="form-contact w-100"
                                         AppendDataBoundItems="true" DataTextField="CountryName" DataValueField="CountryName">
                                         <asp:ListItem Value="0">Select country</asp:ListItem>
                                     </asp:DropDownList>
+
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Country is requiered !"
                                         ForeColor="Red" Display="Dynamic" SetFocusOnError="true" Font-Size="Small" InitialValue="0" ControlToValidate="ddlCountry"></asp:RequiredFieldValidator>
                                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:cs %>" SelectCommand="SELECT [CountryName] FROM [Country]"></asp:SqlDataSource>
