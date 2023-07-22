@@ -3,8 +3,122 @@
 <!DOCTYPE html>
 
 <html>
-<head runat="server">
-    <title></title>
+<head>
+    <title>Job Portal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            background-color: purple;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            color: white;
+        }
+
+            .sidebar .title {
+                font-size: 20px;
+                padding: 16px;
+                text-align: center;
+            }
+
+            .sidebar a {
+                display: block;
+                color: white;
+                padding: 16px;
+                text-decoration: none;
+            }
+
+                .sidebar a:hover {
+                    background-color: #555;
+                }
+
+        .logout-button {
+            position: absolute;
+            bottom: 10px;
+            left: 16px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="title">Job Portal</div>
+        <a href="../Admin/Dashboard.aspx">Dashboard</a>
+        <a href="#">Add new job</a>
+        <a href="#">Jobs list</a>
+        <a href="#">View resumes</a>
+        <a href="#">Contact list</a>
+        <asp:Button ID="Button1" runat="server" CssClass="logout-button" Text="Logout" OnClick="btnLogout_Click" />
+        <%--        <a class="logout-button" href="#">Logout</a>--%>
+    </div>
+    <div class="main-content">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+<%--<head runat="server">
+    <title>Admin Area</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+
+    <script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sidebar_manu li").click(function () {
+                $(".sidebar_manu li").removeClass("active");
+                $(this).addClass("active");
+            });
+
+            $(".hamburger").click(function () {
+                $(".wrapper").removeClass("active");
+            });
+
+            $(".close, .bg_shadow").click(function () {
+                $(".wrapper").removeClass("active");
+            });
+        })
+    </script>
+
+    <script>
+        $(function () {
+            var url = window.location.href;
+            $("#sub-header a").each(function () {
+                if (url == (this.href)) {
+                    $(this).closest("li").addClass("active");
+                }
+            });
+        })
+    </script>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -15,5 +129,4 @@
             </asp:ContentPlaceHolder>
         </div>
     </form>
-</body>
-</html>
+</body>--%>

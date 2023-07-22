@@ -28,17 +28,13 @@ namespace Portail_Jobs.User
         {
             try
             {
-                if (ddlLoginType.SelectedValue == "Admin")
+                if (ddlLoginType.SelectedValue=="Admin")
                 {
-                    // Assuming the admin username is stored securely, not in configuration files.
-                    string adminUsername = ConfigurationManager.AppSettings["adminUsername"];
-                    string adminStoredPasswordHash = ConfigurationManager.AppSettings["adminPasswordHash"];
-                    string adminInputPassword = txtPassword.Text.Trim();
-
-                    if (adminUsername == txtUserName.Text.Trim() && BCrypt.Net.BCrypt.Verify(adminInputPassword, adminStoredPasswordHash))
+                    username = ConfigurationManager.AppSettings["username"];
+                    password = ConfigurationManager.AppSettings["password"];
+                    if (username == txtUserName.Text.Trim() && password == txtPassword.Text.Trim())
                     {
-                        // Successful admin login
-                        Session["admin"] = adminUsername;
+                        Session["admin"]=username;
                         clear();
                         lblMsg.Visible = false;
                         Response.Redirect("../Admin/Dashboard.aspx", false);
@@ -49,6 +45,28 @@ namespace Portail_Jobs.User
                         clear();
                     }
                 }
+
+                //if (ddlLoginType.SelectedValue == "Admin")
+                //{
+                //    // Assuming the admin username is stored securely, not in configuration files.
+                //    string adminUsername = ConfigurationManager.AppSettings["adminUsername"];
+                //    string adminStoredPasswordHash = ConfigurationManager.AppSettings["adminPasswordHash"];
+                //    string adminInputPassword = txtPassword.Text.Trim();
+
+                //    if (adminUsername == txtUserName.Text.Trim() && BCrypt.Net.BCrypt.Verify(adminInputPassword, adminStoredPasswordHash))
+                //    {
+                //        // Successful admin login
+                //        Session["admin"] = adminUsername;
+                //        clear();
+                //        lblMsg.Visible = false;
+                //        Response.Redirect("../Admin/Dashboard.aspx", false);
+                //    }
+                //    else
+                //    {
+                //        showErrorMessage("Admin");
+                //        clear();
+                //    }
+                //}
                 else
                 {
                     conn = new SqlConnection(str);
