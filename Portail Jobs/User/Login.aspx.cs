@@ -26,75 +26,73 @@ namespace Portail_Jobs.User
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-                
             try
-               
             {
-                    if (ddlLoginType.SelectedValue == "Admin")
-                    {
-                        // Assuming the admin username is stored securely, not in configuration files.
-                        string adminUsername = ConfigurationManager.AppSettings["adminUsername"];
-                        string adminStoredPasswordHash = ConfigurationManager.AppSettings["adminPasswordHash"];
-                        string adminInputPassword = txtPassword.Text.Trim();
+                if (ddlLoginType.SelectedValue == "Admin")
+                {
+                    // Assuming the admin username is stored securely, not in configuration files.
+                    string adminUsername = ConfigurationManager.AppSettings["adminUsername"];
+                    string adminStoredPasswordHash = ConfigurationManager.AppSettings["adminPasswordHash"];
+                    string adminInputPassword = txtPassword.Text.Trim();
 
-                        if (adminUsername == txtUserName.Text.Trim() && BCrypt.Net.BCrypt.Verify(adminInputPassword, adminStoredPasswordHash))
-                        {
-                            // Successful admin login
-                            Session["admin"] = adminUsername;
-                            clear();
-                            lblMsg.Visible = false;
-                            Response.Redirect("../Admin/Dashboard.aspx", false);
-                        }
-                        else
-                        {
-                            showErrorMessage("Admin");
-                            clear();
-                        }
+                    if (adminUsername == txtUserName.Text.Trim() && BCrypt.Net.BCrypt.Verify(adminInputPassword, adminStoredPasswordHash))
+                    {
+                        // Successful admin login
+                        Session["admin"] = adminUsername;
+                        clear();
+                        lblMsg.Visible = false;
+                        Response.Redirect("../Admin/Dashboard.aspx", false);
                     }
                     else
                     {
-                        conn = new SqlConnection(str);
-                        string query = @"SELECT * FROM [User] WHERE Username=@Username";
-                        cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@Username", txtUserName.Text.Trim());
-                        conn.Open();
-                        reader = cmd.ExecuteReader();
-                        if (reader.Read())
-                        {
-                            // Retrieve the stored hashed password from the database
-                            string storedPasswordHash = reader["Password"].ToString();
+                        showErrorMessage("Admin");
+                        clear();
+                    }
+                }
+                else
+                {
+                    conn = new SqlConnection(str);
+                    string query = @"SELECT * FROM [User] WHERE Username=@Username";
+                    cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Username", txtUserName.Text.Trim());
+                    conn.Open();
+                    reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        // Retrieve the stored hashed password from the database
+                        string storedPasswordHash = reader["Password"].ToString();
 
-                            // Compare the input password with the stored hash
-                            string inputPassword = txtPassword.Text.Trim();
-                            if (BCrypt.Net.BCrypt.Verify(inputPassword, storedPasswordHash))
-                            {
-                                // Successful user login
-                                Session["user"] = reader["Username"].ToString();
-                                Session["userId"] = reader["UserId"].ToString();
-                                clear();
-                                lblMsg.Visible = false;
-                                Response.Redirect("Default.aspx", false);
-                            }
-                            else
-                            {
-                                showErrorMessage("User");
-                                clear();
-                            }
+                        // Compare the input password with the stored hash
+                        string inputPassword = txtPassword.Text.Trim();
+                        if (BCrypt.Net.BCrypt.Verify(inputPassword, storedPasswordHash))
+                        {
+                            // Successful user login
+                            Session["user"] = reader["Username"].ToString();
+                            Session["userId"] = reader["UserId"].ToString();
+                            clear();
+                            lblMsg.Visible = false;
+                            Response.Redirect("Default.aspx", false);
                         }
                         else
                         {
                             showErrorMessage("User");
                             clear();
                         }
-                        conn.Close();
                     }
-                }
-                catch (Exception ex1)
-                {
-                    Response.Write("<script>alert('" + ex1.Message + "');</script>");
+                    else
+                    {
+                        showErrorMessage("User");
+                        clear();
+                    }
                     conn.Close();
                 }
             }
+            catch (Exception ex1)
+            {
+                Response.Write("<script>alert('" + ex1.Message + "');</script>");
+                conn.Close();
+            }
+        }
 
 
 
