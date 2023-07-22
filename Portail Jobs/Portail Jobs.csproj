@@ -311,12 +311,12 @@
     <Compile Include="User\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="User\UserMaster.Master.cs">
-      <DependentUpon>UserMaster.Master</DependentUpon>
+    <Compile Include="User\User.Master.cs">
+      <DependentUpon>User.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="User\UserMaster.Master.designer.cs">
-      <DependentUpon>UserMaster.Master</DependentUpon>
+    <Compile Include="User\User.Master.designer.cs">
+      <DependentUpon>User.Master</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -369,7 +369,7 @@
     <Content Include="assets\scss\_variables.scss" />
     <Content Include="Admin\AdminMaster.Master" />
     <None Include="packages.config" />
-    <Content Include="User\UserMaster.Master" />
+    <Content Include="User\User.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
