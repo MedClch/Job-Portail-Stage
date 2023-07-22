@@ -59,7 +59,8 @@ namespace Portail_Jobs.User
             }
             catch (SqlException ex)
             {
-                if (ex.Message.Contains("Violation of UNIQUE KEY constraint"))
+                //if (ex.Message.Contains("Violation of UNIQUE KEY constraint"))
+                if (ex.Number==2627) // Check for unique constraint violation (error number 2627)
                 {
                     lblMsg.Visible = true;
                     lblMsg.Text = "<b>" + txtUserName.Text.Trim() + "<b> already exists, please try again!";
