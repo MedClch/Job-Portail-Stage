@@ -62,7 +62,7 @@ namespace Portail_Jobs.User
                         if (reader.Read())
                         {
                             // Retrieve the stored hashed password from the database
-                            string storedPasswordHash = reader["PasswordHash"].ToString();
+                            string storedPasswordHash = reader["Password"].ToString();
 
                             // Compare the input password with the stored hash
                             string inputPassword = txtPassword.Text.Trim();

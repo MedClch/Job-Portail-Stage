@@ -28,10 +28,14 @@ namespace Portail_Jobs.User
             {
                 conn = new SqlConnection(str);
                 string query = @"Insert into [User] (Username,Password,Name,Address,Mobile,Email,Country) 
-                                    values (@Username,@Password,@Name,@Address,@Mobile,@Email,@Country)";
+                            values (@Username,@Password,@Name,@Address,@Mobile,@Email,@Country)";
                 cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Username", txtUserName.Text.Trim());
-                cmd.Parameters.AddWithValue("@Password", txtConfirmPassword.Text.Trim());
+
+                // Hash the password using bcrypt before storing it in the database
+                string hashedPassword = HashPassword(txtConfirmPassword.Text.Trim());
+                cmd.Parameters.AddWithValue("@Password", hashedPassword);
+
                 cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
                 cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
                 cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
@@ -42,41 +46,96 @@ namespace Portail_Jobs.User
                 if (res > 0)
                 {
                     lblMsg.Visible = true;
-                    lblMsg.Text = "Successfully registered !";
-                    lblMsg.CssClass="alert alert-success";
+                    lblMsg.Text = "Successfully registered!";
+                    lblMsg.CssClass = "alert alert-success";
                     clear();
                 }
                 else
                 {
                     lblMsg.Visible = true;
-                    lblMsg.Text = "Couldn't save your informations, please try again !";
-                    lblMsg.CssClass="alert alert-danger";
+                    lblMsg.Text = "Couldn't save your information, please try again!";
+                    lblMsg.CssClass = "alert alert-danger";
                 }
-
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
-                if(ex.Message.Contains("Violation of UNIQUE KEY constraint"))
+                if (ex.Message.Contains("Violation of UNIQUE KEY constraint"))
                 {
                     lblMsg.Visible = true;
-                    lblMsg.Text = "<b>"+txtUserName.Text.Trim()+"<b> already exists, please try again !";
-                    lblMsg.CssClass="alert alert-danger";
+                    lblMsg.Text = "<b>" + txtUserName.Text.Trim() + "<b> already exists, please try again!";
+                    lblMsg.CssClass = "alert alert-danger";
                     clear();
                 }
                 else
                 {
-                    Response.Write("<script>alert('"+ex.Message+"');</script>");
+                    Response.Write("<script>alert('" + ex.Message + "');</script>");
                 }
             }
             catch (Exception ex1)
             {
-                Response.Write("<script>alert('"+ex1.Message+"');</script>");
+                Response.Write("<script>alert('" + ex1.Message + "');</script>");
             }
             finally
             {
                 conn.Close();
             }
         }
+
+        //protected void btnRegister_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        conn = new SqlConnection(str);
+        //        string query = @"Insert into [User] (Username,Password,Name,Address,Mobile,Email,Country) 
+        //                            values (@Username,@Password,@Name,@Address,@Mobile,@Email,@Country)";
+        //        cmd = new SqlCommand(query, conn);
+        //        cmd.Parameters.AddWithValue("@Username", txtUserName.Text.Trim());
+        //        cmd.Parameters.AddWithValue("@Password", txtConfirmPassword.Text.Trim());
+        //        cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
+        //        cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
+        //        cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
+        //        cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+        //        cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
+        //        conn.Open();
+        //        int res = cmd.ExecuteNonQuery();
+        //        if (res > 0)
+        //        {
+        //            lblMsg.Visible = true;
+        //            lblMsg.Text = "Successfully registered !";
+        //            lblMsg.CssClass="alert alert-success";
+        //            clear();
+        //        }
+        //        else
+        //        {
+        //            lblMsg.Visible = true;
+        //            lblMsg.Text = "Couldn't save your informations, please try again !";
+        //            lblMsg.CssClass="alert alert-danger";
+        //        }
+
+        //    }
+        //    catch(SqlException ex)
+        //    {
+        //        if(ex.Message.Contains("Violation of UNIQUE KEY constraint"))
+        //        {
+        //            lblMsg.Visible = true;
+        //            lblMsg.Text = "<b>"+txtUserName.Text.Trim()+"<b> already exists, please try again !";
+        //            lblMsg.CssClass="alert alert-danger";
+        //            clear();
+        //        }
+        //        else
+        //        {
+        //            Response.Write("<script>alert('"+ex.Message+"');</script>");
+        //        }
+        //    }
+        //    catch (Exception ex1)
+        //    {
+        //        Response.Write("<script>alert('"+ex1.Message+"');</script>");
+        //    }
+        //    finally
+        //    {
+        //        conn.Close();
+        //    }
+        //}
 
         private void clear()
         {
@@ -87,6 +146,13 @@ namespace Portail_Jobs.User
             txtMobile.Text=string.Empty;
             txtEmail.Text=string.Empty;
             ddlCountry.ClearSelection();
+        }
+
+        // Function to hash the password using bcrypt
+        public static string HashPassword(string password)
+        {
+            // Generate a random salt and hash the password
+            return BCrypt.Net.BCrypt.HashPassword(password, BCrypt.Net.BCrypt.GenerateSalt());
         }
 
         //private int check(string userName)
