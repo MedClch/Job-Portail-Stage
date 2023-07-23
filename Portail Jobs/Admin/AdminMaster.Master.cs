@@ -17,7 +17,32 @@ namespace Portail_Jobs.Admin
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
-            Response.Redirect("Login.aspx");
+            Response.Redirect("../User/Default.aspx");
+        }
+
+        protected void btnNewJob_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../Admin/NewJob.aspx");
+        }
+
+        protected void btnDashboard_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../Admin/Dashboard.aspx");
+        }
+
+        protected void btnJobList_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnViewResumes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnContactList_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

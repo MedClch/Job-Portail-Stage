@@ -3,16 +3,14 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-    <title>Job Portal</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<head runat="server">
+    <title>Admin Dashboard</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
         }
-
         .sidebar {
             width: 250px;
             height: 100%;
@@ -23,53 +21,70 @@
             padding-top: 20px;
             color: white;
         }
-
-            .sidebar .title {
-                font-size: 20px;
-                padding: 16px;
-                text-align: center;
-            }
-
-            .sidebar a {
-                display: block;
-                color: white;
-                padding: 16px;
-                text-decoration: none;
-            }
-
-                .sidebar a:hover {
-                    background-color: #555;
-                }
-
+        .sidebar-title {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .sidebar-buttons {
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar-buttons button {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            cursor: pointer;
+        }
+        .sidebar-buttons button:hover {
+            background-color: #555;
+        }
         .logout-button {
             position: absolute;
             bottom: 10px;
             left: 16px;
+            padding: 10px;
+            background-color: transparent;
+            border: 1px solid white;
             color: white;
             cursor: pointer;
         }
-
+        .logout-button:hover {
+            background-color: #555;
+        }
         .main-content {
             margin-left: 250px;
             padding: 20px;
         }
+        .sidebar-title-top-right {
+            position: absolute;
+            top: 0;
+            right: 16px;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="title">Job Portal</div>
-        <a href="../Admin/Dashboard.aspx">Dashboard</a>
-        <a href="#">Add new job</a>
-        <a href="#">Jobs list</a>
-        <a href="#">View resumes</a>
-        <a href="#">Contact list</a>
-        <asp:Button ID="Button1" runat="server" CssClass="logout-button" Text="Logout" OnClick="btnLogout_Click" />
-        <%--        <a class="logout-button" href="#">Logout</a>--%>
-    </div>
-    <div class="main-content">
-        <asp:ContentPlaceHolder ID="MainContent" runat="server">
-        </asp:ContentPlaceHolder>
-    </div>
+    <form id="form1" runat="server">
+        <div class="sidebar">
+            <div class="sidebar-title">Admin Dashboard</div>
+            <div class="sidebar-buttons">
+                <asp:Button ID="btnDashboard" runat="server" Text="Dashboard" CssClass="form-control" OnClick="btnDashboard_Click" />
+                <asp:Button ID="btnNewJob" runat="server" Text="Add new job" CssClass="form-control" OnClick="btnNewJob_Click" />
+                <asp:Button ID="btnJobList" runat="server" Text="Job list" CssClass="form-control" OnClick="btnJobList_Click" />
+                <asp:Button ID="btnViewResumes" runat="server" Text="View resume" CssClass="form-control" OnClick="btnViewResumes_Click" />
+                <asp:Button ID="btnContactList" runat="server" Text="Contact list" CssClass="form-control" OnClick="btnContactList_Click" />
+            </div>
+            <asp:Button ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_Click" CssClass="logout-button" />
+<%--            <div class="sidebar-title-top-right">Welcome, Admin</div>--%>
+        </div>
+        <div class="main-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
 </body>
 </html>
 
