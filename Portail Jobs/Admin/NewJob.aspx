@@ -32,7 +32,7 @@
             <div class="row mr-lg-5 ml-lg-5 mb-3">
                 <div class="col-md-6 pt-3">
                     <label for="lblQualiEdu" style="font-weight: 600">Qualification/Education required</label>
-                    <asp:TextBox ID="txtlblQualiEdu" runat="server" CssClass="form-control" placeholder="Ex. MCA, MBA ..." required></asp:TextBox>
+                    <asp:TextBox ID="txtQualiEdu" runat="server" CssClass="form-control" placeholder="Ex. MCA, MBA ..." required></asp:TextBox>
                 </div>
                 <div class="col-md-6 pt-3">
                     <label for="lblExperience" style="font-weight: 600">Experience required</label>
@@ -43,7 +43,7 @@
             <div class="row mr-lg-5 ml-lg-5 mb-3">
                 <div class="col-md-6 pt-3">
                     <label for="lblSpecialization" style="font-weight: 600">Specialization required</label>
-                    <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="Enter specialization" required TextMode="MultiLine"></asp:TextBox>
+                    <asp:TextBox ID="txtSpecialization" runat="server" CssClass="form-control" placeholder="Enter specialization" required TextMode="MultiLine"></asp:TextBox>
                 </div>
                 <div class="col-md-6 pt-3">
                     <label for="lblLastDate" style="font-weight: 600">Last date to apply</label>
@@ -65,7 +65,7 @@
                         <asp:ListItem>Remote</asp:ListItem>
                         <asp:ListItem>Freelance</asp:ListItem>
                     </asp:DropDownList>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Job type is required !" ForeColor="Red" ControlToValidate="ddlJobType" 
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Job type is required !" ForeColor="Red" ControlToValidate="ddlJobType"
                         InitialValue="0" Display="Dynamic" SetFocusOnError="true"></asp:RequiredFieldValidator>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="col-md-6 pt-3">
                     <label for="lblCompanyLogo" style="font-weight: 600">Company/Organisation logo</label>
-                    <asp:FileUpload ID="fuCompanyLogo" runat="server" CssClass="form-control" ToolTip=".jpg, .jpeg, .png extensions only !"/>
+                    <asp:FileUpload ID="fuCompanyLogo" runat="server" CssClass="form-control" ToolTip=".jpg, .jpeg, .png extensions only !" />
                 </div>
             </div>
 
@@ -98,6 +98,30 @@
                     <asp:TextBox ID="txtAddress" runat="server" CssClass="form-control" placeholder="Enter job location" TextMode="MultiLine" required></asp:TextBox>
                 </div>
             </div>
+
+            <div class="row mr-lg-5 ml-lg-5 mb-3">
+                <div class="col-md-6 pt-3">
+                    <label for="lblCountry" style="font-weight: 600">Country</label>
+                    <asp:DropDownList ID="ddlCountry" runat="server" DataSourceID="SqlDataSource1" CssClass="form-contact w-100"
+                        AppendDataBoundItems="true" DataTextField="CountryName" DataValueField="CountryName">
+                        <asp:ListItem Value="0">Select country</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Country is requiered !"
+                        ForeColor="Red" Display="Dynamic" SetFocusOnError="true" Font-Size="Small" InitialValue="0" ControlToValidate="ddlCountry"></asp:RequiredFieldValidator>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:cs %>" SelectCommand="SELECT [CountryName] FROM [Country]"></asp:SqlDataSource>
+                </div>
+                <div class="col-md-6 pt-3">
+                    <label for="lblState" style="font-weight: 600">State</label>
+                    <asp:TextBox ID="txtState" runat="server" CssClass="form-control" placeholder="Enter state" required></asp:TextBox>
+                </div>
+            </div>
+
+            <div class="row mr-lg-5 ml-lg-5 mb-3 pt-4">
+                <div class="col-md-3 col-md-offset-2 mb-3">
+                    <asp:Button ID="btnAddJob" runat="server" Text="Add job" BackColor="#7200cf" CssClass="btn btn-primary btn-block" OnClick="btnAddJob_Click"/>
+                </div>
+            </div>
+
         </div>
     </div>
 </asp:Content>
