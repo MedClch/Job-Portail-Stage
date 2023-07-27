@@ -44,6 +44,8 @@ namespace Portail_Jobs.User
             else
             {
                 Session.Abandon();
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Response.Cache.SetNoStore();
                 Response.Redirect("Login.aspx");
             }
         }

@@ -17,6 +17,8 @@ namespace Portail_Jobs.Admin
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();
             Response.Redirect("../User/Default.aspx");
         }
 
