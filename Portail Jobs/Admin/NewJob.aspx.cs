@@ -138,7 +138,7 @@ namespace Portail_Jobs.Admin
                 {
                     query =@"Insert into Jobs values(@Title,@NoOfPost,@Description,@Qualification,@Experience,@Specialization,@LastDateToApply,
                             @Salary,@JobType,@CompanyName,@CompanyImage,@Website,@Email,@Address,@Country,@State,@CreateDate)";
-                    type = "inserted";
+                    type = "saved";
                     DateTime time = DateTime.Now;
                     cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Title", txtJobTitle.Text.Trim());
@@ -187,7 +187,15 @@ namespace Portail_Jobs.Admin
                     {
                         lblMsg.Text="Job "+type+" successfully !";
                         lblMsg.CssClass="alert alert-success";
-                        clear();
+                        if (type.Equals("updated"))
+                        {
+                            Response.Redirect("../Admin/JobList.aspx");
+                        }
+                        else
+                        {
+                            clear();
+                        }
+                     
                     }
                     else
                     {
