@@ -164,6 +164,7 @@
     <Content Include="assets\img\hero\about.jpg" />
     <Content Include="assets\img\hero\h1_hero.jpg" />
     <Content Include="assets\img\icon\delete.png" />
+    <Content Include="assets\img\icon\edit.png" />
     <Content Include="assets\img\icon\form.png" />
     <Content Include="assets\img\icon\job-list1.png" />
     <Content Include="assets\img\icon\job-list2.png" />

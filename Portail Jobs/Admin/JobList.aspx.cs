@@ -79,5 +79,11 @@ namespace Portail_Jobs.Admin
                 Response.Write("<script>alert('"+ex.Message+"');</script>");
             }
         }
+
+        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName =="EditJob")
+                Response.Redirect("NewJob.aspx?id="+e.CommandArgument.ToString());
+        }
     }
 }

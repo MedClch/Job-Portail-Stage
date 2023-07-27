@@ -32,7 +32,7 @@ namespace Portail_Jobs.Admin
 
         protected void btnJobList_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("../Admin/JobList.aspx");
         }
 
         protected void btnViewResumes_Click(object sender, EventArgs e)
