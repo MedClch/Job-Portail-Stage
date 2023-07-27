@@ -18,7 +18,11 @@ namespace Portail_Jobs.Admin
         string query;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["user"]!=null)
+                Response.Redirect("../User/Default.aspx");
             if (Session["admin"]==null)
+                Response.Redirect("../User/Login.aspx");
+            if (Session["admin"]==null && Session["user"]==null)
                 Response.Redirect("../User/Login.aspx");
             Session["title"]="Add job";
             if (!IsPostBack)

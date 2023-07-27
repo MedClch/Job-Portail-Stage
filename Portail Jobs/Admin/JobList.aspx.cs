@@ -18,7 +18,11 @@ namespace Portail_Jobs.Admin
         DataTable dt;
         protected void Page_PreRender(object sender, EventArgs e)
         {
+            if (Session["user"]!=null)
+                Response.Redirect("../User/Default.aspx");
             if (Session["admin"]==null)
+                Response.Redirect("../User/Login.aspx");
+            if (Session["admin"]==null && Session["user"]==null)
                 Response.Redirect("../User/Login.aspx");
             if (!IsPostBack)
                 showJobs();
