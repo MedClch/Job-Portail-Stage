@@ -24,6 +24,8 @@ namespace Portail_Jobs.Admin
                 Response.Redirect("../User/Login.aspx");
             if (Session["admin"]==null && Session["user"]==null)
                 Response.Redirect("../User/Login.aspx");
+            //if (Session["admin"]==null || Session["user"]==null)
+            //    Response.Redirect("../User/Login.aspx");
             if (!IsPostBack)
                 showJobs();
         }
