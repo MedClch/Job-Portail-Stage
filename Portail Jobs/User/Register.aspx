@@ -54,7 +54,7 @@
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>Adress</label>
+                                    <label>Address</label>
                                     <asp:TextBox ID="txtAdress" runat="server" CssClass="form-control" placeholder="Enter adrress" TextMode="MultiLine" required></asp:TextBox>
                                 </div>
                             </div>
