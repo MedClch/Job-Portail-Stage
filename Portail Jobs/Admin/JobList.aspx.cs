@@ -24,6 +24,10 @@ namespace Portail_Jobs.Admin
                 Response.Redirect("../User/Login.aspx");
             if (Session["admin"]==null && Session["user"]==null)
                 Response.Redirect("../User/Login.aspx");
+
+            //if(Session["user"]!=null || Session["admin"]==null || (Session["admin"]==null && Session["user"]==null))
+            //    Response.Redirect("../User/Default.aspx"); or Response.Redirect("../User/Login.aspx");
+
             //if (Session["admin"]==null || Session["user"]==null)
             //    Response.Redirect("../User/Login.aspx");
             if (!IsPostBack)
