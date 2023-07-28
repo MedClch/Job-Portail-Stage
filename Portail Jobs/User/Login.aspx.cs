@@ -20,7 +20,10 @@ namespace Portail_Jobs.User
         string username, password = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["admin"]!=null)
+                Response.Redirect("../Admin/Dashboard.aspx");
+            if (Session["user"]!=null)
+                Response.Redirect("Default.aspx");
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
