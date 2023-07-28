@@ -249,6 +249,7 @@
     <Content Include="User\Login.aspx" />
     <Content Include="User\Profile.aspx" />
     <Content Include="User\Register.aspx" />
+    <Content Include="User\ResumeBuild.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +347,13 @@
     </Compile>
     <Compile Include="User\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\ResumeBuild.aspx.cs">
+      <DependentUpon>ResumeBuild.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\ResumeBuild.aspx.designer.cs">
+      <DependentUpon>ResumeBuild.aspx</DependentUpon>
     </Compile>
     <Compile Include="User\User.Master.cs">
       <DependentUpon>User.Master</DependentUpon>

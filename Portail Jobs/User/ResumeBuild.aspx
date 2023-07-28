@@ -1,8 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/User/User.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="Portail_Jobs.User.Register" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/User/User.Master" AutoEventWireup="true" CodeBehind="ResumeBuild.aspx.cs" Inherits="Portail_Jobs.User.ResumeBuild" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <section>
         <div class="container pt-50 pb-40">
             <div class="row">
@@ -10,45 +11,28 @@
                     <asp:Label ID="lblMsg" runat="server" Text="Label" Visible="false"></asp:Label>
                 </div>
                 <div class="col-12">
-                    <h2 class="contact-title text-center">Sign Up</h2>
+                    <h2 class="contact-title text-center">Build resume</h2>
                 </div>
                 <div class="col-lg-6 mx-auto">
                     <div class="form-contact contact_form">
                         <div class="row">
                             <div class="col-12">
-                                <h6>Login Informations</h6>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Username</label>
-                                    <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" placeholder="Enter username" required></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="Enter password " TextMode="Password" required></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Confirm password</label>
-                                    <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-control" placeholder="Confirm password" TextMode="Password" required></asp:TextBox>
-                                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Password and confirm password should match !"
-                                        ControlToCompare="txtPassword" ControlToValidate="txtConfirmPassword" ForeColor="Red" Display="Dynamic"
-                                        SetFocusOnError="true" Font-Size="Small"></asp:CompareValidator>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <h6>Personal Informations</h6>
+                                <h6>Personal informations</h6>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Full name</label>
-                                    <asp:TextBox ID="txtFullName" runat="server" CssClass="form-control" placeholder="Enter full name" required></asp:TextBox>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Name must be in characters !"
+                                    <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="Enter full name" required></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="Name must be in characters !"
                                         ForeColor="Red" Display="Dynamic" SetFocusOnError="true" Font-Size="Small" ValidationExpression="^[a-zA-Z\s]+$"
                                         ControlToValidate="txtFullName"></asp:RegularExpressionValidator>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" placeholder="Enter username" required></asp:TextBox>
                                 </div>
                             </div>
 
@@ -98,6 +82,10 @@
                                 </div>
                             </div>
 
+                            <div class="col-12 pt-4">
+                                <h6>Education/Resume informations</h6>
+                            </div>
+
                         </div>
                         <div class="form-group mt-3">
                             <asp:Button ID="btnRegister" runat="server" Text="Register" CssClass="button button-contactForm boxed-btn mr-4" OnClick="btnRegister_Click" />
@@ -108,4 +96,5 @@
             </div>
         </div>
     </section>
+
 </asp:Content>

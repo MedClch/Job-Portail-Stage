@@ -5,7 +5,7 @@
 
     <div class="container pt-5 pb-5">
         <div class="main-body">
-            <asp:DataList ID="dlProfile" runat="server" widht="100%">
+            <asp:DataList ID="dlProfile" runat="server" widht="100%" OnItemCommand="dlProfile_ItemCommand">
                 <ItemTemplate>
                     <div class="row gutters-sm">
                         <div class="col-md-4 mb-3">
@@ -14,10 +14,10 @@
                                     <div class="d-flex flex-column align-items-center text-center">
                                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="UserPic" class="rounded-circle" width="150"/>
                                         <div class="mt-3">
-                                            <h4 class="text-capitalize">Full name</h4>
-                                            <p class="text-secondary mb-1">@Username</p>
+                                            <h4 class="text-capitalize"><%# Eval("Name") %></h4>
+                                            <p class="text-secondary mb-1"><%# Eval("Username") %></p>
                                             <p class="text-muted font-size-sm text-capitalize">
-                                                <i class="fas fa-map-marker-alt"></i>Country
+                                                <i class="fas fa-map-marker-alt"></i> <%# Eval("Country") %>
                                             </p>
                                         </div>
                                     </div>
@@ -32,7 +32,7 @@
                                             <h6 class="mb-0">Full name</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary text-capitalize">
-                                            Username
+                                            <%# Eval("Name") %>
                                         </div>
                                     </div>
                                     
@@ -42,7 +42,7 @@
                                             <h6 class="mb-0">Email</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary text-capitalize">
-                                            Email
+                                            <%# Eval("Email") %>
                                         </div>
                                     </div>
                                     <hr />
@@ -53,7 +53,7 @@
                                             <h6 class="mb-0">Phone number</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary text-capitalize">
-                                            Phone number
+                                            <%# Eval("Mobile") %>
                                         </div>
                                     </div>
                                     <hr />
@@ -64,7 +64,7 @@
                                             <h6 class="mb-0">Address</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary text-capitalize">
-                                            Address
+                                            <%# Eval("Address") %>
                                         </div>
                                     </div>
                                     <hr />
@@ -75,14 +75,15 @@
                                             <h6 class="mb-0">Resume upload</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary text-capitalize">
-                                            Resume
+                                            <%# Eval("Resume") == DBNull.Value ? "Not uploaded" : "Uploaded" %>
                                         </div>
                                     </div>
                                     <hr />
 
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <asp:Button ID="btnEdit" runat="server" Text="Edit profile" CssClass="button button-contactForm boxed-btn" CommandName="EditUserProfile" CommandArgument=""/>
+                                            <asp:Button ID="btnEdit" runat="server" Text="Edit profile" CssClass="button button-contactForm boxed-btn" 
+                                                CommandName="EditUserProfile" CommandArgument='<%# Eval("Username") %>'/>
                                         </div>
                                     </div>
 
