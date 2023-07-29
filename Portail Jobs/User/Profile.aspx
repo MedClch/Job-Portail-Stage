@@ -5,7 +5,7 @@
 
     <div class="container pt-5 pb-5">
         <div class="main-body">
-            <asp:DataList ID="dlProfile" runat="server" widht="100%" OnItemCommand="dlProfile_ItemCommand">
+            <asp:DataList ID="dlProfile" runat="server" width="100%" OnItemCommand="dlProfile_ItemCommand">
                 <ItemTemplate>
                     <div class="row gutters-sm">
                         <div class="col-md-4 mb-3">
