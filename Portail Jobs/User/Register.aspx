@@ -72,7 +72,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Enter email" required></asp:TextBox>
+                                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Enter email" required TextMode="Email"></asp:TextBox>
                                 </div>
                             </div>
 

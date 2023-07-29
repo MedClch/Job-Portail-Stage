@@ -83,7 +83,7 @@ namespace Portail_Jobs.Admin
                 {
                     if (fuCompanyLogo.HasFile)
                     {
-                        if (isValidExtension(fuCompanyLogo.FileName))
+                        if (Utils.isValidExtension(fuCompanyLogo.FileName))
                         {
                             concatQuery = "CompanyImage=@CompanyImage,";
                         }
@@ -119,7 +119,7 @@ namespace Portail_Jobs.Admin
                     cmd.Parameters.AddWithValue("@id", Request.QueryString["id"].ToString());
                     if (fuCompanyLogo.HasFile)
                     {
-                        if (isValidExtension(fuCompanyLogo.FileName))
+                        if (Utils.isValidExtension(fuCompanyLogo.FileName))
                         {
                             Guid obj = Guid.NewGuid();
                             imagePath = "Images/"+obj.ToString()+fuCompanyLogo.FileName;
@@ -163,7 +163,7 @@ namespace Portail_Jobs.Admin
                     cmd.Parameters.AddWithValue("@CreateDate", time.ToString("dd-MM-yyyy HH:mm:ss"));
                     if (fuCompanyLogo.HasFile)
                     {
-                        if (isValidExtension(fuCompanyLogo.FileName))
+                        if (Utils.isValidExtension(fuCompanyLogo.FileName))
                         {
                             Guid obj = Guid.NewGuid();
                             imagePath = "Images/"+obj.ToString()+fuCompanyLogo.FileName;
@@ -236,21 +236,6 @@ namespace Portail_Jobs.Admin
             txtState.Text=string.Empty;
             ddlCountry.ClearSelection();
             ddlJobType.ClearSelection();
-        }
-
-        private bool isValidExtension(string fileName)
-        {
-            bool isValid = false;
-            string[] fileExtension = { ".jpg", ".png", ".jpeg" };
-            for (int i = 0; i <= fileExtension.Length-1; i++)
-            {
-                if (fileName.Contains(fileExtension[i]))
-                {
-                    isValid = true;
-                    break;
-                }
-            }
-            return isValid;
         }
     }
 }
