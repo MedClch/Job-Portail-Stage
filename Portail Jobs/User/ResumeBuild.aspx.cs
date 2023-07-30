@@ -123,9 +123,9 @@ namespace Portail_Jobs.User
                     cmd.Parameters.AddWithValue("@GraduationGrade", txtGraduation.Text.Trim());
                     cmd.Parameters.AddWithValue("@PostGraduationGrade", txtPostGraduation.Text.Trim());
                     cmd.Parameters.AddWithValue("@Phd", txtPhd.Text.Trim());
+                    cmd.Parameters.AddWithValue("@WorksOn", txtWork.Text.Trim());
                     cmd.Parameters.AddWithValue("@Experience", txtExperience.Text.Trim());
                     cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
-                    cmd.Parameters.AddWithValue("@WorksOn", txtWork.Text.Trim());
                     cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
                     cmd.Parameters.AddWithValue("@UserId", Request.QueryString["id"]);
                     if (isValid)
