@@ -56,8 +56,8 @@ namespace Portail_Jobs.User
                         txtTwelfth.Text = reader["TwelfthGrade"].ToString();
                         txtGraduation.Text = reader["GraduationGrade"].ToString();
                         txtPostGraduation.Text = reader["PostGraduationGrade"].ToString();
-                        txtWork.Text = reader["Phd"].ToString();
-                        txtPhd.Text = reader["WorksOn"].ToString();
+                        txtWork.Text = reader["WorksOn"].ToString();
+                        txtPhd.Text = reader["Phd"].ToString(); 
                         txtExperience.Text = reader["Experience"].ToString();
                         txtAdress.Text = reader["Address"].ToString();
                         ddlCountry.SelectedValue = reader["Country"].ToString();
@@ -112,7 +112,7 @@ namespace Portail_Jobs.User
                         concatQuery = string.Empty;
                     }
                     query = @"Update [User] set Username=@Username,Name=@Name,Email=@Email,Mobile=@Mobile,TenthGrade=@TenthGrade,TwelfthGrade=@TwelfthGrade,GraduationGrade=@GraduationGrade,
-                             PostGraduationGrade=@PostGraduationGrade,Phd=@Phd,WorksOn=@WorksOn,Experience=@Experience,"+concatQuery+"Address=@Address,Country=@Country";
+                             PostGraduationGrade=@PostGraduationGrade,Phd=@Phd,WorksOn=@WorksOn,Experience=@Experience,"+concatQuery+",Address=@Address,Country=@Country";
                     cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Username",txtUserName.Text.Trim());
                     cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
@@ -125,6 +125,7 @@ namespace Portail_Jobs.User
                     cmd.Parameters.AddWithValue("@Phd", txtPhd.Text.Trim());
                     cmd.Parameters.AddWithValue("@Experience", txtExperience.Text.Trim());
                     cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
+                    cmd.Parameters.AddWithValue("@WorksOn", txtWork.Text.Trim());
                     cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
                     cmd.Parameters.AddWithValue("@UserId", Request.QueryString["id"]);
                     if (isValid)
