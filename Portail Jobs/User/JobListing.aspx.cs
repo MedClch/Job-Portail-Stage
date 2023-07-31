@@ -156,7 +156,9 @@ namespace Portail_Jobs.User
             for(int i = 0; i < jobTypeCheckBox.Items.Count; i++)
             {
                 if (jobTypeCheckBox.Items[i].Selected)
+                {
                     jobType += "'"+jobTypeCheckBox.Items[i].Text+"',";
+                }
             }
             return jobType = jobType.TrimEnd(',');
         }
@@ -212,12 +214,69 @@ namespace Portail_Jobs.User
 
         protected void lbFilter_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                bool isCondition = false;
+                string subQuery = string.Empty;
+                string jobType = string.Empty;
+                string postedDate = string.Empty;
+                string addAnd = string.Empty;
+                string query = string.Empty;
+                List<string> queryList = new List<string>();
+                conn = new SqlConnection(str);
+                if(ddlCountry.SelectedValue != "0")
+                {
+                    queryList.Add(" Country = '"+ddlCountry.SelectedValue+"'");
+                    isCondition = true;
+                }
+                jobType = selectedCheckBox();
+                if(jobType != "")
+                {
+                    queryList.Add(" JobType IN ("+jobType+") ");
+                    isCondition = true;
+                }
+                if (RadioButtonList1.SelectedValue!="0")
+                {
+                    postedDate = selectedRadioButton();
+                    queryList.Add(" Convert(DATE,CreateDate) "+postedDate);
+                    isCondition = true;
+                }
+                if (isCondition)
+                {
+                    foreach(string s in queryList)
+                    {
+                        subQuery += s + " and ";
+                    }
+                    subQuery = subQuery.Remove(subQuery.LastIndexOf("and"), 3);
+                    query = @"Select JobId,Title,Salary,JobType,CompanyName,CompanyImage,Country,State,CreateDate from Jobs where "+subQuery+" ";
+                }
+                else
+                {
+                    query = @"Select JobId,Title,Salary,JobType,CompanyName,CompanyImage,Country,State,CreateDate from Jobs";
+                }
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                dt = new DataTable();
+                adapter.Fill(dt);
+                showJobList();
+                RBSelectedColorChange();
+            }
+            catch(Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
         protected void lbReset_Click(object sender, EventArgs e)
         {
-
+            ddlCountry.ClearSelection();
+            jobTypeCheckBox.ClearSelection();
+            RadioButtonList1.SelectedValue = "0";
+            RBSelectedColorChange();
+            showJobList();
         }
     }
 }
