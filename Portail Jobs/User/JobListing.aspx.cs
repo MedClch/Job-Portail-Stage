@@ -160,7 +160,8 @@ namespace Portail_Jobs.User
                     jobType += "'"+jobTypeCheckBox.Items[i].Text+"',";
                 }
             }
-            return jobType = jobType.TrimEnd(',');
+            return jobType.TrimEnd(',');
+            //return jobType = jobType.TrimEnd(',');
         }
 
         protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
