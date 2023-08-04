@@ -35,7 +35,7 @@
                             <div class="support-caption">
                                 <p class="pera-top">Mollit anim laborum duis au dolor in voluptate velit ess cillum dolore eu lore dsu quality mollit anim laborumuis au dolor in voluptate velit cillum.</p>
                                 <p>Mollit anim laborum.Duis aute irufg dhjkolohr in re voluptate velit esscillumlore eu quife nrulla parihatur. Excghcepteur signjnt occa cupidatat non inulpadeserunt mollit aboru. temnthp incididbnt ut labore mollit anim laborum suis aute.</p>
-                                <a href="about.html" class="btn post-btn">Post a job</a>
+                                <a href="../Admin/NewJob.aspx" class="btn post-btn">Post a job</a>
                             </div>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                         <div class="cv-caption text-center">
                             <p class="pera1">FEATURED TOURS Packages</p>
                             <p class="pera2">Make a Difference with Your Online Resume!</p>
-                            <a href="#" class="border-btn2 border-btn4">Upload your cv</a>
+                            <a href="../User/Profile.aspx" class="border-btn2 border-btn4">Upload your cv</a>
                         </div>
                     </div>
                 </div>
