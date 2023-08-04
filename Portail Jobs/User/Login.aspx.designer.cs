@@ -42,24 +42,6 @@ namespace Portail_Jobs.User
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
 
         /// <summary>
-        /// ddlLoginType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLoginType;
-
-        /// <summary>
-        /// RequiredFieldValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-
-        /// <summary>
         /// btnLogin control.
         /// </summary>
         /// <remarks>

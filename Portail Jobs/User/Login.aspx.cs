@@ -30,7 +30,7 @@ namespace Portail_Jobs.User
         {
             try
             {
-                if (ddlLoginType.SelectedValue=="Admin")
+                if (txtUserName.Text.Equals("Admin"))
                 {
                     username = ConfigurationManager.AppSettings["username"];
                     password = ConfigurationManager.AppSettings["password"];
@@ -89,6 +89,7 @@ namespace Portail_Jobs.User
                             // Successful user login
                             Session["user"] = reader["Username"].ToString();
                             Session["userId"] = reader["UserId"].ToString();
+                            Session["userEmail"] = reader["Email"].ToString();
                             clear();
                             lblMsg.Visible = false;
                             Response.Redirect("Default.aspx", false);
@@ -114,14 +115,82 @@ namespace Portail_Jobs.User
             }
         }
 
-
-
-        // Old function
+        // Old function without login type and user can login either with username or email
         //protected void btnLogin_Click(object sender, EventArgs e)
         //{
         //    try
         //    {
-        //        if (ddlLoginType.SelectedValue=="Admin")
+        //        if (txtUserName.Text.Equals("Admin"))
+        //        {
+        //            username = ConfigurationManager.AppSettings["username"];
+        //            password = ConfigurationManager.AppSettings["password"];
+        //            if (username == txtUserName.Text.Trim() && password == txtPassword.Text.Trim())
+        //            {
+        //                Session["admin"]=username;
+        //                clear();
+        //                lblMsg.Visible = false;
+        //                Response.Redirect("../Admin/Dashboard.aspx", false);
+        //            }
+        //            else
+        //            {
+        //                showErrorMessage("Admin");
+        //                clear();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            conn = new SqlConnection(str);
+        //            string val = txtUserName.Text.Trim();
+        //            string query = @"SELECT * FROM [User] WHERE Username=@Value OR Email=@Value";
+        //            cmd = new SqlCommand(query, conn);
+        //            cmd.Parameters.AddWithValue("@Value", val);
+        //            conn.Open();
+        //            reader = cmd.ExecuteReader();
+        //            if (reader.Read())
+        //            {
+        //                // Retrieve the stored hashed password from the database
+        //                string storedPasswordHash = reader["Password"].ToString();
+        //                // Compare the input password with the stored hash
+        //                string inputPassword = txtPassword.Text.Trim();
+        //                if (BCrypt.Net.BCrypt.Verify(inputPassword, storedPasswordHash))
+        //                {
+        //                    // Successful user login
+        //                    Session["user"] = reader["Username"].ToString();
+        //                    Session["userId"] = reader["UserId"].ToString();
+        //                    Session["userEmail"] = reader["Email"].ToString();
+        //                    clear();
+        //                    lblMsg.Visible = false;
+        //                    Response.Redirect("Default.aspx", false);
+        //                }
+        //                else
+        //                {
+        //                    showErrorMessage("User");
+        //                    clear();
+        //                }
+        //            }
+        //            else
+        //            {
+        //                showErrorMessage("User");
+        //                clear();
+        //            }
+        //            conn.Close();
+        //        }
+        //    }
+        //    catch (Exception ex1)
+        //    {
+        //        Response.Write("<script>alert('" + ex1.Message + "');</script>");
+        //        conn.Close();
+        //    }
+        //}
+
+
+
+        //Oldest function
+        //protected void btnLogin_Click1(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (txtUserName.Text.Equals("Admin"))
         //        {
         //            username = ConfigurationManager.AppSettings["username"];
         //            password = ConfigurationManager.AppSettings["password"];
@@ -181,7 +250,7 @@ namespace Portail_Jobs.User
         {
             txtUserName.Text=string.Empty;
             txtPassword.Text=string.Empty;
-            ddlLoginType.ClearSelection();
+            //ddlLoginType.ClearSelection();
         }
 
         // Function to hash the password using bcrypt
