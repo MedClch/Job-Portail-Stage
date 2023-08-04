@@ -115,7 +115,7 @@ namespace Portail_Jobs.User
             }
         }
 
-        // Old function without login type and user can login either with username or email
+        // Old function without login type and user can login either with username or email (working)
         //protected void btnLogin_Click(object sender, EventArgs e)
         //{
         //    try
