@@ -12,7 +12,12 @@ namespace Portail_Jobs.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["user"]!=null)
+                Response.Redirect("../User/Default.aspx");
+            if (Session["admin"]==null)
+                Response.Redirect("../User/Login.aspx");
+            if (Session["admin"]==null && Session["user"]==null)
+                Response.Redirect("../User/Login.aspx");
         }
 
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
