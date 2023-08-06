@@ -51,7 +51,6 @@ namespace Portail_Jobs.Admin
         {
             DataTable dataTable = new DataTable();
             string connectionString = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = "SELECT Title, NoOfPost FROM Jobs"; // Replace with your actual query
@@ -64,26 +63,21 @@ namespace Portail_Jobs.Admin
                     }
                 }
             }
-
             return dataTable;
         }
 
         private List<Dictionary<string, object>> DataTableToList(DataTable dt)
         {
             List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
-
             foreach (DataRow row in dt.Rows)
             {
                 Dictionary<string, object> dict = new Dictionary<string, object>();
-
                 foreach (DataColumn col in dt.Columns)
                 {
                     dict[col.ColumnName] = row[col];
                 }
-
                 list.Add(dict);
             }
-
             return list;
         }
 
