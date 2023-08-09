@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -50,6 +51,10 @@ namespace Portail_Jobs.Admin
             sqlDataAdapter.Fill(dt);
             GridView1.DataSource = dt;
             GridView1.DataBind();
+            if (Request.QueryString["id"]!=null)
+            {
+                linkBack.Visible = true;
+            }
         }
 
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -65,7 +70,7 @@ namespace Portail_Jobs.Admin
                 GridViewRow row = GridView1.Rows[e.RowIndex];
                 int jobID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
                 conn = new SqlConnection(str);
-                cmd = new SqlCommand("Delete from Jobs where JobId = @id",conn);
+                cmd = new SqlCommand("Delete from Jobs where JobId = @id", conn);
                 cmd.Parameters.AddWithValue("@id", jobID);
                 conn.Open();
                 int r = cmd.ExecuteNonQuery();
@@ -82,7 +87,7 @@ namespace Portail_Jobs.Admin
                 GridView1.EditIndex = -1;
                 showJobs();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Response.Write("<script>alert('"+ex.Message+"');</script>");
             }
@@ -96,6 +101,22 @@ namespace Portail_Jobs.Admin
         {
             if (e.CommandName =="EditJob")
                 Response.Redirect("NewJob.aspx?id="+e.CommandArgument.ToString());
+        }
+
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType==DataControlRowType.DataRow)
+            {
+                e.Row.ID=e.Row.RowIndex.ToString();
+                if (Request.QueryString["id"]!=null)
+                {
+                    int jobID = Convert.ToInt32(GridView1.DataKeys[e.Row.RowIndex].Values[0]);
+                    if(jobID == Convert.ToInt32(Request.QueryString["id"]))
+                    {
+                        e.Row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
+                    }
+                }
+            }
         }
     }
 }
