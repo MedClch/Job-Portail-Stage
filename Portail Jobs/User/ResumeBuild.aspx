@@ -89,56 +89,56 @@
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>10th grade/percentage</label>
-                                    <asp:TextBox ID="txtTenth" runat="server" CssClass="form-control" placeholder="Ex. 90%" required></asp:TextBox>
+                                    <asp:TextBox ID="txtTenth" runat="server" CssClass="form-control" placeholder="Ex. 90%" ></asp:TextBox>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>12th grade/percentage</label>
-                                    <asp:TextBox ID="txtTwelfth" runat="server" CssClass="form-control" placeholder="Ex. 90%" required></asp:TextBox>
+                                    <asp:TextBox ID="txtTwelfth" runat="server" CssClass="form-control" placeholder="Ex. 90%" ></asp:TextBox>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Graduation with pointer/grade</label>
-                                    <asp:TextBox ID="txtGraduation" runat="server" CssClass="form-control" placeholder="Ex. BTech with 9.2 pointer" required></asp:TextBox>
+                                    <asp:TextBox ID="txtGraduation" runat="server" CssClass="form-control" placeholder="Ex. BTech with 9.2 pointer" ></asp:TextBox>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Post graduation with pointer/grade</label>
-                                    <asp:TextBox ID="txtPostGraduation" runat="server" CssClass="form-control" placeholder="Ex. BTech with 9.2 pointer" required></asp:TextBox>
+                                    <asp:TextBox ID="txtPostGraduation" runat="server" CssClass="form-control" placeholder="Ex. BTech with 9.2 pointer" ></asp:TextBox>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>PHD with percentage/grade</label>
-                                    <asp:TextBox ID="txtPhd" runat="server" CssClass="form-control" placeholder="Ex. PHD with grade" required></asp:TextBox>
+                                    <asp:TextBox ID="txtPhd" runat="server" CssClass="form-control" placeholder="Ex. PHD with grade" ></asp:TextBox>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Job profile/works on</label>
-                                    <asp:TextBox ID="txtWork" runat="server" CssClass="form-control" placeholder="Enter current job profile" required></asp:TextBox>
+                                    <asp:TextBox ID="txtWork" runat="server" CssClass="form-control" placeholder="Enter current job profile" ></asp:TextBox>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Work experience</label>
-                                    <asp:TextBox ID="txtExperience" runat="server" CssClass="form-control" placeholder="Enter work experience" required></asp:TextBox>
+                                    <asp:TextBox ID="txtExperience" runat="server" CssClass="form-control" placeholder="Enter work experience" ></asp:TextBox>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Resume</label>
-                                    <asp:FileUpload ID="fuResume" runat="server" CssClass="form-control pt-2" ToolTip=".doc, .docx, .pdf extensions only !"/>
+                                    <asp:FileUpload ID="fuResume" runat="server" CssClass="form-control pt-2" required ToolTip=".doc, .docx, .pdf extensions only !"/>
                                 </div>
                             </div>
 

@@ -86,10 +86,9 @@ namespace Portail_Jobs.User
             {
                 if (Request.QueryString["id"]!=null)
                 {
-
                     string concatQuery = string.Empty;
                     string filePath = string.Empty;
-                    bool isValidToExecute = false;
+                    //bool isValidToExecute = false;
                     bool isValid = false;
                     conn = new SqlConnection(str);
                     if(fuResume.HasFile)
@@ -101,10 +100,7 @@ namespace Portail_Jobs.User
                         }
                         else
                         {
-                            //concatQuery = string.Empty;
-                            lblMsg.Visible = true;
-                            lblMsg.Text = "Please select .doc, .docx, .pdf files for resume !";
-                            lblMsg.CssClass = "alert alert-danger";
+                            concatQuery = string.Empty;
                         }
                     }
                     else
@@ -128,19 +124,29 @@ namespace Portail_Jobs.User
                     cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
                     cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
                     cmd.Parameters.AddWithValue("@UserId", Request.QueryString["id"]);
-                    if (isValid)
+                    if (fuResume.HasFile)
                     {
-                        Guid guid = Guid.NewGuid();
-                        filePath = "Resumes/"+guid.ToString()+fuResume.FileName;
-                        fuResume.PostedFile.SaveAs(Server.MapPath("~/Resumes/")+guid.ToString()+fuResume.FileName);
-                        cmd.Parameters.AddWithValue("@Resume", filePath);
-                        //isValidToExecute = true;
+                        if (Utils.isValidExtensionResume(fuResume.FileName))
+                        {
+                            Guid guid = Guid.NewGuid();
+                            filePath = "Resumes/"+guid.ToString()+fuResume.FileName;
+                            fuResume.PostedFile.SaveAs(Server.MapPath("~/Resumes/")+guid.ToString()+fuResume.FileName);
+                            cmd.Parameters.AddWithValue("@resume", filePath);
+                            isValid = true;
+                        }
+                        else
+                        {
+                            concatQuery = string.Empty;
+                            lblMsg.Visible = true;
+                            lblMsg.Text = "Please select .doc, .docx, .pdf files for resume !";
+                            lblMsg.CssClass = "alert alert-danger";
+                        }
                     }
                     else
                     {
                         isValid = true;
                     }
-                    if(isValid)
+                    if (isValid)
                     {
                         conn.Open();
                         int res = cmd.ExecuteNonQuery();

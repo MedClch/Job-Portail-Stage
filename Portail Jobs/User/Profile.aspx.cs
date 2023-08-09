@@ -31,14 +31,21 @@ namespace Portail_Jobs.User
         private void showUserProfile()
         {
             conn = new SqlConnection(str);
-            string query = "Select UserId,Username,Name,Address,Mobile,Email,Country,Resume from [User] where Username=@Username";
+            string query = "Select UserId,Username,Name,Address,Mobile,Email,Country,Resume from [User] where Username=@username";
             cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@username", Session["user"]);
             adapter = new SqlDataAdapter(cmd);
             dt = new DataTable();
             adapter.Fill(dt);
-            dlProfile.DataSource = dt;
-            dlProfile.DataBind();
+            if(dt.Rows.Count > 0)
+            {
+                dlProfile.DataSource = dt;
+                dlProfile.DataBind();
+            }
+            else
+            {
+                Response.Write("<script>alert('Please login again with your latest username !');</script>");
+            }
         }
 
         protected void dlProfile_ItemCommand(object source, DataListCommandEventArgs e)
