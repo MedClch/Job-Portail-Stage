@@ -79,14 +79,16 @@ namespace Portail_Jobs.Admin
                     lblMsg.Text="Couldn't delete this job, please try again later !";
                     lblMsg.CssClass="alert alert-success";
                 }
-                conn.Close();
                 GridView1.EditIndex = -1;
                 showJobs();
             }
             catch(Exception ex)
             {
-                conn.Close();
                 Response.Write("<script>alert('"+ex.Message+"');</script>");
+            }
+            finally
+            {
+                conn.Close();
             }
         }
 
