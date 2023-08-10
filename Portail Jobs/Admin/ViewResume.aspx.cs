@@ -94,7 +94,7 @@ namespace Portail_Jobs.Admin
         {
             foreach (GridViewRow row in GridView1.Rows)
             {
-                if(row.RowIndex == GridView1.SelectedIndex)ttttttt
+                if(row.RowIndex == GridView1.SelectedIndex)
                 {
                     HiddenField jobId = (HiddenField)row.FindControl("hdnJobId");
                     Response.Redirect("JobList.aspx?id="+jobId.Value);
