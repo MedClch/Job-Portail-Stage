@@ -11,7 +11,7 @@
                     <asp:Label ID="lblMsg" runat="server"></asp:Label>
                 </div>
                 <div class="input-group h-25">
-                    <asp:HyperLink ID="linkBack" runat="server" NavigateUrl="~/Admin/JobList.aspx" CssClass="btn btn-secondary" Visible="false">< Back</asp:HyperLink>
+                    <asp:HyperLink ID="linkBack" runat="server" NavigateUrl="~/Admin/JobList.aspx" CssClass="btn btn-secondary" Visible="true">< Back</asp:HyperLink>
                 </div>
             </div>
 
