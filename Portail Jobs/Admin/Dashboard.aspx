@@ -84,6 +84,7 @@
 
             <div class="col-md-10 mx-auto">
                 <div class="row">
+
                     <div class="col-xl-3 col-lg-6">
                         <div class="card l-bg-cherry">
                             <div class="card-statistic-3 pt-4">
