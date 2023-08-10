@@ -13,6 +13,9 @@
                 <div class="btn-group">
                     <asp:Label ID="lblMsg" runat="server"></asp:Label>
                 </div>
+                <div class="input-group h-25">
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Admin/NewJob.aspx" CssClass="btn btn-success" Visible="true"> + Add new job </asp:HyperLink>
+                </div>
             </div>
 
             <div class="input-group h-25">
