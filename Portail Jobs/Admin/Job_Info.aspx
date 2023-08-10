@@ -73,10 +73,10 @@
                     <label for="lblCompanyName" style="font-weight: 600">Company/Organisation name</label>
                     <asp:TextBox ID="txtCompanyName" runat="server" CssClass="form-control" disabled></asp:TextBox>
                 </div>
-                <div class="col-md-6 pt-3">
+<%--                <div class="col-md-6 pt-3">
                     <label for="lblCompanyLogo" style="font-weight: 600">Company/Organisation logo</label>
                     <asp:FileUpload ID="fuCompanyLogo" runat="server" CssClass="form-control" disabled/>
-                </div>
+                </div>--%>
             </div>
 
             <div class="row mr-lg-5 ml-lg-5 mb-3">

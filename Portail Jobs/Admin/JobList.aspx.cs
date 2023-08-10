@@ -107,6 +107,11 @@ namespace Portail_Jobs.Admin
         {
             if (e.Row.RowType==DataControlRowType.DataRow)
             {
+                e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$" + e.Row.RowIndex);
+                e.Row.ToolTip = "Click to view details";
+
+                // You can also change the cursor style to make it look clickable
+                e.Row.Style["cursor"] = "pointer";
                 e.Row.ID=e.Row.RowIndex.ToString();
                 if (Request.QueryString["id"]!=null)
                 {
@@ -117,6 +122,15 @@ namespace Portail_Jobs.Admin
                     }
                 }
             }
+        }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = GridView1.SelectedIndex;
+            string jobId = GridView1.DataKeys[selectedIndex].Value.ToString();
+
+            // Redirect to JobInfo page with the selected job's ID
+            Response.Redirect("Job_Info.aspx?id=" + jobId);
         }
     }
 }
