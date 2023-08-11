@@ -85,99 +85,104 @@
             <div class="col-md-10 mx-auto">
                 <div class="row">
 
-                    <div class="col-xl-3 col-lg-6">
-                        <div class="card l-bg-cherry">
-                            <div class="card-statistic-3 pt-4">
-                                <div class="card-icon card-icon-large">
-                                    <i class="fas fa-users pr-2"></i>
-                                </div>
-                                <div class="mb-4">
-                                    <h5 class="card-title mb-0">Total users</h5>
-                                </div>
-
-                                <div class="row-align-items-center mb-2 d-flex">
-                                    <div class="col-8">
-                                        <h2 class="d-flex align-items-center mb-0">
-                                            <% Response.Write(Session["Users"]); %>
-                                        </h2>
-                                    </div>
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card l-bg-cherry">
+                        <div class="card-statistic-3 pt-4">
+                            <div class="card-icon card-icon-large">
+                                <i class="fas fa-users pr-2"></i>
+                            </div>
+                            <div class="mb-4 text-center">
+                                <h5 class="card-title mb-0">Total users</h5>
+                            </div>
+                            <div class="row-align-items-center mb-2 d-flex align-items-center justify-content-center">
+                                <div class="col-8 text-center">
+                                    <h2 class="mb-0">
+                                        <% Response.Write(Session["Users"]); %>
+                                    </h2>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="col-xl-3 col-lg-6">
-                        <div class="card l-bg-cherry">
-                            <div class="card-statistic-3 pt-4">
-                                <div class="card-icon card-icon-large">
-                                    <i class="fas fa-briefcase pr-2"></i>
-                                </div>
-                                <div class="mb-4">
-                                    <h5 class="card-title mb-0">Total jobs</h5>
-                                </div>
-                                <div class="row-align-items-center mb-2 d-flex">
-                                    <div class="col-8">
-                                        <h2 class="d-flex align-items-center mb-0">
-                                            <% Response.Write(Session["Jobs"]); %>
-                                        </h2>
-                                    </div>
+                </div>
+                    
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card l-bg-orange ">
+                        <div class="card-statistic-3 pt-4">
+                            <div class="card-icon card-icon-large text-center">
+                                <i class="fas fa-briefcase pr-2"></i>
+                            </div>
+                            <div class="mb-4 text-center">
+                                <h5 class="card-title mb-0">Total jobs</h5>
+                            </div>
+                            <div class="row-align-items-center mb-2 d-flex align-items-center justify-content-center">
+                                <div class="col-8 text-center">
+                                    <h2 class="mb-0">
+                                        <% Response.Write(Session["Jobs"]); %>
+                                    </h2>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="col-xl-3 col-lg-6">
-                        <div class="card l-bg-cherry">
-                            <div class="card-statistic-3 pt-4">
-                                <div class="card-icon card-icon-large">
-                                    <i class="fas fa-check-square pr-2"></i>
-                                </div>
-                                <div class="mb-4">
-                                    <h5 class="card-title mb-0">Applied jobs</h5>
-                                </div>
-                                <div class="row-align-items-center mb-2 d-flex">
-                                    <div class="col-8">
-                                        <h2 class="d-flex align-items-center mb-0">
-                                            <% Response.Write(Session["Applications"]); %> 
-                                        </h2>
-                                    </div>
+                </div>
+                    
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card l-bg-green">
+                        <div class="card-statistic-3 pt-4">
+                            <div class="card-icon card-icon-large text-center">
+                                <i class="fas fa-check-square pr-2"></i>
+                            </div>
+                            <div class="mb-4 text-center">
+                                <h5 class="card-title mb-0">Total job applications</h5>
+                            </div>
+                            <div class="row-align-items-center mb-2 d-flex align-items-center justify-content-center">
+                                <div class="col-8 text-center">
+                                    <h2 class="mb-0">
+                                        <% Response.Write(Session["Applications"]); %>
+                                    </h2>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-
-                    <div class="col-xl-3 col-lg-6">
-                        <div class="card l-bg-cherry">
-                            <div class="card-statistic-3 pt-4">
-                                <div class="card-icon card-icon-large">
-                                    <i class="fas fa-comments pr-2"></i>
-                                </div>
-                                <div class="mb-4">
-                                    <h5 class="card-title mb-0">Contacted users</h5>
-                                </div>
-                                <div class="row-align-items-center mb-2 d-flex">
-                                    <div class="col-8">
-                                        <h2 class="d-flex align-items-center mb-0">
-                                            <% Response.Write(Session["Contact"]); %> 
-                                        </h2>
-                                    </div>
+                    
+                <div class="col-xl-3 col-lg-6">
+                    <div class="card l-bg-warning ">
+                        <div class="card-statistic-3 pt-4">
+                            <div class="card-icon card-icon-large text-center">
+                                <i class="fas fa-comments pr-2"></i>
+                            </div>
+                            <div class="mb-4 text-center">
+                                <h5 class="card-title mb-0">Total contacts</h5>
+                            </div>
+                            <div class="row-align-items-center mb-2 d-flex align-items-center justify-content-center">
+                                <div class="col-8 text-center">
+                                    <h2 class="mb-0">
+                                        <% Response.Write(Session["Contact"]); %>
+                                    </h2>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
 
                 </div>
             </div>
-
         </div>
+
+        <div class="col-md-10 mx-auto mt-5">
+            <div class="row">
+                <div class="col">
+                    <canvas id="myChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <%--    <!-- Create a canvas element for the chart -->
-    <canvas id="myChart" width="400" height="200"></canvas>
+    <!-- Create a canvas element for the chart -->
+<%--    <canvas id="myChart" width="400" height="200"></canvas>--%>
 
     <script>
         // Sample data for the chart
@@ -210,7 +215,7 @@
                 }
             }
         });
-    </script>--%>
+    </script>
 </asp:Content>
 
 

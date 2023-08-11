@@ -33,19 +33,14 @@ namespace Portail_Jobs.Admin
                 showJobStats();
                 showApplicationStats();
                 showContactStats();
-
                 // Fetch data from the database
                 DataTable data = GetDataFromDatabase();
-
                 // Convert DataTable to a list of dictionaries
                 List<Dictionary<string, object>> dataList = DataTableToList(data);
-
                 // Serialize the list of dictionaries to JSON
                 string chartData = ListToJson(dataList);
-
                 // Register client script to render chart
                 Page.ClientScript.RegisterStartupScript(GetType(), "RenderChart", $"renderChart({chartData});", true);
-
             }
 
             //if (Session["user"]!=null)
