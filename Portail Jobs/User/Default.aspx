@@ -68,7 +68,7 @@
                             </div>
                             <div class="services-cap">
                                 <h5><a href="JobListing.aspx">Design & Creative</a></h5>
-<%--                                <span>(653)</span>--%>
+                                <%--                                <span>(653)</span>--%>
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                             </div>
                             <div class="services-cap">
                                 <h5><a href="JobListing.aspx">Design & Development</a></h5>
-<%--                                <span>(658)</span>--%>
+                                <%--                                <span>(658)</span>--%>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                             </div>
                             <div class="services-cap">
                                 <h5><a href="JobListing.aspx">Sales & Marketing</a></h5>
-<%--                                <span>(658)</span>--%>
+                                <%--                                <span>(658)</span>--%>
                             </div>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                             </div>
                             <div class="services-cap">
                                 <h5><a href="JobListing.aspx">Mobile Application</a></h5>
-<%--                                <span>(658)</span>--%>
+                                <%--                                <span>(658)</span>--%>
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                             </div>
                             <div class="services-cap">
                                 <h5><a href="JobListing.aspx">Construction</a></h5>
-<%--                                <span>(658)</span>--%>
+                                <%--                                <span>(658)</span>--%>
                             </div>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                             </div>
                             <div class="services-cap">
                                 <h5><a href="JobListing.aspx">Information Technology</a></h5>
-<%--                                <span>(658)</span>--%>
+                                <%--                                <span>(658)</span>--%>
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                             </div>
                             <div class="services-cap">
                                 <h5><a href="JobListing.aspx">Real Estate</a></h5>
-<%--                                <span>(658)</span>--%>
+                                <%--                                <span>(658)</span>--%>
                             </div>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
                             </div>
                             <div class="services-cap">
                                 <h5><a href="JobListing.aspx">Content Writer</a></h5>
-<%--                                <span>(658)</span>--%>
+                                <%--                                <span>(658)</span>--%>
                             </div>
                         </div>
                     </div>
@@ -177,9 +177,57 @@
             </div>
         </div>
         <!-- Online CV Area End-->
+
+
         <!-- Featured_job_start -->
         <section class="featured-job-area feature-padding">
+
+
             <div class="container">
+                <!-- Section Tittle -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-tittle text-center">
+                            <span>Recent Job</span>
+                            <h2>Featured Jobs</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-xl-10">
+                        <asp:DataList ID="DataList1" runat="server">
+                            <ItemTemplate>
+                                <a href="JobDetails.aspx?id=<%# Eval("JobId") %>" class="single-job-items mb-30">
+                                    <div class="job-items">
+                                        <div class="company-img">
+                                            <img width="80" src="<%# GetImageUrl(Eval("CompanyImage")) %>" alt="">
+                                        </div>
+                                        <div class="job-tittle job-tittle2">
+                                            <h5><%# Eval("Title") %></h5>
+                                            <ul>
+                                                <li><%# Eval("CompanyName") %></li>
+                                                <li><i class="fas fa-map-marker-alt"></i><%# Eval("State") %>, <%# Eval("Country") %></li>
+                                                <li><%# Eval("Salary") %></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="items-link items-link2 f-right">
+                                        <span><%# Eval("JobType") %></span>
+                                        <span class="text-secondary">
+                                            <i class="fas fa-clock pr-1"></i>
+                                            <%# RelativeDate(Convert.ToDateTime(Eval("CreateDate"))) %>
+                                        </span>
+                                    </div>
+                                </a>
+                            </ItemTemplate>
+                        </asp:DataList>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <%--<div class="container">
                 <!-- Section Tittle -->
                 <div class="row">
                     <div class="col-lg-12">
@@ -285,9 +333,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--%>
         </section>
         <!-- Featured_job_end -->
+
+
         <!-- How  Apply Process Start-->
         <div class="apply-process-area apply-bg pt-150 pb-150" data-background="../assets/img/gallery/how-applybg.png">
             <div class="container">
