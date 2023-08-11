@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <!-- Add the Chart.js library -->
-    <%--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--%>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
 
@@ -97,7 +97,7 @@
 
                                 <div class="row-align-items-center mb-2 d-flex">
                                     <div class="col-8">
-                                        <h2 class="d-flex align-items-center mb-0"> 
+                                        <h2 class="d-flex align-items-center mb-0">
                                             <% Response.Write(Session["Users"]); %>
                                         </h2>
                                     </div>
