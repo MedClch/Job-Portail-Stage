@@ -65,6 +65,9 @@ namespace Portail_Jobs.Admin
 
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
+            //GridViewRow row = GridView1.Rows[e.RowIndex];
+            //int jobID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
+            //DeleteJob(jobID);
             try
             {
                 GridViewRow row = GridView1.Rows[e.RowIndex];
@@ -97,26 +100,31 @@ namespace Portail_Jobs.Admin
             }
         }
 
-        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName =="EditJob")
-                Response.Redirect("NewJob.aspx?id="+e.CommandArgument.ToString());
-        }
+        //protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+        //{
+        //    if (e.CommandName =="EditJob")
+        //        Response.Redirect("NewJob.aspx?id="+e.CommandArgument.ToString());
+        //    else if (e.CommandName == "Delete")
+        //    {
+        //        int rowIndex = Convert.ToInt32(e.CommandArgument);
+        //        int jobId = Convert.ToInt32(GridView1.DataKeys[rowIndex].Value);
+        //        DeleteJob(jobId);
+        //    }
+        //}
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType==DataControlRowType.DataRow)
             {
-                e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$" + e.Row.RowIndex);
-                e.Row.ToolTip = "Click to view details";
-
-                // You can also change the cursor style to make it look clickable
-                e.Row.Style["cursor"] = "pointer";
+                //e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$" + e.Row.RowIndex);
+                //e.Row.ToolTip = "Click to view details";
+                //// You can also change the cursor style to make it look clickable
+                //e.Row.Style["cursor"] = "pointer";
                 e.Row.ID=e.Row.RowIndex.ToString();
                 if (Request.QueryString["id"]!=null)
                 {
                     int jobID = Convert.ToInt32(GridView1.DataKeys[e.Row.RowIndex].Values[0]);
-                    if(jobID == Convert.ToInt32(Request.QueryString["id"]))
+                    if (jobID == Convert.ToInt32(Request.QueryString["id"]))
                     {
                         e.Row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
                     }
@@ -124,13 +132,45 @@ namespace Portail_Jobs.Admin
             }
         }
 
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int selectedIndex = GridView1.SelectedIndex;
-            string jobId = GridView1.DataKeys[selectedIndex].Value.ToString();
 
-            // Redirect to JobInfo page with the selected job's ID
-            Response.Redirect("Job_Info.aspx?id=" + jobId);
+        private void DeleteJob(int JobID)
+        {
+            try
+            {
+                conn = new SqlConnection(str);
+                cmd = new SqlCommand("Delete from Jobs where JobId = @id", conn);
+                cmd.Parameters.AddWithValue("@id", JobID);
+                conn.Open();
+                int r = cmd.ExecuteNonQuery();
+                if (r > 0)
+                {
+                    lblMsg.Text = "Job deleted successfully !";
+                    lblMsg.CssClass = "alert alert-success";
+                }
+                else
+                {
+                    lblMsg.Text = "Couldn't delete this job, please try again later !";
+                    lblMsg.CssClass = "alert alert-success";
+                }
+                showJobs();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
+
+        //protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    int selectedIndex = GridView1.SelectedIndex;
+        //    string jobId = GridView1.DataKeys[selectedIndex].Value.ToString();
+
+        //    // Redirect to JobInfo page with the selected job's ID
+        //    Response.Redirect("Job_Info.aspx?id=" + jobId);
+        //}
     }
 }

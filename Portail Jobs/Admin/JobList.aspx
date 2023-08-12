@@ -1,11 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMaster.Master"  EnableEventValidation="false" AutoEventWireup="true" CodeBehind="JobList.aspx.cs" Inherits="Portail_Jobs.Admin.JobList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMaster.Master" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="JobList.aspx.cs" Inherits="Portail_Jobs.Admin.JobList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div style="background-image: url('../Images/bg.jpg'); width: 100%; height: 720px; background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
         <div class="container-fluid pt-4 pb-4">
-<%--            <div>
+            <%--            <div>
                 <asp:Label ID="lblMsg" runat="server"></asp:Label>
             </div>--%>
 
@@ -29,65 +29,77 @@
                 <div class="col-md-12">
                     <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-bordered" EmptyDataText="No informations to display !" AutoGenerateColumns="False"
                         AllowPaging="True" PageSize="5" OnPageIndexChanging="GridView1_PageIndexChanging" DataKeyNames="JobId" OnRowDeleting="GridView1_RowDeleting"
-                        OnRowCommand="GridView1_RowCommand" OnRowDataBound="GridView1_RowDataBound" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+                        OnRowDataBound="GridView1_RowDataBound">
                         <Columns>
 
                             <asp:BoundField DataField="Sr.No" HeaderText="Sr.No">
-                            <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
 
-                            <asp:BoundField DataField="Title" HeaderText="Job title">
-                            <ItemStyle HorizontalAlign="Center" />
-                            </asp:BoundField>
+                            <asp:TemplateField HeaderText="Job title">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="lnkJobTitle" ForeColor="Black" runat="server" NavigateUrl='<%# "Job_Info.aspx?id=" + Eval("JobId") %>' Text='<%# Eval("Title") %>'></asp:HyperLink>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:TemplateField>
 
                             <asp:BoundField DataField="NoOfPost" HeaderText="Number of posts">
-                            <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Qualification" HeaderText="Qualifications">
-                            <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Experience" HeaderText="Experience">
-                            <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="LastDateToApply" HeaderText="Valid until" DataFormatString="{0:dd MMMM yyyy}">
-                            <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="CompanyName" HeaderText="Company">
-                            <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Country" HeaderText="Country">
-                            <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="State" HeaderText="State">
-                            <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="CreateDate" HeaderText="Post date" DataFormatString="{0:dd MMMM yyyy}">
-                            <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
 
-                            <asp:TemplateField HeaderText="Edit">
+                                <asp:TemplateField HeaderText="Edit">
+        <ItemTemplate>
+            <a href='<%# "NewJob.aspx?id=" + Eval("JobId") %>'>
+                <asp:Image ID="Img" runat="server" ImageUrl="../assets/img/icon/edit.png" Height="25px" />
+            </a>
+        </ItemTemplate>
+        <ItemStyle HorizontalAlign="Center" Width="50px" />
+    </asp:TemplateField>
+
+<%--                            <asp:TemplateField HeaderText="Edit">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="btnEditJob" runat="server" CommandName="EditJob" CommandArgument='<%# Eval("JobId") %>'>
-                                        <asp:Image ID="Img" runat="server" ImageUrl="../assets/img/icon/edit.png" Height="25px"/>
+                                        <asp:Image ID="Img" runat="server" ImageUrl="../assets/img/icon/edit.png" Height="25px" />
                                     </asp:LinkButton>
                                 </ItemTemplate>
-                                <ItemStyle HorizontalAlign="Center" Width="50px"/>
-                            </asp:TemplateField>
+                                <ItemStyle HorizontalAlign="Center" Width="50px" />
+                            </asp:TemplateField>--%>
 
                             <asp:CommandField CausesValidation="false" HeaderText="Delete" ShowDeleteButton="true" DeleteImageUrl="../assets/img/icon/delete.png" ButtonType="Image">
-                                <ControlStyle Height="25px" Width="25px"/>
-                                <ItemStyle HorizontalAlign="Center"/>
-                                </asp:CommandField>
+                                <ControlStyle Height="25px" Width="25px" />
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:CommandField>
 
                         </Columns>
-                        <HeaderStyle BackColor="#7200cf" ForeColor="White"/>
+                        <HeaderStyle BackColor="#7200cf" ForeColor="White" />
                     </asp:GridView>
                 </div>
             </div>
