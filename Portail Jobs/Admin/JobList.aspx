@@ -75,16 +75,16 @@
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
 
-                                <asp:TemplateField HeaderText="Edit">
-        <ItemTemplate>
-            <a href='<%# "NewJob.aspx?id=" + Eval("JobId") %>'>
-                <asp:Image ID="Img" runat="server" ImageUrl="../assets/img/icon/edit.png" Height="25px" />
-            </a>
-        </ItemTemplate>
-        <ItemStyle HorizontalAlign="Center" Width="50px" />
-    </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Edit">
+                                <ItemTemplate>
+                                    <a href='<%# "NewJob.aspx?id=" + Eval("JobId") %>'>
+                                        <asp:Image ID="Img" runat="server" ImageUrl="../assets/img/icon/edit.png" Height="25px" />
+                                    </a>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" Width="50px" />
+                            </asp:TemplateField>
 
-<%--                            <asp:TemplateField HeaderText="Edit">
+                            <%--                            <asp:TemplateField HeaderText="Edit">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="btnEditJob" runat="server" CommandName="EditJob" CommandArgument='<%# Eval("JobId") %>'>
                                         <asp:Image ID="Img" runat="server" ImageUrl="../assets/img/icon/edit.png" Height="25px" />
