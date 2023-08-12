@@ -59,11 +59,12 @@ namespace Portail_Jobs.Admin
             int appliedJobsCount = Convert.ToInt32(dataFromAppliedJobsTable.Rows[0][0]);
             int contactCount = Convert.ToInt32(dataFromContactTable.Rows[0][0]);
             int jobsCount = Convert.ToInt32(dataFromJobsTable.Rows[0][0]);
+            int declinedAppCount = Convert.ToInt32(Session["Counter"]);
             // Combine the data into a single object
             var combinedData = new
             {
-                Labels = new string[] { "Users", "Applied Jobs", "Contacts", "Jobs" },
-                Values1 = new int[] { userCount, appliedJobsCount, contactCount, jobsCount }
+                Labels = new string[] { "Users", "Applied Jobs", "Contacts", "Jobs", "Declined applications" },
+                Values1 = new int[] { userCount, appliedJobsCount, contactCount, jobsCount, declinedAppCount}
             };
             // Convert the combinedData object to a JSON string
             string jsonData = JsonConvert.SerializeObject(combinedData);

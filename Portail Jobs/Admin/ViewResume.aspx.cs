@@ -52,36 +52,39 @@ namespace Portail_Jobs.Admin
 
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            try
-            {
-                GridViewRow row = GridView1.Rows[e.RowIndex];
-                int appliedjobID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
-                conn = new SqlConnection(str);
-                cmd = new SqlCommand("Delete from AppliedJobs where AppliedJobId = @id", conn);
-                cmd.Parameters.AddWithValue("@id", appliedjobID);
-                conn.Open();
-                int r = cmd.ExecuteNonQuery();
-                if (r > 0)
-                {
-                    lblMsg.Text="Job application deleted successfully !";
-                    lblMsg.CssClass="alert alert-success";
-                }
-                else
-                {
-                    lblMsg.Text="Couldn't delete this job application, please try again later !";
-                    lblMsg.CssClass="alert alert-success";
-                }
-                GridView1.EditIndex = -1;
-                showApplications();
-            }
-            catch (Exception ex)
-            {
-                Response.Write("<script>alert('"+ex.Message+"');</script>");
-            }
-            finally
-            {
-                conn.Close();
-            }
+            GridViewRow row = GridView1.Rows[e.RowIndex];
+            int appliedjobID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
+            DeleteAppliedJob(appliedjobID);
+            //try
+            //{
+            //    GridViewRow row = GridView1.Rows[e.RowIndex];
+            //    int appliedjobID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
+            //    conn = new SqlConnection(str);
+            //    cmd = new SqlCommand("Delete from AppliedJobs where AppliedJobId = @id", conn);
+            //    cmd.Parameters.AddWithValue("@id", appliedjobID);
+            //    conn.Open();
+            //    int r = cmd.ExecuteNonQuery();
+            //    if (r > 0)
+            //    {
+            //        lblMsg.Text="Job application deleted successfully !";
+            //        lblMsg.CssClass="alert alert-success";
+            //    }
+            //    else
+            //    {
+            //        lblMsg.Text="Couldn't delete this job application, please try again later !";
+            //        lblMsg.CssClass="alert alert-success";
+            //    }
+            //    GridView1.EditIndex = -1;
+            //    showApplications();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Response.Write("<script>alert('"+ex.Message+"');</script>");
+            //}
+            //finally
+            //{
+            //    conn.Close();
+            //}
         }
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -104,6 +107,58 @@ namespace Portail_Jobs.Admin
                     row.BackColor = ColorTranslator.FromHtml("#FFFFFF");
                     row.ToolTip = "Click to select this row";
                 }
+            }
+        }
+
+        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Delete")
+            {
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                int appliedJobID = Convert.ToInt32(GridView1.DataKeys[rowIndex].Values[0]);
+
+                // Call your delete method here, passing the appliedJobID
+                DeleteAppliedJob(appliedJobID);
+
+                // Refresh the GridView
+                showApplications();
+            }
+            else
+            {
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                HiddenField jobId = (HiddenField)GridView1.Rows[rowIndex].FindControl("hdnJobId");
+                Response.Redirect("JobList.aspx?id=" + jobId.Value);
+            }
+        }
+
+        private void DeleteAppliedJob(int appliedJobID)
+        {
+            try
+            {
+                conn = new SqlConnection(str);
+                cmd = new SqlCommand("Delete from AppliedJobs where AppliedJobId = @id", conn);
+                cmd.Parameters.AddWithValue("@id", appliedJobID);
+                conn.Open();
+                int r = cmd.ExecuteNonQuery();
+                if (r > 0)
+                {
+                    lblMsg.Text = "Job application deleted successfully !";
+                    lblMsg.CssClass = "alert alert-success";
+                }
+                else
+                {
+                    lblMsg.Text = "Couldn't delete this job application, please try again later !";
+                    lblMsg.CssClass = "alert alert-success";
+                }
+                showApplications();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
+            finally
+            {
+                conn.Close();
             }
         }
     }
