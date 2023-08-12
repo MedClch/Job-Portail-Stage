@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Portail_Jobs.Admin
 {
@@ -33,19 +34,6 @@ namespace Portail_Jobs.Admin
                 showJobStats();
                 showApplicationStats();
                 showContactStats();
-
-                // Fetch data from the database
-                DataTable data = GetDataFromDatabase();
-
-                // Convert DataTable to a list of dictionaries
-                List<Dictionary<string, object>> dataList = DataTableToList(data);
-
-                // Serialize the list of dictionaries to JSON
-                string chartData = ListToJson(dataList);
-
-                // Register client script to render chart
-                Page.ClientScript.RegisterStartupScript(GetType(), "RenderChart", $"renderChart({chartData});", true);
-
             }
 
             //if (Session["user"]!=null)
@@ -59,6 +47,45 @@ namespace Portail_Jobs.Admin
             //    Response.Redirect("../User/Default.aspx");
         }
 
+        public string GetCombinedDataAsJson()
+        {
+            // Fetch data from each table
+            DataTable dataFromUserTable = FetchDataFromTable("SELECT count(*) FROM [User]");
+            DataTable dataFromAppliedJobsTable = FetchDataFromTable("SELECT count(*) FROM AppliedJobs");
+            DataTable dataFromContactTable = FetchDataFromTable("SELECT count(*) FROM Contact");
+            DataTable dataFromJobsTable = FetchDataFromTable("SELECT count(*) FROM Jobs");
+            // Get the counts from each table
+            int userCount = Convert.ToInt32(dataFromUserTable.Rows[0][0]);
+            int appliedJobsCount = Convert.ToInt32(dataFromAppliedJobsTable.Rows[0][0]);
+            int contactCount = Convert.ToInt32(dataFromContactTable.Rows[0][0]);
+            int jobsCount = Convert.ToInt32(dataFromJobsTable.Rows[0][0]);
+            // Combine the data into a single object
+            var combinedData = new
+            {
+                Labels = new string[] { "Users", "Applied Jobs", "Contacts", "Jobs" },
+                Values1 = new int[] { userCount, appliedJobsCount, contactCount, jobsCount }
+            };
+            // Convert the combinedData object to a JSON string
+            string jsonData = JsonConvert.SerializeObject(combinedData);
+            return jsonData;
+        }
+
+        // Fetch data from the database using the provided query
+        private DataTable FetchDataFromTable(string query)
+        {
+            DataTable dataTable = new DataTable();
+            using (conn = new SqlConnection(str))
+            {
+                conn.Open();
+                cmd = new SqlCommand(query, conn);
+                cmd.CommandType = CommandType.Text;
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                adapter.Fill(dataTable);
+                conn.Close();
+            }
+            return dataTable;
+        }
+
         private void showContactStats()
         {
             conn = new SqlConnection(str);
@@ -66,13 +93,9 @@ namespace Portail_Jobs.Admin
             dt = new DataTable();
             adapter.Fill(dt);
             if(dt.Rows.Count>0)
-            {
                 Session["Contact"] = dt.Rows[0][0];
-            }
             else
-            {
                 Session["Contact"] = 0;
-            }
         }
 
         private void showApplicationStats()
@@ -82,13 +105,9 @@ namespace Portail_Jobs.Admin
             dt = new DataTable();
             adapter.Fill(dt);
             if (dt.Rows.Count>0)
-            {
                 Session["Applications"] = dt.Rows[0][0];
-            }
             else
-            {
                 Session["Applications"] = 0;
-            }
         }
 
         private void showJobStats()
@@ -98,13 +117,9 @@ namespace Portail_Jobs.Admin
             dt = new DataTable();
             adapter.Fill(dt);
             if (dt.Rows.Count>0)
-            {
                 Session["Jobs"] = dt.Rows[0][0];
-            }
             else
-            {
                 Session["Jobs"] = 0;
-            }
         }
 
         private void showUserStats()
@@ -114,81 +129,10 @@ namespace Portail_Jobs.Admin
             dt = new DataTable();
             adapter.Fill(dt);
             if (dt.Rows.Count>0)
-            {
                 Session["Users"] = dt.Rows[0][0];
-            }
             else
-            {
                 Session["Users"] = 0;
-            }
         }
-
-        private DataTable GetDataFromDatabase()
-        {
-            DataTable dataTable = new DataTable();
-            string connectionString = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "SELECT Title, NoOfPost FROM Jobs"; // Replace with your actual query
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        dataTable.Load(reader);
-                    }
-                }
-            }
-            return dataTable;
-        }
-
-        private List<Dictionary<string, object>> DataTableToList(DataTable dt)
-        {
-            List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
-            foreach (DataRow row in dt.Rows)
-            {
-                Dictionary<string, object> dict = new Dictionary<string, object>();
-                foreach (DataColumn col in dt.Columns)
-                {
-                    dict[col.ColumnName] = row[col];
-                }
-                list.Add(dict);
-            }
-            return list;
-        }
-
-        private string ListToJson(List<Dictionary<string, object>> list)
-        {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            return serializer.Serialize(list);
-        }
-
-        //private DataTable GetDataFromDatabase()
-        //{
-        //    DataTable dataTable = new DataTable();
-        //    string connectionString = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
-
-        //    using (SqlConnection connection = new SqlConnection(connectionString))
-        //    {
-        //        string query = "SELECT Title, NoOfPost FROM Jobs"; // Replace with your actual query
-        //        using (SqlCommand command = new SqlCommand(query, connection))
-        //        {
-        //            connection.Open();
-        //            using (SqlDataReader reader = command.ExecuteReader())
-        //            {
-        //                dataTable.Load(reader);
-        //            }
-        //        }
-        //    }
-
-        //    return dataTable;
-        //}
-
-        //private string DataTableToJson(DataTable dt)
-        //{
-        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //    return serializer.Serialize(dt);
-        //}
     }
 }
 
