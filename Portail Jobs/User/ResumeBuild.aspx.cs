@@ -57,7 +57,7 @@ namespace Portail_Jobs.User
                         txtGraduation.Text = reader["GraduationGrade"].ToString();
                         txtPostGraduation.Text = reader["PostGraduationGrade"].ToString();
                         txtWork.Text = reader["WorksOn"].ToString();
-                        txtPhd.Text = reader["Phd"].ToString();
+                        txtPhd.Text = reader["Phd"].ToString(); 
                         txtExperience.Text = reader["Experience"].ToString();
                         txtAdress.Text = reader["Address"].ToString();
                         ddlCountry.SelectedValue = reader["Country"].ToString();
@@ -91,9 +91,9 @@ namespace Portail_Jobs.User
                     //bool isValidToExecute = false;
                     bool isValid = false;
                     conn = new SqlConnection(str);
-                    if (fuResume.HasFile)
+                    if(fuResume.HasFile)
                     {
-                        if (Utils.isValidExtensionResume(fuResume.FileName))
+                        if(Utils.isValidExtensionResume(fuResume.FileName))
                         {
                             concatQuery = "Resume=@resume";
                             isValid = true;
@@ -110,7 +110,7 @@ namespace Portail_Jobs.User
                     query = @"Update [User] set Username=@Username,Name=@Name,Email=@Email,Mobile=@Mobile,TenthGrade=@TenthGrade,TwelfthGrade=@TwelfthGrade,GraduationGrade=@GraduationGrade,
                              PostGraduationGrade=@PostGraduationGrade,Phd=@Phd,WorksOn=@WorksOn,Experience=@Experience,"+concatQuery+",Address=@Address,Country=@Country";
                     cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Username", txtUserName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Username",txtUserName.Text.Trim());
                     cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
                     cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
                     cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
@@ -171,7 +171,7 @@ namespace Portail_Jobs.User
                     lblMsg.CssClass = "alert alert-danger";
                 }
             }
-            catch (SqlException ex)
+            catch(SqlException ex)
             {
                 if (ex.Number==2627) // Check for unique constraint violation (error number 2627)
                 {
@@ -192,157 +192,6 @@ namespace Portail_Jobs.User
             {
                 conn.Close();
             }
-        }
-
-        //protected void btnUpdate_Click1(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (Request.QueryString["id"] != null)
-        //        {
-        //            bool isUsernameAvailable = CheckUsernameAvailability(txtUserName.Text.Trim());
-        //            if (!isUsernameAvailable)
-        //            {
-        //                lblMsg.Visible = true;
-        //                lblMsg.Text = "<b>" + txtUserName.Text.Trim() + "</b> already exists, please try again!";
-        //                lblMsg.CssClass = "alert alert-danger";
-        //            }
-        //            else
-        //            {
-
-        //                string concatQuery = string.Empty;
-        //                string filePath = string.Empty;
-        //                bool isValidToExecute = false;
-        //                bool isValid = false;
-        //                conn = new SqlConnection(str);
-        //                if (fuResume.HasFile)
-        //                {
-        //                    if (Utils.isValidExtensionResume(fuResume.FileName))
-        //                    {
-        //                        concatQuery = "Resume=@resume";
-        //                        isValid = true;
-        //                    }
-        //                    else
-        //                    {
-        //                        concatQuery = string.Empty;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    concatQuery = string.Empty;
-        //                }
-        //                query = @"Update [User] set Username=@Username,Name=@Name,Email=@Email,Mobile=@Mobile,TenthGrade=@TenthGrade,TwelfthGrade=@TwelfthGrade,GraduationGrade=@GraduationGrade,
-        //                     PostGraduationGrade=@PostGraduationGrade,Phd=@Phd,WorksOn=@WorksOn,Experience=@Experience,"+concatQuery+",Address=@Address,Country=@Country";
-        //                cmd = new SqlCommand(query, conn);
-        //                cmd.Parameters.AddWithValue("@Username", txtUserName.Text.Trim());
-        //                cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
-        //                cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
-        //                cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
-        //                cmd.Parameters.AddWithValue("@TenthGrade", txtTenth.Text.Trim());
-        //                cmd.Parameters.AddWithValue("@TwelfthGrade", txtTwelfth.Text.Trim());
-        //                cmd.Parameters.AddWithValue("@GraduationGrade", txtGraduation.Text.Trim());
-        //                cmd.Parameters.AddWithValue("@PostGraduationGrade", txtPostGraduation.Text.Trim());
-        //                cmd.Parameters.AddWithValue("@Phd", txtPhd.Text.Trim());
-        //                cmd.Parameters.AddWithValue("@WorksOn", txtWork.Text.Trim());
-        //                cmd.Parameters.AddWithValue("@Experience", txtExperience.Text.Trim());
-        //                cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
-        //                cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
-        //                cmd.Parameters.AddWithValue("@UserId", Request.QueryString["id"]);
-        //                if (fuResume.HasFile)
-        //                {
-        //                    if (Utils.isValidExtensionResume(fuResume.FileName))
-        //                    {
-        //                        Guid guid = Guid.NewGuid();
-        //                        filePath = "Resumes/"+guid.ToString()+fuResume.FileName;
-        //                        fuResume.PostedFile.SaveAs(Server.MapPath("~/Resumes/")+guid.ToString()+fuResume.FileName);
-        //                        cmd.Parameters.AddWithValue("@resume", filePath);
-        //                        isValid = true;
-        //                    }
-        //                    else
-        //                    {
-        //                        concatQuery = string.Empty;
-        //                        lblMsg.Visible = true;
-        //                        lblMsg.Text = "Please select .doc, .docx, .pdf files for resume !";
-        //                        lblMsg.CssClass = "alert alert-danger";
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    isValid = true;
-        //                }
-        //                if (isValid)
-        //                {
-        //                    conn.Open();
-        //                    int res = cmd.ExecuteNonQuery();
-        //                    if (res > 0)
-        //                    {
-        //                        lblMsg.Visible = true;
-        //                        lblMsg.Text = "Resume uploaded successfully !";
-        //                        lblMsg.CssClass = "alert alert-success";
-        //                    }
-        //                    else
-        //                    {
-        //                        lblMsg.Visible = true;
-        //                        lblMsg.Text = "Couldn't update informations, please try again !";
-        //                        lblMsg.CssClass = "alert alert-danger";
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        else
-        //        {
-        //            lblMsg.Visible = true;
-        //            lblMsg.Text = "Couldn't update information, please try <b>reconnecting to your account</b>!";
-        //            lblMsg.CssClass = "alert alert-danger";
-        //        }
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        if (ex.Number == 2627) // Check for unique constraint violation (error number 2627)
-        //        {
-        //            lblMsg.Visible = true;
-        //            lblMsg.Text = "<b>" + txtUserName.Text.Trim() + "</b> already exists, please try again!";
-        //            lblMsg.CssClass = "alert alert-danger";
-        //        }
-        //        else
-        //        {
-        //            Response.Write("<script>alert('" + ex.Message + "');</script>");
-        //        }
-        //    }
-        //    catch (Exception ex1)
-        //    {
-        //        Response.Write("<script>alert('" + ex1.Message + "');</script>");
-        //    }
-        //    finally
-        //    {
-        //        conn.Close();
-        //    }
-        //}
-
-        private bool CheckUsernameAvailability(string newUsername,int id)
-        {
-            bool isAvailable = false;
-            try
-            {
-                conn = new SqlConnection(str);
-                query = "SELECT COUNT(*) FROM [User] WHERE Username = @Username and UserId<>id";
-                cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@Username", newUsername);
-                conn.Open();
-                int count = Convert.ToInt32(cmd.ExecuteScalar());
-                isAvailable = count == 0; // If count is 0, username is available
-            }
-            catch (Exception ex)
-            {
-                lblMsg.Visible = true;
-                lblMsg.Text = "<b>" + txtUserName.Text.Trim() + "</b> already exists, please try again!";
-                lblMsg.CssClass = "alert alert-danger";
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return isAvailable;
         }
     }
 }
