@@ -170,7 +170,6 @@ namespace Portail_Jobs.Admin
             }
         }
 
-
         // Deletes only the job and keeps its applications
         private void DeleteJob(int JobID)
         {
