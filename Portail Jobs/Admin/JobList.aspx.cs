@@ -65,39 +65,39 @@ namespace Portail_Jobs.Admin
 
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            //GridViewRow row = GridView1.Rows[e.RowIndex];
-            //int jobID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
-            //DeleteJob(jobID);
-            try
-            {
-                GridViewRow row = GridView1.Rows[e.RowIndex];
-                int jobID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
-                conn = new SqlConnection(str);
-                cmd = new SqlCommand("Delete from Jobs where JobId = @id", conn);
-                cmd.Parameters.AddWithValue("@id", jobID);
-                conn.Open();
-                int r = cmd.ExecuteNonQuery();
-                if (r > 0)
-                {
-                    lblMsg.Text="Job deleted successfully !";
-                    lblMsg.CssClass="alert alert-success";
-                }
-                else
-                {
-                    lblMsg.Text="Couldn't delete this job, please try again later !";
-                    lblMsg.CssClass="alert alert-success";
-                }
-                GridView1.EditIndex = -1;
-                showJobs();
-            }
-            catch (Exception ex)
-            {
-                Response.Write("<script>alert('"+ex.Message+"');</script>");
-            }
-            finally
-            {
-                conn.Close();
-            }
+            GridViewRow row = GridView1.Rows[e.RowIndex];
+            int jobID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
+            DeleteJob(jobID);
+            //try
+            //{
+            //    GridViewRow row = GridView1.Rows[e.RowIndex];
+            //    int jobID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
+            //    conn = new SqlConnection(str);
+            //    cmd = new SqlCommand("Delete from Jobs where JobId = @id", conn);
+            //    cmd.Parameters.AddWithValue("@id", jobID);
+            //    conn.Open();
+            //    int r = cmd.ExecuteNonQuery();
+            //    if (r > 0)
+            //    {
+            //        lblMsg.Text="Job deleted successfully !";
+            //        lblMsg.CssClass="alert alert-success";
+            //    }
+            //    else
+            //    {
+            //        lblMsg.Text="Couldn't delete this job, please try again later !";
+            //        lblMsg.CssClass="alert alert-success";
+            //    }
+            //    GridView1.EditIndex = -1;
+            //    showJobs();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Response.Write("<script>alert('"+ex.Message+"');</script>");
+            //}
+            //finally
+            //{
+            //    conn.Close();
+            //}
         }
 
         //protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -132,24 +132,29 @@ namespace Portail_Jobs.Admin
             }
         }
 
-
         private void DeleteJob(int JobID)
         {
             try
             {
                 conn = new SqlConnection(str);
-                cmd = new SqlCommand("Delete from Jobs where JobId = @id", conn);
-                cmd.Parameters.AddWithValue("@id", JobID);
                 conn.Open();
-                int r = cmd.ExecuteNonQuery();
+                // Delete the applications related to the job
+                SqlCommand deleteAppliedJobsCmd = new SqlCommand("DELETE FROM AppliedJobs WHERE JobId = @jobId", conn);
+                deleteAppliedJobsCmd.Parameters.AddWithValue("@jobId", JobID);
+                deleteAppliedJobsCmd.ExecuteNonQuery();
+                // Delete the job
+                SqlCommand deleteJobCmd = new SqlCommand("DELETE FROM Jobs WHERE JobId = @jobId", conn);
+                deleteJobCmd.Parameters.AddWithValue("@jobId", JobID);
+                int r = deleteJobCmd.ExecuteNonQuery();
+
                 if (r > 0)
                 {
-                    lblMsg.Text = "Job deleted successfully !";
+                    lblMsg.Text = "Job deleted successfully!";
                     lblMsg.CssClass = "alert alert-success";
                 }
                 else
                 {
-                    lblMsg.Text = "Couldn't delete this job, please try again later !";
+                    lblMsg.Text = "Couldn't delete this job, please try again later!";
                     lblMsg.CssClass = "alert alert-success";
                 }
                 showJobs();
@@ -163,6 +168,39 @@ namespace Portail_Jobs.Admin
                 conn.Close();
             }
         }
+
+
+
+        //private void DeleteJob(int JobID)
+        //{
+        //    try
+        //    {
+        //        conn = new SqlConnection(str);
+        //        cmd = new SqlCommand("Delete from Jobs where JobId = @id", conn);
+        //        cmd.Parameters.AddWithValue("@id", JobID);
+        //        conn.Open();
+        //        int r = cmd.ExecuteNonQuery();
+        //        if (r > 0)
+        //        {
+        //            lblMsg.Text = "Job deleted successfully !";
+        //            lblMsg.CssClass = "alert alert-success";
+        //        }
+        //        else
+        //        {
+        //            lblMsg.Text = "Couldn't delete this job, please try again later !";
+        //            lblMsg.CssClass = "alert alert-success";
+        //        }
+        //        showJobs();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Response.Write("<script>alert('" + ex.Message + "');</script>");
+        //    }
+        //    finally
+        //    {
+        //        conn.Close();
+        //    }
+        //}
 
         //protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         //{
