@@ -33,7 +33,7 @@ namespace Portail_Jobs.Admin
         {
             string query = string.Empty;
             conn = new SqlConnection(str);
-            query = @"Select Row_Number() over(Order by (Select 1)) as [Sr.No],j.CompanyName,aj.jobId,j.Title,u.Mobile,u.Name,u.Email,u.Resume,jar.Response from AppliedJobs aj
+            query = @"Select Row_Number() over(Order by (Select 1)) as [Sr.No],aj.AppliedJobId,j.CompanyName,aj.jobId,j.Title,u.Mobile,u.Name,u.Email,u.Resume,jar.Response from AppliedJobs aj
                             inner join [User] u on aj.UserId = u.UserId
                             inner join Jobs j on aj.JobId = j.jobId
                             inner join JobApplicationResp jar on aj.JobId = jar.JobId and aj.UserId = jar.UserId";

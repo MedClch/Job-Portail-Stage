@@ -123,6 +123,20 @@ namespace Portail_Jobs.Admin
                 // Refresh the GridView
                 showApplications();
             }
+            else if (e.CommandName == "Accept")
+            {
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                int appliedJobID = Convert.ToInt32(GridView1.DataKeys[rowIndex].Values[0]);
+                // Refresh the GridView
+                showApplications();
+            }
+            else if(e.CommandName == "Decline")
+            {
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                int appliedJobID = Convert.ToInt32(GridView1.DataKeys[rowIndex].Values[0]);
+                // Refresh the GridView
+                showApplications();
+            }
             else
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
