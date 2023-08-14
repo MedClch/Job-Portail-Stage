@@ -125,7 +125,8 @@ namespace Portail_Jobs.Admin
                 DeleteAppliedJob_EditStatus(appliedJobID);
                 //showApplications();
             }
-            else if (e.CommandName == "Accept")
+            //else if (e.CommandName == "Accept")
+            else
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
                 int appliedJobId = Convert.ToInt32(GridView1.DataKeys[rowIndex].Values[0]);
