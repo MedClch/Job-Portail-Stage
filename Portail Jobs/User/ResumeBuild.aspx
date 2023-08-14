@@ -29,10 +29,34 @@
                                 </div>
                             </div>
 
+<%--                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="Enter username" required></asp:TextBox>
+                                </div>
+                            </div>--%>
+
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" placeholder="Enter username" required></asp:TextBox>
+                                    <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" placeholder="Enter username" disabled></asp:TextBox>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="Enter password " TextMode="Password" required></asp:TextBox>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label>Confirm password</label>
+                                    <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-control" placeholder="Confirm password" TextMode="Password" required></asp:TextBox>
+                                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Password and confirm password should match !"
+                                        ControlToCompare="txtPassword" ControlToValidate="txtConfirmPassword" ForeColor="Red" Display="Dynamic"
+                                        SetFocusOnError="true" Font-Size="Small"></asp:CompareValidator>
                                 </div>
                             </div>
 
@@ -138,7 +162,7 @@
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Resume</label>
-                                    <asp:FileUpload ID="fuResume" runat="server" CssClass="form-control pt-2" required ToolTip=".doc, .docx, .pdf extensions only !"/>
+                                    <asp:FileUpload ID="fuResume" runat="server" CssClass="form-control pt-2" required ToolTip=".doc, .docx, .pdf extensions only !" />
                                 </div>
                             </div>
 
