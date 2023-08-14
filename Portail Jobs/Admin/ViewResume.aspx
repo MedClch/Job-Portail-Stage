@@ -53,7 +53,7 @@
                                 <ItemTemplate>
                                     <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# DataBinder.Eval(Container,"DataItem.Resume","../{0}") %>'>
                                         <i class="fa fa-download"></i>Download</asp:HyperLink>
-                                    <%--                                    <asp:HiddenField ID="hdnJobId" runat="server" Value='<%# Eval("JobId") %>' Visible="false" />--%>
+                                    <%--<asp:HiddenField ID="hdnJobId" runat="server" Value='<%# Eval("JobId") %>' Visible="false" />--%>
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
@@ -65,19 +65,26 @@
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Reject application">
+                            <%--                            <asp:TemplateField HeaderText="Reject application">
                                 <ItemTemplate>
                                     <asp:ImageButton ID="btnDecline" runat="server" CommandName="Decline" CommandArgument='<%# Container.DataItemIndex %>' ImageUrl="../assets/img/icon/no1.png" Height="35px" Width="35px" />
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
+                            </asp:TemplateField>--%>
+
+                            <asp:TemplateField HeaderText="Reject application">
+                                <ItemTemplate>
+                                    <asp:ImageButton ID="btnDelete" runat="server" CommandName="Delete" CommandArgument='<%# Container.DataItemIndex %>' ImageUrl="../assets/img/icon/no1.png" Height="35px" Width="35px" />
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Delete">
+                            <%--                            <asp:TemplateField HeaderText="Delete">
                                 <ItemTemplate>
                                     <asp:ImageButton ID="btnDelete" runat="server" CommandName="Delete" CommandArgument='<%# Container.DataItemIndex %>' ImageUrl="../assets/img/icon/deleteTrash.png" Height="25px" Width="25px" />
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
-                            </asp:TemplateField>
+                            </asp:TemplateField>--%>
 
                             <%--                            <asp:CommandField CausesValidation="false" HeaderText="Delete" ShowDeleteButton="true" DeleteImageUrl="../assets/img/icon/delete.png" ButtonType="Image">
                                 <ControlStyle Height="25px" Width="25px" />

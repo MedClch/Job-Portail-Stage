@@ -56,15 +56,16 @@ namespace Portail_Jobs.User
 
         protected void DataList1_ItemCommand(object source, DataListCommandEventArgs e)
         {
-            if(e.CommandName=="ApplyJob")
-            {
+            if (Save(source, e))
+            { 
                 if (Session["user"]!=null)
                 {
                     try
                     {
                         conn = new SqlConnection(str);
-                        string query = @"Insert into AppliedJobs values (@JobId,@UserId)";
+                        string query = @"Insert into JobApplicationResp values (@AppliedJobId,@JobId,@UserId,'Pending')";
                         cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@AppliedJobId", GetLatestInsertedId("AppliedJobs"));
                         cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
                         cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
                         conn.Open();
@@ -92,12 +93,129 @@ namespace Portail_Jobs.User
                         conn.Close();
                     }
                 }
-                else
+                  else
                 {
                     Response.Redirect("Login.aspx");
                 }
             }
+            //if(e.CommandName=="ApplyJob")
+            //{
+            //    if (Session["user"]!=null)
+            //    {
+            //        try
+            //        {
+            //            conn = new SqlConnection(str);
+            //            string query = @"Insert into AppliedJobs values (@JobId,@UserId)";
+            //            cmd = new SqlCommand(query, conn);
+            //            cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
+            //            cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+            //            conn.Open();
+            //            int res = cmd.ExecuteNonQuery();
+            //            if (res > 0)
+            //            {
+            //                lblMsg.Visible = true;
+            //                lblMsg.Text = "Job application sent successfully !";
+            //                lblMsg.CssClass = "alert alert-success";
+            //                showJobDetails();
+            //            }
+            //            else
+            //            {
+            //                lblMsg.Visible = true;
+            //                lblMsg.Text = "Couldn't apply for this job, please try again !";
+            //                lblMsg.CssClass = "alert alert-danger";
+            //            }
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            Response.Write("<script>alert('" + ex.Message + "');</script>");
+            //        }
+            //        finally
+            //        {
+            //            conn.Close();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Response.Redirect("Login.aspx");
+            //    }
+            //}
         }
+
+        private bool Save(object source, DataListCommandEventArgs e)
+        {
+            if (e.CommandName=="ApplyJob")
+            {
+                if (Session["user"]!=null)
+                {
+                    try
+                    {
+                        conn = new SqlConnection(str);
+                        string query = @"Insert into AppliedJobs values (@JobId,@UserId)";
+                        cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
+                        cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+                        conn.Open();
+                        int res = cmd.ExecuteNonQuery();
+                        if (res > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                        return false;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        public int GetLatestInsertedId(string tableName)
+        {
+            int latestId = -1; // Initialize with a default value
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(str))
+                {
+                    connection.Open();
+                    string query = $"SELECT IDENT_CURRENT('{tableName}') AS LatestId";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                        {
+                            latestId = Convert.ToInt32(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception as needed
+                // For debugging, you can output the exception message
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return latestId;
+        }
+
+
 
         protected void DataList1_ItemDataBound(object sender, DataListItemEventArgs e)
         {
