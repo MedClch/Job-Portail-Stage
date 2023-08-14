@@ -88,6 +88,7 @@
   <ItemGroup>
     <Content Include="Admin\ContactList.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\JobApplicationsHistory.aspx" />
     <Content Include="Admin\JobList.aspx" />
     <Content Include="Admin\Job_Info.aspx" />
     <Content Include="Admin\NewJob.aspx" />
@@ -278,6 +279,13 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\JobApplicationsHistory.aspx.cs">
+      <DependentUpon>JobApplicationsHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\JobApplicationsHistory.aspx.designer.cs">
+      <DependentUpon>JobApplicationsHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\JobList.aspx.cs">
       <DependentUpon>JobList.aspx</DependentUpon>
