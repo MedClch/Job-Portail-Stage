@@ -97,7 +97,7 @@ namespace Portail_Jobs.Admin
         {
             foreach (GridViewRow row in GridView1.Rows)
             {
-                if(row.RowIndex == GridView1.SelectedIndex)
+                if (row.RowIndex == GridView1.SelectedIndex)
                 {
                     HiddenField jobId = (HiddenField)row.FindControl("hdnJobId");
                     Response.Redirect("JobList.aspx?id="+jobId.Value);
@@ -116,25 +116,15 @@ namespace Portail_Jobs.Admin
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
                 int appliedJobID = Convert.ToInt32(GridView1.DataKeys[rowIndex].Values[0]);
-
-                // Call your delete method here, passing the appliedJobID
                 DeleteAppliedJob(appliedJobID);
-
-                // Refresh the GridView
                 showApplications();
             }
-            else if (e.CommandName == "Accept")
+            else if (e.CommandName == "Accept" || e.CommandName == "Decline")
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
-                int appliedJobID = Convert.ToInt32(GridView1.DataKeys[rowIndex].Values[0]);
-                // Refresh the GridView
-                showApplications();
-            }
-            else if(e.CommandName == "Decline")
-            {
-                int rowIndex = Convert.ToInt32(e.CommandArgument);
-                int appliedJobID = Convert.ToInt32(GridView1.DataKeys[rowIndex].Values[0]);
-                // Refresh the GridView
+                int appliedJobId = Convert.ToInt32(GridView1.DataKeys[rowIndex].Values[0]);
+                string response = e.CommandName == "Accept" ? "Accepted" : "Rejected";
+                InsertIntoApplicationsHistory(appliedJobId, response);
                 showApplications();
             }
             else
@@ -173,6 +163,82 @@ namespace Portail_Jobs.Admin
             finally
             {
                 conn.Close();
+            }
+        }
+
+        private void InsertIntoApplicationsHistory(int appliedJobId, string response)
+        {
+            try
+            {
+                conn = new SqlConnection(str);
+                cmd = new SqlCommand("INSERT INTO JobApplicationResp VALUES (@AppliedJobId,@Response)", conn);
+                cmd.Parameters.AddWithValue("@AppliedJobId", appliedJobId);
+                cmd.Parameters.AddWithValue("@Response", response);
+                conn.Open();
+                int r = cmd.ExecuteNonQuery();
+                if (r > 0)
+                {
+                    lblMsg.Text = "Job application status updated successfully !";
+                    lblMsg.CssClass = "alert alert-success";
+                }
+                else
+                {
+                    lblMsg.Text = "Couldn't update this job application status, please try again later !";
+                    lblMsg.CssClass = "alert alert-success";
+                }
+                showApplications();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        private void ApplicationResponse(bool response)
+        {
+            string status = string.Empty;
+            if (response)
+            {
+                status = "Accepted";
+                try
+                {
+                    conn = new SqlConnection(str);
+                    string query = @"Insert into JobApplicationResp values (@JobId,@UserId)";
+                    cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
+                    cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+                    cmd.Parameters.AddWithValue("@Response", status);
+                    conn.Open();
+                    int res = cmd.ExecuteNonQuery();
+                    if (res > 0)
+                    {
+                        lblMsg.Visible = true;
+                        lblMsg.Text = "Job application accepted !";
+                        lblMsg.CssClass = "alert alert-success";
+                    }
+                    else
+                    {
+                        lblMsg.Visible = true;
+                        lblMsg.Text = "Error, please try again !";
+                        lblMsg.CssClass = "alert alert-danger";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("<script>alert('" + ex.Message + "');</script>");
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            else
+            {
+                status = "Declined";
             }
         }
     }
