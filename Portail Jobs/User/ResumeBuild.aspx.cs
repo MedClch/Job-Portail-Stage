@@ -11,7 +11,6 @@ namespace Portail_Jobs.User
 {
     public partial class ResumeBuild : System.Web.UI.Page
     {
-
         SqlConnection conn;
         SqlCommand cmd;
         SqlDataReader reader;
@@ -31,7 +30,6 @@ namespace Portail_Jobs.User
                 else
                     Response.Redirect("Login.aspx");
             }
-
         }
 
         private void showUserInfo()
@@ -106,67 +104,69 @@ namespace Portail_Jobs.User
                     else
                     {
                         concatQuery = string.Empty;
-                    }    
-                    //query = @"Update [User] set Username=@Username,Name=@Name,Email=@Email,Mobile=@Mobile,TenthGrade=@TenthGrade,TwelfthGrade=@TwelfthGrade,GraduationGrade=@GraduationGrade,
-                    //         PostGraduationGrade=@PostGraduationGrade,Phd=@Phd,WorksOn=@WorksOn,Experience=@Experience,"+concatQuery+",Address=@Address,Country=@Country";
-                    //cmd = new SqlCommand(query, conn);
+                    }
+
                     //cmd.Parameters.AddWithValue("@Username", txtUserName.Text.Trim());
-                    if (txtPassword.Text!=null && txtConfirmPassword.Text!=null)
-                    {
-                        query = @"Update [User] set Password=@Password,Name=@Name,Email=@Email,Mobile=@Mobile,TenthGrade=@TenthGrade,TwelfthGrade=@TwelfthGrade,GraduationGrade=@GraduationGrade,
+                    //if (txtPassword.Text.Trim()!=null && txtConfirmPassword.Text.Trim()!=null)
+                    //{
+                    //    query = @"Update [User] set Password=@Password,Name=@Name,Email=@Email,Mobile=@Mobile,TenthGrade=@TenthGrade,TwelfthGrade=@TwelfthGrade,GraduationGrade=@GraduationGrade,
+                    //         PostGraduationGrade=@PostGraduationGrade,Phd=@Phd,WorksOn=@WorksOn,Experience=@Experience,"+concatQuery+",Address=@Address,Country=@Country";
+                    //    cmd = new SqlCommand(query, conn); 
+                    //    cmd.Parameters.AddWithValue("@Password", HashPassword(txtConfirmPassword.Text.Trim()));
+                    //    cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@TenthGrade", txtTenth.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@TwelfthGrade", txtTwelfth.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@GraduationGrade", txtGraduation.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@PostGraduationGrade", txtPostGraduation.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@Phd", txtPhd.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@WorksOn", txtWork.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@Experience", txtExperience.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
+                    //    cmd.Parameters.AddWithValue("@UserId", Request.QueryString["id"]);
+                    //}
+                    //else if(txtPassword.Text.Trim()==null && txtConfirmPassword.Text.Trim()==null)
+                    //{
+                    //    query = @"Update [User] set Name=@Name,Email=@Email,Mobile=@Mobile,TenthGrade=@TenthGrade,TwelfthGrade=@TwelfthGrade,GraduationGrade=@GraduationGrade,
+                    //         PostGraduationGrade=@PostGraduationGrade,Phd=@Phd,WorksOn=@WorksOn,Experience=@Experience,"+concatQuery+",Address=@Address,Country=@Country";
+                    //    cmd = new SqlCommand(query, conn);
+                    //    cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@TenthGrade", txtTenth.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@TwelfthGrade", txtTwelfth.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@GraduationGrade", txtGraduation.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@PostGraduationGrade", txtPostGraduation.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@Phd", txtPhd.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@WorksOn", txtWork.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@Experience", txtExperience.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
+                    //    cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
+                    //    cmd.Parameters.AddWithValue("@UserId", Request.QueryString["id"]);
+                    //}
+
+                    query = @"Update [User] set Name=@Name,Email=@Email,Mobile=@Mobile,TenthGrade=@TenthGrade,TwelfthGrade=@TwelfthGrade,GraduationGrade=@GraduationGrade,
                              PostGraduationGrade=@PostGraduationGrade,Phd=@Phd,WorksOn=@WorksOn,Experience=@Experience,"+concatQuery+",Address=@Address,Country=@Country";
-                        cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@Password", txtPassword.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
-                        cmd.Parameters.AddWithValue("@TenthGrade", txtTenth.Text.Trim());
-                        cmd.Parameters.AddWithValue("@TwelfthGrade", txtTwelfth.Text.Trim());
-                        cmd.Parameters.AddWithValue("@GraduationGrade", txtGraduation.Text.Trim());
-                        cmd.Parameters.AddWithValue("@PostGraduationGrade", txtPostGraduation.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Phd", txtPhd.Text.Trim());
-                        cmd.Parameters.AddWithValue("@WorksOn", txtWork.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Experience", txtExperience.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
-                        cmd.Parameters.AddWithValue("@UserId", Request.QueryString["id"]);
-                    }
-                    else
-                    {
-                        query = @"Update [User] set Name=@Name,Email=@Email,Mobile=@Mobile,TenthGrade=@TenthGrade,TwelfthGrade=@TwelfthGrade,GraduationGrade=@GraduationGrade,
-                             PostGraduationGrade=@PostGraduationGrade,Phd=@Phd,WorksOn=@WorksOn,Experience=@Experience,"+concatQuery+",Address=@Address,Country=@Country";
-                        cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
-                        cmd.Parameters.AddWithValue("@TenthGrade", txtTenth.Text.Trim());
-                        cmd.Parameters.AddWithValue("@TwelfthGrade", txtTwelfth.Text.Trim());
-                        cmd.Parameters.AddWithValue("@GraduationGrade", txtGraduation.Text.Trim());
-                        cmd.Parameters.AddWithValue("@PostGraduationGrade", txtPostGraduation.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Phd", txtPhd.Text.Trim());
-                        cmd.Parameters.AddWithValue("@WorksOn", txtWork.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Experience", txtExperience.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
-                        cmd.Parameters.AddWithValue("@UserId", Request.QueryString["id"]);
-                    }
+
                     //query = @"Update [User] set Username=@Username,Name=@Name,Email=@Email,Mobile=@Mobile,TenthGrade=@TenthGrade,TwelfthGrade=@TwelfthGrade,GraduationGrade=@GraduationGrade,
                     //         PostGraduationGrade=@PostGraduationGrade,Phd=@Phd,WorksOn=@WorksOn,Experience=@Experience,"+concatQuery+",Address=@Address,Country=@Country";
-                    //cmd = new SqlCommand(query, conn);
-                    //cmd.Parameters.AddWithValue("@Username",txtUserName.Text.Trim());
-                    //cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
-                    //cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
-                    //cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
-                    //cmd.Parameters.AddWithValue("@TenthGrade", txtTenth.Text.Trim());
-                    //cmd.Parameters.AddWithValue("@TwelfthGrade", txtTwelfth.Text.Trim());
-                    //cmd.Parameters.AddWithValue("@GraduationGrade", txtGraduation.Text.Trim());
-                    //cmd.Parameters.AddWithValue("@PostGraduationGrade", txtPostGraduation.Text.Trim());
-                    //cmd.Parameters.AddWithValue("@Phd", txtPhd.Text.Trim());
-                    //cmd.Parameters.AddWithValue("@WorksOn", txtWork.Text.Trim());
-                    //cmd.Parameters.AddWithValue("@Experience", txtExperience.Text.Trim());
-                    //cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
-                    //cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
-                    //cmd.Parameters.AddWithValue("@UserId", Request.QueryString["id"]);
+                    cmd = new SqlCommand(query, conn);
+                    //cmd.Parameters.AddWithValue("@Username", txtUserName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
+                    cmd.Parameters.AddWithValue("@TenthGrade", txtTenth.Text.Trim());
+                    cmd.Parameters.AddWithValue("@TwelfthGrade", txtTwelfth.Text.Trim());
+                    cmd.Parameters.AddWithValue("@GraduationGrade", txtGraduation.Text.Trim());
+                    cmd.Parameters.AddWithValue("@PostGraduationGrade", txtPostGraduation.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Phd", txtPhd.Text.Trim());
+                    cmd.Parameters.AddWithValue("@WorksOn", txtWork.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Experience", txtExperience.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Address", txtAdress.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
+                    cmd.Parameters.AddWithValue("@UserId", Request.QueryString["id"]);
                     if (fuResume.HasFile)
                     {
                         if (Utils.isValidExtensionResume(fuResume.FileName))
@@ -235,6 +235,42 @@ namespace Portail_Jobs.User
             {
                 conn.Close();
             }
+        }
+
+        private string getPassword(int userID)
+        {
+            string password = null;
+            try
+            {
+                using (conn = new SqlConnection(str))
+                {
+                    conn.Open();
+                    string query = "SELECT Password FROM [User] WHERE UserId = @UserId";
+                    cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@UserId", userID);
+
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            password = reader["Password"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
+
+            return password;
+        }
+
+        // Function to hash the password using bcrypt
+        public static string HashPassword(string password)
+        {
+            // Generate a random salt and hash the password
+            return BCrypt.Net.BCrypt.HashPassword(password, BCrypt.Net.BCrypt.GenerateSalt());
         }
     }
 }

@@ -43,22 +43,22 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6 col-sm-12">
+<%--                            <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="Enter password " TextMode="Password" required></asp:TextBox>
+                                    <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="Enter password " TextMode="Password" ></asp:TextBox>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Confirm password</label>
-                                    <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-control" placeholder="Confirm password" TextMode="Password" required></asp:TextBox>
+                                    <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-control" placeholder="Confirm password" TextMode="Password" ></asp:TextBox>
                                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Password and confirm password should match !"
                                         ControlToCompare="txtPassword" ControlToValidate="txtConfirmPassword" ForeColor="Red" Display="Dynamic"
                                         SetFocusOnError="true" Font-Size="Small"></asp:CompareValidator>
                                 </div>
-                            </div>
+                            </div>--%>
 
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">

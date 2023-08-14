@@ -90,6 +90,7 @@ namespace Portail_Jobs.User
                             Session["user"] = reader["Username"].ToString();
                             Session["userId"] = reader["UserId"].ToString();
                             Session["userEmail"] = reader["Email"].ToString();
+                            //Session["userPassword"] = reader["Password"].ToString();
                             clear();
                             lblMsg.Visible = false;
                             Response.Redirect("Default.aspx", false);
