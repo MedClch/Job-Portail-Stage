@@ -16,52 +16,58 @@
                 <div class="col-md-12">
                     <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-bordered" EmptyDataText="No informations to display !" AutoGenerateColumns="False"
                         AllowPaging="True" PageSize="5" OnPageIndexChanging="GridView1_PageIndexChanging" DataKeyNames="AppliedJobId" OnRowDeleting="GridView1_RowDeleting"
-                        OnRowDataBound="GridView1_RowDataBound" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+                        OnRowDataBound="GridView1_RowDataBound">
                         <Columns>
 
                             <asp:BoundField DataField="Sr.No" HeaderText="Sr.No">
-                                <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
                             </asp:BoundField>
 
-                            <asp:BoundField DataField="CompanyName" HeaderText="Company name">
+                            <asp:TemplateField HeaderText="Company name">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="lnkCompanyName" ForeColor="Black" runat="server" Text='<%# Eval("CompanyName") %>' NavigateUrl='<%# "JobList.aspx?id=" + Eval("JobId") %>'></asp:HyperLink>
+                                </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
-                            </asp:BoundField>
+                            </asp:TemplateField>
 
-                            <asp:BoundField DataField="Title" HeaderText="Job title">
+                            <asp:TemplateField HeaderText="Job title">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="lnkJobTitle" ForeColor="Black" runat="server" Text='<%# Eval("Title") %>' NavigateUrl='<%# "JobList.aspx?id=" + Eval("JobId") %>'></asp:HyperLink>
+                                </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
-                            </asp:BoundField>
+                            </asp:TemplateField>
 
                             <asp:BoundField DataField="Name" HeaderText="User name">
-                                <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Email" HeaderText="User email">
-                                <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Mobile" HeaderText="Phone number">
-                                <ItemStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
                             </asp:BoundField>
 
                             <asp:TemplateField HeaderText="Resume">
                                 <ItemTemplate>
                                     <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# DataBinder.Eval(Container,"DataItem.Resume","../{0}") %>'>
                                         <i class="fa fa-download"></i>Download</asp:HyperLink>
-                                    <asp:HiddenField ID="hdnJobId" runat="server" Value='<%# Eval("JobId") %>' Visible="false" />
+                                    <%--                                    <asp:HiddenField ID="hdnJobId" runat="server" Value='<%# Eval("JobId") %>' Visible="false" />--%>
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Accept application">
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnAccept" runat="server" CommandName="Accept" CommandArgument='<%# Container.DataItemIndex %>' ImageUrl="../assets/img/icon/yes1.png" Height="35px" Width="35px"/>
+                                    <asp:ImageButton ID="btnAccept" runat="server" CommandName="Accept" CommandArgument='<%# Container.DataItemIndex %>' ImageUrl="../assets/img/icon/yes1.png" Height="35px" Width="35px" />
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Reject application">
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnDecline" runat="server" CommandName="Decline" CommandArgument='<%# Container.DataItemIndex %>' ImageUrl="../assets/img/icon/no1.png" Height="35px" Width="35px"/>
+                                    <asp:ImageButton ID="btnDecline" runat="server" CommandName="Decline" CommandArgument='<%# Container.DataItemIndex %>' ImageUrl="../assets/img/icon/no1.png" Height="35px" Width="35px" />
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>

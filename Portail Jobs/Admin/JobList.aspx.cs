@@ -67,7 +67,7 @@ namespace Portail_Jobs.Admin
         {
             GridViewRow row = GridView1.Rows[e.RowIndex];
             int jobID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
-            DeleteJob_JobApplications(jobID);
+            DeleteJob(jobID);
             //try
             //{
             //    GridViewRow row = GridView1.Rows[e.RowIndex];

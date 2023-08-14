@@ -54,7 +54,7 @@ namespace Portail_Jobs.Admin
         {
             GridViewRow row = GridView1.Rows[e.RowIndex];
             int appliedjobID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
-            DeleteAppliedJob(appliedjobID);
+            DeleteAppliedJob1(appliedjobID);
             //try
             //{
             //    GridViewRow row = GridView1.Rows[e.RowIndex];
@@ -89,26 +89,32 @@ namespace Portail_Jobs.Admin
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$"+e.Row.RowIndex);
-            e.Row.ToolTip = "Click to view job details";
-        }
-
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            foreach (GridViewRow row in GridView1.Rows)
+            //e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$"+e.Row.RowIndex);
+            //e.Row.ToolTip = "Click to view job details";
+            if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                if (row.RowIndex == GridView1.SelectedIndex)
-                {
-                    HiddenField jobId = (HiddenField)row.FindControl("hdnJobId");
-                    Response.Redirect("JobList.aspx?id="+jobId.Value);
-                }
-                else
-                {
-                    row.BackColor = ColorTranslator.FromHtml("#FFFFFF");
-                    row.ToolTip = "Click to select this row";
-                }
+                e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$" + e.Row.RowIndex);
+                e.Row.Cells[1].ToolTip = "Click to view job details";
+                e.Row.Cells[2].ToolTip = "Click to view job details";
             }
         }
+
+        //protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    foreach (GridViewRow row in GridView1.Rows)
+        //    {
+        //        if (row.RowIndex == GridView1.SelectedIndex)
+        //        {
+        //            HiddenField jobId = (HiddenField)row.FindControl("hdnJobId");
+        //            Response.Redirect("JobList.aspx?id="+jobId.Value);
+        //        }
+        //        else
+        //        {
+        //            row.BackColor = ColorTranslator.FromHtml("#FFFFFF");
+        //            row.ToolTip = "Click to select this row";
+        //        }
+        //    }
+        //}
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -119,20 +125,28 @@ namespace Portail_Jobs.Admin
                 DeleteAppliedJob(appliedJobID);
                 showApplications();
             }
-            else if (e.CommandName == "Accept" || e.CommandName == "Decline")
+            if (e.CommandName == "Accept")
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
                 int appliedJobId = Convert.ToInt32(GridView1.DataKeys[rowIndex].Values[0]);
-                string response = e.CommandName == "Accept" ? "Accepted" : "Rejected";
+                string response = "Accepted";
                 InsertIntoApplicationsHistory(appliedJobId, response);
                 showApplications();
             }
-            else
+            if (e.CommandName == "Decline")
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
-                HiddenField jobId = (HiddenField)GridView1.Rows[rowIndex].FindControl("hdnJobId");
-                Response.Redirect("JobList.aspx?id=" + jobId.Value);
+                int appliedJobId = Convert.ToInt32(GridView1.DataKeys[rowIndex].Values[0]);
+                string response = "Rejected";
+                InsertIntoApplicationsHistory(appliedJobId, response);
+                showApplications();
             }
+            //else
+            //{
+            //    int rowIndex = Convert.ToInt32(e.CommandArgument);
+            //    HiddenField jobId = (HiddenField)GridView1.Rows[rowIndex].FindControl("hdnJobId");
+            //    Response.Redirect("JobList.aspx?id=" + jobId.Value);
+            //}
         }
 
         private void DeleteAppliedJob(int appliedJobID)
@@ -166,6 +180,93 @@ namespace Portail_Jobs.Admin
             }
         }
 
+        private void DeleteAppliedJob1(int appliedJobID)
+        {
+            try
+            {
+                conn = new SqlConnection(str);
+                cmd = new SqlCommand("INSERT INTO JobApplicationResp (AppliedJobId, Response) VALUES (@appliedJobID, 'Rejected')", conn);
+                cmd.Parameters.AddWithValue("@appliedJobID", appliedJobID);
+                conn.Open();
+                int result = cmd.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    cmd = new SqlCommand("DELETE FROM AppliedJobs WHERE AppliedJobId = @id", conn);
+                    cmd.Parameters.AddWithValue("@id", appliedJobID);
+                    int r = cmd.ExecuteNonQuery();
+                    if (r > 0)
+                    {
+                        lblMsg.Text = "Job application deleted successfully !";
+                        lblMsg.CssClass = "alert alert-success";
+                    }
+                    else
+                    {
+                        lblMsg.Text = "Couldn't delete this job application, please try again later !";
+                        lblMsg.CssClass = "alert alert-danger";
+                    }
+                }
+                else
+                {
+                    lblMsg.Text = "Couldn't delete this job application, please try again later !";
+                    lblMsg.CssClass = "alert alert-danger";
+                }
+                showApplications();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        private void DeleteAppliedJob2(int appliedJobID)
+        {
+            try
+            {
+                conn = new SqlConnection(str);
+                conn.Open();
+                    cmd = new SqlCommand("INSERT INTO JobApplicationResp (AppliedJobId, JobId, UserId, Response) VALUES (@appliedJobID, @jobId, @userId, 'Rejected')", conn);
+                    cmd.Parameters.AddWithValue("@appliedJobID", appliedJobID);
+                    cmd.Parameters.AddWithValue("@jobId", GetUserIdAndJobId(appliedJobID).Item2);
+                    cmd.Parameters.AddWithValue("@userId", GetUserIdAndJobId(appliedJobID).Item1);
+                    int result = cmd.ExecuteNonQuery();
+                    if (result > 0)
+                    {
+                        cmd = new SqlCommand("DELETE FROM AppliedJobs WHERE AppliedJobId = @id", conn);
+                        cmd.Parameters.AddWithValue("@id", appliedJobID);
+                        int r = cmd.ExecuteNonQuery();
+                        if (r > 0)
+                        {
+                            lblMsg.Text = "Job application deleted successfully !";
+                            lblMsg.CssClass = "alert alert-success";
+                        }
+                        else
+                        {
+                            lblMsg.Text = "Couldn't delete this job application, please try again later !";
+                            lblMsg.CssClass = "alert alert-danger";
+                        }
+                    }
+                    else
+                    {
+                        lblMsg.Text = "Couldn't delete this job application, please try again later !";
+                        lblMsg.CssClass = "alert alert-danger";
+                    }
+                    showApplications();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+
         private void InsertIntoApplicationsHistory(int appliedJobId, string response)
         {
             try
@@ -198,48 +299,76 @@ namespace Portail_Jobs.Admin
             }
         }
 
-        private void ApplicationResponse(bool response)
+        private Tuple<int, int> GetUserIdAndJobId(int appliedJobId)
         {
-            string status = string.Empty;
-            if (response)
+            int userId = -1; // Default value indicating not found
+            int jobId = -1;  // Default value indicating not found
+
+            string query = @"Select u.UserId, j.JobId from AppliedJobs aj
+                    inner join [User] u on aj.UserId = u.UserId
+                    inner join Jobs j on aj.JobId = j.jobId
+                    where aj.AppliedJobId = @appliedJobId";
+            using (SqlConnection conn = new SqlConnection(str))
             {
-                status = "Accepted";
-                try
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    conn = new SqlConnection(str);
-                    string query = @"Insert into JobApplicationResp values (@JobId,@UserId)";
-                    cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
-                    cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
-                    cmd.Parameters.AddWithValue("@Response", status);
-                    conn.Open();
-                    int res = cmd.ExecuteNonQuery();
-                    if (res > 0)
+                    cmd.Parameters.AddWithValue("@appliedJobId", appliedJobId);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        lblMsg.Visible = true;
-                        lblMsg.Text = "Job application accepted !";
-                        lblMsg.CssClass = "alert alert-success";
-                    }
-                    else
-                    {
-                        lblMsg.Visible = true;
-                        lblMsg.Text = "Error, please try again !";
-                        lblMsg.CssClass = "alert alert-danger";
+                        if (reader.Read())
+                        {
+                            userId = Convert.ToInt32(reader["UserId"]);
+                            jobId = Convert.ToInt32(reader["JobId"]);
+                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    Response.Write("<script>alert('" + ex.Message + "');</script>");
-                }
-                finally
-                {
-                    conn.Close();
-                }
             }
-            else
-            {
-                status = "Declined";
-            }
+            return new Tuple<int, int>(userId, jobId);
         }
+
+        //private void ApplicationResponse(bool response)
+        //{
+        //    string status = string.Empty;
+        //    if (response)
+        //    {
+        //        status = "Accepted";
+        //        try
+        //        {
+        //            conn = new SqlConnection(str);
+        //            string query = @"Insert into JobApplicationResp values (@JobId,@UserId)";
+        //            cmd = new SqlCommand(query, conn);
+        //            cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
+        //            cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+        //            cmd.Parameters.AddWithValue("@Response", status);
+        //            conn.Open();
+        //            int res = cmd.ExecuteNonQuery();
+        //            if (res > 0)
+        //            {
+        //                lblMsg.Visible = true;
+        //                lblMsg.Text = "Job application accepted !";
+        //                lblMsg.CssClass = "alert alert-success";
+        //            }
+        //            else
+        //            {
+        //                lblMsg.Visible = true;
+        //                lblMsg.Text = "Error, please try again !";
+        //                lblMsg.CssClass = "alert alert-danger";
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Response.Write("<script>alert('" + ex.Message + "');</script>");
+        //        }
+        //        finally
+        //        {
+        //            conn.Close();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        status = "Declined";
+        //    }
+        //}
     }
 }
