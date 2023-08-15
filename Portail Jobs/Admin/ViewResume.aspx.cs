@@ -287,6 +287,7 @@ namespace Portail_Jobs.Admin
                 if (result > 0)
                 {
                     lblMsg.Text = "Job application accepted!";
+                    lblMsg.Visible=true;
                     lblMsg.CssClass = "alert alert-success";
                 }
                 else
