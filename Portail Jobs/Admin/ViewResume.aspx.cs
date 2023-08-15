@@ -280,19 +280,20 @@ namespace Portail_Jobs.Admin
             try
             {
                 conn = new SqlConnection(str);
-                cmd = new SqlCommand("Update JobApplicationResp set Response='Accepted' where AppliedJobId=@id", conn);
-                cmd.Parameters.AddWithValue("@id", appliedJobID);
                 conn.Open();
-                int r = cmd.ExecuteNonQuery();
-                if (r > 0)
+                cmd = new SqlCommand("Update JobApplicationResp set Response='Accepted' where AppliedJobId=@appliedJobID", conn);
+                cmd.Parameters.AddWithValue("@appliedJobID", appliedJobID);
+                int result = cmd.ExecuteNonQuery();
+                if (result > 0)
                 {
-                    lblMsg.Text = "Job application accepted !";
+                    lblMsg.Text = "Job application accepted!";
                     lblMsg.CssClass = "alert alert-success";
                 }
                 else
                 {
-                    lblMsg.Text = "Couldn't update this job application status, please try again later !";
-                    lblMsg.CssClass = "alert alert-success";
+                    lblMsg.Text = "Couldn't update this job application status, please try again later!";
+                    lblMsg.Visible=true;
+                    lblMsg.CssClass = "alert alert-danger";
                 }
                 showApplications();
             }
@@ -304,34 +305,6 @@ namespace Portail_Jobs.Admin
             {
                 conn.Close();
             }
-            //try
-            //{
-            //    conn = new SqlConnection(str);
-            //    conn.Open();
-            //    cmd = new SqlCommand("Update JobApplicationResp set Response='Accepted' where AppliedJobId=@appliedJobID", conn);
-            //    cmd.Parameters.AddWithValue("@appliedJobID", appliedJobID);
-            //    int result = cmd.ExecuteNonQuery();
-            //    if (result > 0)
-            //    {
-            //        lblMsg.Text = "Job application accepted!";
-            //        lblMsg.CssClass = "alert alert-success";
-            //    }
-            //    else
-            //    {
-            //        lblMsg.Text = "Couldn't update this job application status, please try again later!";
-            //        lblMsg.Visible=true;
-            //        lblMsg.CssClass = "alert alert-danger";
-            //    }
-            //    showApplications();
-            //}
-            //catch (Exception ex)
-            //{
-            //    Response.Write("<script>alert('" + ex.Message + "');</script>");
-            //}
-            //finally
-            //{
-            //    conn.Close();
-            //}
         }
 
     }
