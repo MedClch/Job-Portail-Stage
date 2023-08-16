@@ -86,6 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\Application_Info.aspx" />
     <Content Include="Admin\ContactList.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Admin\JobApplicationsHistory.aspx" />
@@ -270,6 +271,13 @@
     </Compile>
     <Compile Include="Admin\AdminMaster.Master.designer.cs">
       <DependentUpon>AdminMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Application_Info.aspx.cs">
+      <DependentUpon>Application_Info.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Application_Info.aspx.designer.cs">
+      <DependentUpon>Application_Info.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ContactList.aspx.cs">
       <DependentUpon>ContactList.aspx</DependentUpon>

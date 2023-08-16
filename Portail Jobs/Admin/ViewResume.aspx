@@ -19,9 +19,17 @@
                         OnRowDataBound="GridView1_RowDataBound">
                         <Columns>
 
-                            <asp:BoundField DataField="Sr.No" HeaderText="Sr.No">
+                            <%--                            <asp:BoundField DataField="Sr.No" HeaderText="Sr.No">
                                 <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
-                            </asp:BoundField>
+                            </asp:BoundField>--%>
+
+                            <asp:BoundField DataField="AppliedJobId" HeaderText="Sr.No" Visible="false" />
+                            <asp:TemplateField HeaderText="Sr.No">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="lnkAppliedJobId" ForeColor="Black" runat="server" NavigateUrl='<%# "Application_Info.aspx?id=" + Eval("AppliedJobId") %>' Text='<%# Eval("AppliedJobId") %>'></asp:HyperLink>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                            </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Company name">
                                 <ItemTemplate>
