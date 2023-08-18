@@ -340,6 +340,5 @@ namespace Portail_Jobs.Admin
                 conn.Close();
             }
         }
-
     }
 }
