@@ -75,6 +75,7 @@ namespace Portail_Jobs.User
                             lblMsg.Visible = true;
                             lblMsg.Text = "Job application sent successfully !";
                             lblMsg.CssClass = "alert alert-success";
+                            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                             showJobDetails();
                         }
                         else
@@ -82,6 +83,7 @@ namespace Portail_Jobs.User
                             lblMsg.Visible = true;
                             lblMsg.Text = "Couldn't apply for this job, please try again !";
                             lblMsg.CssClass = "alert alert-danger";
+                            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                         }
                     }
                     catch (Exception ex)

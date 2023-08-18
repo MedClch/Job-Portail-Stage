@@ -245,6 +245,7 @@ namespace Portail_Jobs.User
             lblMsg.Visible = true;
             lblMsg.Text = "<b>"+userT+"</b> credentials are incorrect, please try again ";
             lblMsg.CssClass="alert alert-danger";
+            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
         }
 
         private void clear()

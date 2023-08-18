@@ -152,11 +152,13 @@ namespace Portail_Jobs.Admin
                 {
                     lblMsg.Text = "Job deleted successfully!";
                     lblMsg.CssClass = "alert alert-success";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 else
                 {
                     lblMsg.Text = "Couldn't delete this job, please try again later!";
                     lblMsg.CssClass = "alert alert-success";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 showJobs();
             }
@@ -184,11 +186,13 @@ namespace Portail_Jobs.Admin
                 {
                     lblMsg.Text = "Job deleted successfully !";
                     lblMsg.CssClass = "alert alert-success";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 else
                 {
                     lblMsg.Text = "Couldn't delete this job, please try again later !";
                     lblMsg.CssClass = "alert alert-success";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 showJobs();
             }

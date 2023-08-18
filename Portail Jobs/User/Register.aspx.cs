@@ -48,6 +48,7 @@ namespace Portail_Jobs.User
                     lblMsg.Visible = true;
                     lblMsg.Text = "Successfully registered!";
                     lblMsg.CssClass = "alert alert-success";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                     clear();
                 }
                 else
@@ -55,6 +56,7 @@ namespace Portail_Jobs.User
                     lblMsg.Visible = true;
                     lblMsg.Text = "Couldn't save your information, please try again!";
                     lblMsg.CssClass = "alert alert-danger";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
             }
             catch (SqlException ex)
@@ -65,6 +67,7 @@ namespace Portail_Jobs.User
                     lblMsg.Visible = true;
                     lblMsg.Text = "<b>" + txtUserName.Text.Trim() + "<b> already exists, please try again!";
                     lblMsg.CssClass = "alert alert-danger";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                     clear();
                 }
                 else

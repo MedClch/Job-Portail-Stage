@@ -62,11 +62,13 @@ namespace Portail_Jobs.Admin
                 {
                     lblMsg.Text="Contact deleted successfully !";
                     lblMsg.CssClass="alert alert-success";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 else
                 {
                     lblMsg.Text="Couldn't delete this contact, please try again later !";
                     lblMsg.CssClass="alert alert-success";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 conn.Close();
                 GridView1.EditIndex = -1;

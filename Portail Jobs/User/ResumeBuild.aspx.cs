@@ -66,6 +66,7 @@ namespace Portail_Jobs.User
                     lblMsg.Visible = true;
                     lblMsg.Text = "User not found !";
                     lblMsg.CssClass = "alert alert-danger";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
             }
             catch (Exception ex)
@@ -183,6 +184,7 @@ namespace Portail_Jobs.User
                             lblMsg.Visible = true;
                             lblMsg.Text = "Please select .doc, .docx, .pdf files for resume !";
                             lblMsg.CssClass = "alert alert-danger";
+                            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                         }
                     }
                     else
@@ -198,12 +200,14 @@ namespace Portail_Jobs.User
                             lblMsg.Visible = true;
                             lblMsg.Text = "Resume uploaded successfully !";
                             lblMsg.CssClass = "alert alert-success";
+                            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                         }
                         else
                         {
                             lblMsg.Visible = true;
                             lblMsg.Text = "Couldn't update informations, please try again !";
                             lblMsg.CssClass = "alert alert-danger";
+                            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                         }
                     }
                 }
@@ -212,6 +216,7 @@ namespace Portail_Jobs.User
                     lblMsg.Visible = true;
                     lblMsg.Text = "Couldn't update informations, please try <b>reconnecting to your account</b> !";
                     lblMsg.CssClass = "alert alert-danger";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
             }
             catch (SqlException ex)
@@ -221,6 +226,7 @@ namespace Portail_Jobs.User
                     lblMsg.Visible = true;
                     lblMsg.Text = "<b>" + txtUserName.Text.Trim() + "<b> already exists, please try again!";
                     lblMsg.CssClass = "alert alert-danger";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 else
                 {

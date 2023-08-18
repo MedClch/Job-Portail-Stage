@@ -75,11 +75,13 @@ namespace Portail_Jobs.Admin
                 {
                     lblMsg.Text = "Job application accepted successfully !";
                     lblMsg.CssClass = "alert alert-success";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 else
                 {
                     lblMsg.Text = "Couldn't update this job application status, please try again later !";
                     lblMsg.CssClass = "alert alert-danger";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
             }
             catch (Exception ex)
