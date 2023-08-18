@@ -307,5 +307,39 @@ namespace Portail_Jobs.Admin
             }
         }
 
+        protected void btnAccept_Click(object sender, ImageClickEventArgs e)
+        {
+            ImageButton btnAccept = (ImageButton)sender;
+            int appliedJobID = Convert.ToInt32(btnAccept.CommandArgument);
+
+            try
+            {
+                conn = new SqlConnection(str);
+                conn.Open();
+                cmd = new SqlCommand("Update JobApplicationResp set Response='Accepted' where AppliedJobId=@Id", conn);
+                cmd.Parameters.AddWithValue("@Id", appliedJobID);
+                int result = cmd.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    lblMsg.Text = "Job application accepted successfully !";
+                    lblMsg.CssClass = "alert alert-success";
+                    showApplications(); // Refresh the GridView
+                }
+                else
+                {
+                    lblMsg.Text = "Couldn't update this job application status, please try again later !";
+                    lblMsg.CssClass = "alert alert-danger";
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
     }
 }

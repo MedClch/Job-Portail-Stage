@@ -68,17 +68,11 @@
 
                             <asp:TemplateField HeaderText="Accept application">
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnAccept" runat="server" CommandName="Accept" CommandArgument='<%# Container.DataItemIndex %>' ImageUrl="../assets/img/icon/yes1.png" Height="35px" Width="35px" />
+                                    <asp:ImageButton ID="btnAccept" runat="server" CommandName="Accept" CommandArgument='<%# Eval("AppliedJobId") %>' ImageUrl="../assets/img/icon/yes1.png" Height="35px" Width="35px" OnClick="btnAccept_Click" />
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
 
-                            <%--                            <asp:TemplateField HeaderText="Reject application">
-                                <ItemTemplate>
-                                    <asp:ImageButton ID="btnDecline" runat="server" CommandName="Decline" CommandArgument='<%# Container.DataItemIndex %>' ImageUrl="../assets/img/icon/no1.png" Height="35px" Width="35px" />
-                                </ItemTemplate>
-                                <ItemStyle HorizontalAlign="Center" />
-                            </asp:TemplateField>--%>
 
                             <asp:TemplateField HeaderText="Reject application">
                                 <ItemTemplate>
@@ -87,17 +81,6 @@
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
 
-                            <%--                            <asp:TemplateField HeaderText="Delete">
-                                <ItemTemplate>
-                                    <asp:ImageButton ID="btnDelete" runat="server" CommandName="Delete" CommandArgument='<%# Container.DataItemIndex %>' ImageUrl="../assets/img/icon/deleteTrash.png" Height="25px" Width="25px" />
-                                </ItemTemplate>
-                                <ItemStyle HorizontalAlign="Center" />
-                            </asp:TemplateField>--%>
-
-                            <%--                            <asp:CommandField CausesValidation="false" HeaderText="Delete" ShowDeleteButton="true" DeleteImageUrl="../assets/img/icon/delete.png" ButtonType="Image">
-                                <ControlStyle Height="25px" Width="25px" />
-                                <ItemStyle HorizontalAlign="Center" />
-                            </asp:CommandField>--%>
                         </Columns>
                         <HeaderStyle BackColor="#7200cf" ForeColor="White" />
                     </asp:GridView>
