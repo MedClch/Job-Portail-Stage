@@ -75,7 +75,6 @@ namespace Portail_Jobs.Admin
                 {
                     lblMsg.Text = "Job application accepted successfully !";
                     lblMsg.CssClass = "alert alert-success";
-
                 }
                 else
                 {
