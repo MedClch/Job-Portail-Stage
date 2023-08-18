@@ -175,6 +175,7 @@ namespace Portail_Jobs.Admin
                         {
                             lblMsg.Text="Please select .jpg, .jpeg, .png file for logo !";
                             lblMsg.CssClass="alert alert-danger";
+                            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                         }
                     }
                     else
@@ -191,6 +192,7 @@ namespace Portail_Jobs.Admin
                     {
                         lblMsg.Text="Job "+type+" successfully !";
                         lblMsg.CssClass="alert alert-success";
+                        ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                         if (type.Equals("updated"))
                         {
                             Response.Redirect("../Admin/JobList.aspx");
@@ -205,6 +207,7 @@ namespace Portail_Jobs.Admin
                     {
                         lblMsg.Text="Couldn't save infromations, please try again later !";
                         lblMsg.CssClass="alert alert-success";
+                        ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                     }
                 }
             }

@@ -172,11 +172,13 @@ namespace Portail_Jobs.Admin
                 {
                     lblMsg.Text = "Job application deleted successfully !";
                     lblMsg.CssClass = "alert alert-success";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 else
                 {
                     lblMsg.Text = "Couldn't delete this job application, please try again later !";
                     lblMsg.CssClass = "alert alert-danger";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 showApplications();
             }
@@ -250,17 +252,20 @@ namespace Portail_Jobs.Admin
                     {
                         lblMsg.Text = "Job application deleted successfully !";
                         lblMsg.CssClass = "alert alert-success";
+                        ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                     }
                     else
                     {
                         lblMsg.Text = "Couldn't delete this job application, please try again later !";
                         lblMsg.CssClass = "alert alert-danger";
+                        ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                     }
                 }
                 else
                 {
                     lblMsg.Text = "Couldn't delete this job application  please try again later !";
                     lblMsg.CssClass = "alert alert-danger";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 showApplications();
             }
@@ -288,12 +293,14 @@ namespace Portail_Jobs.Admin
                     lblMsg.Text = "Job application accepted!";
                     lblMsg.Visible=true;
                     lblMsg.CssClass = "alert alert-success";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 else
                 {
                     lblMsg.Text = "Couldn't update this job application status, please try again later!";
                     lblMsg.Visible=true;
                     lblMsg.CssClass = "alert alert-danger";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 showApplications();
             }
@@ -322,11 +329,14 @@ namespace Portail_Jobs.Admin
                 {
                     lblMsg.Text = "Job application accepted successfully !";
                     lblMsg.CssClass = "alert alert-success";
+                    btnAccept.Enabled = false; 
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 else
                 {
                     lblMsg.Text = "Couldn't update this job application status, please try again later !";
                     lblMsg.CssClass = "alert alert-danger";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
                 showApplications();
             }
