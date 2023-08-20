@@ -6,16 +6,9 @@
     <div style="background-image: url('../Images/bg.jpg'); width: 100%; height: 720px; background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
         <div class="container pt-4 pb-4">
 
-            <div class="btn-toolbar justify-content-between mb-3">
-                <div class="btn-group">
-                    <asp:Label ID="lblMsg" runat="server"></asp:Label>
-                </div>
-            </div>
-
             <div class="input-group h-25">
-                <asp:HyperLink ID="linkBack" runat="server" NavigateUrl="~/Admin/ViewResume.aspx" CssClass="btn btn-secondary" Visible="true">
-            <i class="fas fa-arrow-left"></i> Back
-                </asp:HyperLink>
+                <asp:HyperLink ID="linkBack" runat="server" NavigateUrl="~/Admin/ViewResume.aspx" CssClass="btn btn-secondary"
+                    Visible="true"> < Back </asp:HyperLink>
             </div>
 
             <h3 class="text-center"><b>Applicant Informations</b></h3>

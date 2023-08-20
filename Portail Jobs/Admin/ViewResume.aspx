@@ -9,7 +9,20 @@
             <div>
                 <asp:Label ID="lblMsg" runat="server"></asp:Label>
             </div>
+            
+            <div class="btn-toolbar justify-content-between mb-3">
+                <div class="btn-group">
+                    <asp:Label ID="Label1" runat="server" Visible="false"></asp:Label>
+                </div>
+                <div class="input-group h-25">
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Admin/JobApplicationsHistory.aspx" CssClass="btn btn-success" Visible="true"> View applications history </asp:HyperLink>
+                </div>
+            </div>
 
+            <div class="input-group h-25">
+                <asp:HyperLink ID="linkBack" runat="server" NavigateUrl="~/Admin/ViewResume.aspx" CssClass="btn btn-secondary"
+                    Visible="false"> < Back </asp:HyperLink>
+            </div>
             <h3 class="text-center">View/Download resumes</h3>
 
             <div class="row mb-3 pt-sm-3">
@@ -60,7 +73,7 @@
                             <asp:TemplateField HeaderText="Resume">
                                 <ItemTemplate>
                                     <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# DataBinder.Eval(Container,"DataItem.Resume","../{0}") %>'>
-                                        <i class="fa fa-download"></i>Download</asp:HyperLink>
+                                        <i class="fa fa-download"></i><b>Download</b></asp:HyperLink>
                                     <%--<asp:HiddenField ID="hdnJobId" runat="server" Value='<%# Eval("JobId") %>' Visible="false" />--%>
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />

@@ -240,33 +240,81 @@ namespace Portail_Jobs.Admin
             {
                 conn = new SqlConnection(str);
                 conn.Open();
+
+                // Update JobApplicationResp
                 cmd = new SqlCommand("Update JobApplicationResp set Response='Rejected' where AppliedJobId=@Id", conn);
                 cmd.Parameters.AddWithValue("@Id", appliedJobID);
                 int result = cmd.ExecuteNonQuery();
+
+                // Update JobApplicationHistory
                 if (result > 0)
                 {
-                    cmd = new SqlCommand("DELETE FROM AppliedJobs WHERE AppliedJobId = @id", conn);
-                    cmd.Parameters.AddWithValue("@id", appliedJobID);
-                    int r = cmd.ExecuteNonQuery();
-                    if (r > 0)
+                    cmd = new SqlCommand("Update JobApplicationHistory set Response='Rejected' where AppliedJobId=@Id", conn);
+                    cmd.Parameters.AddWithValue("@Id", appliedJobID);
+                    int historyResult = cmd.ExecuteNonQuery();
+
+                    if (historyResult > 0)
                     {
-                        lblMsg.Text = "Job application deleted successfully !";
-                        lblMsg.CssClass = "alert alert-success";
-                        ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                        // Delete from AppliedJobs
+                        cmd = new SqlCommand("DELETE FROM AppliedJobs WHERE AppliedJobId = @id", conn);
+                        cmd.Parameters.AddWithValue("@id", appliedJobID);
+                        int deleteResult = cmd.ExecuteNonQuery();
+
+                        if (deleteResult > 0)
+                        {
+                            lblMsg.Text = "Job application deleted successfully!";
+                            lblMsg.CssClass = "alert alert-success";
+                            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                        }
+                        else
+                        {
+                            lblMsg.Text = "Couldn't delete this job application, please try again later!";
+                            lblMsg.CssClass = "alert alert-danger";
+                            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                        }
                     }
                     else
                     {
-                        lblMsg.Text = "Couldn't delete this job application, please try again later !";
+                        lblMsg.Text = "Couldn't update the job application history, please try again later!";
                         lblMsg.CssClass = "alert alert-danger";
                         ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                     }
                 }
                 else
                 {
-                    lblMsg.Text = "Couldn't delete this job application  please try again later !";
+                    lblMsg.Text = "Couldn't update the job application response, please try again later!";
                     lblMsg.CssClass = "alert alert-danger";
                     ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
+                //conn = new SqlConnection(str);
+                //conn.Open();
+                //cmd = new SqlCommand("Update JobApplicationResp set Response='Rejected' where AppliedJobId=@Id", conn);
+                //cmd.Parameters.AddWithValue("@Id", appliedJobID);
+                //int result = cmd.ExecuteNonQuery();
+                //if (result > 0)
+                //{
+                //    cmd = new SqlCommand("DELETE FROM AppliedJobs WHERE AppliedJobId = @id", conn);
+                //    cmd.Parameters.AddWithValue("@id", appliedJobID);
+                //    int r = cmd.ExecuteNonQuery();
+                //    if (r > 0)
+                //    {
+                //        lblMsg.Text = "Job application deleted successfully !";
+                //        lblMsg.CssClass = "alert alert-success";
+                //        ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                //    }
+                //    else
+                //    {
+                //        lblMsg.Text = "Couldn't delete this job application, please try again later !";
+                //        lblMsg.CssClass = "alert alert-danger";
+                //        ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                //    }
+                //}
+                //else
+                //{
+                //    lblMsg.Text = "Couldn't delete this job application  please try again later !";
+                //    lblMsg.CssClass = "alert alert-danger";
+                //    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                //}
                 showApplications();
             }
             catch (Exception ex)
@@ -285,23 +333,60 @@ namespace Portail_Jobs.Admin
             {
                 conn = new SqlConnection(str);
                 conn.Open();
+
+                // Update JobApplicationResp
                 cmd = new SqlCommand("Update JobApplicationResp set Response='Accepted' where AppliedJobId=@appliedJobID", conn);
                 cmd.Parameters.AddWithValue("@appliedJobID", appliedJobID);
-                int result = cmd.ExecuteNonQuery();
-                if (result > 0)
+                int respResult = cmd.ExecuteNonQuery();
+
+                // Update JobApplicationHistory
+                if (respResult > 0)
                 {
-                    lblMsg.Text = "Job application accepted!";
-                    lblMsg.Visible=true;
-                    lblMsg.CssClass = "alert alert-success";
-                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                    cmd = new SqlCommand("Update JobApplicationHistory set Response='Accepted' where AppliedJobId=@appliedJobID", conn);
+                    cmd.Parameters.AddWithValue("@appliedJobID", appliedJobID);
+                    int historyResult = cmd.ExecuteNonQuery();
+
+                    if (historyResult > 0)
+                    {
+                        lblMsg.Text = "Job application accepted!";
+                        lblMsg.Visible = true;
+                        lblMsg.CssClass = "alert alert-success";
+                        ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                    }
+                    else
+                    {
+                        lblMsg.Text = "Couldn't update the job application history status, please try again later!";
+                        lblMsg.Visible = true;
+                        lblMsg.CssClass = "alert alert-danger";
+                        ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                    }
                 }
                 else
                 {
                     lblMsg.Text = "Couldn't update this job application status, please try again later!";
-                    lblMsg.Visible=true;
+                    lblMsg.Visible = true;
                     lblMsg.CssClass = "alert alert-danger";
                     ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                 }
+                //conn = new SqlConnection(str);
+                //conn.Open();
+                //cmd = new SqlCommand("Update JobApplicationResp set Response='Accepted' where AppliedJobId=@appliedJobID", conn);
+                //cmd.Parameters.AddWithValue("@appliedJobID", appliedJobID);
+                //int result = cmd.ExecuteNonQuery();
+                //if (result > 0)
+                //{
+                //    lblMsg.Text = "Job application accepted!";
+                //    lblMsg.Visible=true;
+                //    lblMsg.CssClass = "alert alert-success";
+                //    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                //}
+                //else
+                //{
+                //    lblMsg.Text = "Couldn't update this job application status, please try again later!";
+                //    lblMsg.Visible=true;
+                //    lblMsg.CssClass = "alert alert-danger";
+                //    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                //}
                 showApplications();
             }
             catch (Exception ex)

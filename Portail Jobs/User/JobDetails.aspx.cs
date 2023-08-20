@@ -63,21 +63,47 @@ namespace Portail_Jobs.User
                     try
                     {
                         conn = new SqlConnection(str);
-                        string query = @"Insert into JobApplicationResp values (@AppliedJobId,@JobId,@UserId,'Pending')";
-                        cmd = new SqlCommand(query, conn);
+                        string respQuery = @"Insert into JobApplicationResp values (@AppliedJobId, @JobId, @UserId, 'Pending')";
+                        cmd = new SqlCommand(respQuery, conn);
                         cmd.Parameters.AddWithValue("@AppliedJobId", GetLatestInsertedId("AppliedJobs"));
                         cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
                         cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
                         conn.Open();
-                        int res = cmd.ExecuteNonQuery();
-                        if (res > 0)
+                        int respResult = cmd.ExecuteNonQuery();
+                        conn.Close();
+                        // Insert into JobApplicationHistory
+                        string historyQuery = @"Insert into JobApplicationHistory values (@AppliedJobId, @JobId, @UserId, 'Pending')";
+                        cmd = new SqlCommand(historyQuery, conn);
+                        cmd.Parameters.AddWithValue("@AppliedJobId", GetLatestInsertedId("AppliedJobs"));
+                        cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
+                        cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+                        conn.Open();
+                        int historyResult = cmd.ExecuteNonQuery();
+                        conn.Close();
+                        if (respResult > 0 && historyResult > 0)
                         {
+                            // Successful insertion
                             lblMsg.Visible = true;
-                            lblMsg.Text = "Job application sent successfully !";
+                            lblMsg.Text = "Job application sent successfully!";
                             lblMsg.CssClass = "alert alert-success";
                             ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
                             showJobDetails();
                         }
+                        //string query = @"Insert into JobApplicationResp values (@AppliedJobId,@JobId,@UserId,'Pending')";
+                        //cmd = new SqlCommand(query, conn);
+                        //cmd.Parameters.AddWithValue("@AppliedJobId", GetLatestInsertedId("AppliedJobs"));
+                        //cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
+                        //cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+                        //conn.Open();
+                        //int res = cmd.ExecuteNonQuery();
+                        //if (res > 0)
+                        //{
+                        //    lblMsg.Visible = true;
+                        //    lblMsg.Text = "Job application sent successfully !";
+                        //    lblMsg.CssClass = "alert alert-success";
+                        //    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                        //    showJobDetails();
+                        //}
                         else
                         {
                             lblMsg.Visible = true;

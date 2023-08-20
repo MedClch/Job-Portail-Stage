@@ -33,9 +33,11 @@ namespace Portail_Jobs.Admin
         {
             string query = string.Empty;
             conn = new SqlConnection(str);
-            query = @"Select Row_Number() over(Order by (Select 1)) as [Sr.No],jar.AppliedJobId,j.CompanyName,aj.jobId,j.Title,u.Mobile,u.Name,u.Email,u.Resume from JobApplicationResp jar
-                            inner join [User] u on jar.UserId = u.UserId
-                            inner join Jobs j on jar.JobId = j.jobId";
+            query = @"Select Row_Number() over(Order by (Select 1)) as [Sr.No],jah.AppliedJobId,j.CompanyName,jah.jobId,j.Title,u.Mobile,u.Name,u.Email,u.Resume,jar.Response 
+                            from JobApplicationHistory jah
+                            inner join JobApplicationResp jar on jar.AppliedJobId = jah.AppliedJobId
+                            inner join [User] u on jah.UserId = u.UserId
+                            inner join Jobs j on jah.JobId = j.jobId";
             cmd = new SqlCommand(query, conn);
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -48,17 +50,24 @@ namespace Portail_Jobs.Admin
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                string responseValue = DataBinder.Eval(e.Row.DataItem, "Response").ToString();
-                TableCell contactCell = e.Row.Cells[9];
-                if (responseValue == "Accepted")
+                // Find the index of the "Response" column
+                int responseColumnIndex = GridView1.Columns.Cast<DataControlField>().ToList().FindIndex(field => field.HeaderText == "Application response");
+
+                // Make sure the index is valid
+                if (responseColumnIndex >= 0)
                 {
-                    e.Row.Cells[8].ForeColor = System.Drawing.Color.Green;
-                    contactCell.Enabled = true;
-                }
-                else if (responseValue == "Rejected")
-                {
-                    e.Row.Cells[8].ForeColor = System.Drawing.Color.Red;
-                    contactCell.Enabled = false;
+                    // Get the cell value in the "Response" column for the current row
+                    string responseValue = e.Row.Cells[responseColumnIndex].Text.Trim();
+
+                    // Set the row's background color based on the response value
+                    if (responseValue == "Accepted")
+                    {
+                        e.Row.BackColor = System.Drawing.Color.Green; // Green color for 'Accepted'
+                    }
+                    else if (responseValue == "Rejected")
+                    {
+                        e.Row.BackColor = System.Drawing.Color.Red; // Red color for 'Rejected'
+                    }
                 }
             }
         }
