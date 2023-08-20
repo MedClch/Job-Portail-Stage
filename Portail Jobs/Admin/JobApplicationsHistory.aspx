@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMaster.Master" AutoEventWireup="true" CodeBehind="JobApplicationsHistory.aspx.cs" Inherits="Portail_Jobs.Admin.JobApplicationsHistory" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMaster.Master" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="JobApplicationsHistory.aspx.cs" Inherits="Portail_Jobs.Admin.JobApplicationsHistory" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -16,7 +16,7 @@
             <div class="row mb-3 pt-sm-3">
                 <div class="col-md-12">
                     <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-bordered" EmptyDataText="No informations to display !" AutoGenerateColumns="False"
-                        AllowPaging="True" PageSize="5" DataKeyNames="AppliedJobId" OnRowDataBound="GridView1_RowDataBound">
+                        AllowPaging="True" PageSize="10" DataKeyNames="AppliedJobId" OnPageIndexChanging="GridView1_PageIndexChanging" OnRowDataBound="GridView1_RowDataBound">
                         <Columns>
 
                             <asp:BoundField DataField="Sr.No" HeaderText="Sr.No">
