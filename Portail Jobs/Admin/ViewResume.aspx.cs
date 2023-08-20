@@ -1,9 +1,11 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -432,6 +434,52 @@ namespace Portail_Jobs.Admin
             finally
             {
                 conn.Close();
+            }
+        }
+
+        protected void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (var package = new ExcelPackage())
+            {
+                var ws = package.Workbook.Worksheets.Add("Sheet1");
+                // Adding headers
+                for (int i = 0; i < GridView1.Columns.Count; i++)
+                {
+                    // Exclude columns by header text
+                    if (GridView1.Columns[i].HeaderText != "Resume" &&
+                        GridView1.Columns[i].HeaderText != "Accept application" &&
+                        GridView1.Columns[i].HeaderText != "Reject application")
+                    {
+                        ws.Cells[1, i + 1].Value = GridView1.Columns[i].HeaderText;
+                    }
+                }
+                // Adding data
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+                    int cellIndex = 0; // Keep track of the index for the Excel cell
+                    for (int j = 0; j < GridView1.Columns.Count; j++)
+                    {
+                        // Exclude columns by header text
+                        if (GridView1.Columns[j].HeaderText != "Resume" &&
+                            GridView1.Columns[j].HeaderText != "Accept application" &&
+                            GridView1.Columns[j].HeaderText != "Reject application")
+                        {
+                            ws.Cells[i + 2, cellIndex + 1].Value = GridView1.Rows[i].Cells[j].Text;
+                            cellIndex++;
+                        }
+                    }
+                }
+                // Save the Excel package to a MemoryStream
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    package.SaveAs(ms);
+                    Response.Clear();
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment; filename=JobApplications.xlsx");
+                    ms.WriteTo(Response.OutputStream);
+                    Response.End();
+                }
             }
         }
     }

@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
+using System.IO;
+using OfficeOpenXml;
 
 namespace Portail_Jobs.Admin
 {
@@ -76,6 +78,43 @@ namespace Portail_Jobs.Admin
         {       
             GridView1.PageIndex=e.NewPageIndex;
             showApplicationHisotry();
+        }
+
+        protected void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using (var package = new ExcelPackage())
+            {
+                var ws = package.Workbook.Worksheets.Add("Sheet1");
+
+                // Adding headers
+                for (int i = 0; i < GridView1.Columns.Count; i++)
+                {
+                    ws.Cells[1, i + 1].Value = GridView1.Columns[i].HeaderText;
+                }
+
+                // Adding data
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+                    for (int j = 0; j < GridView1.Columns.Count; j++)
+                    {
+                        ws.Cells[i + 2, j + 1].Value = GridView1.Rows[i].Cells[j].Text;
+                    }
+                }
+
+                // Save the Excel package to a MemoryStream
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    package.SaveAs(ms);
+
+                    Response.Clear();
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment; filename=JobApplicationsHistory.xlsx");
+                    ms.WriteTo(Response.OutputStream);
+                    Response.End();
+                }
+            }
         }
 
         //protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)

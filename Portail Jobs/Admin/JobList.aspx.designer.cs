@@ -42,6 +42,15 @@ namespace Portail_Jobs.Admin
         protected global::System.Web.UI.WebControls.HyperLink linkBack;
 
         /// <summary>
+        /// btnExportToExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportToExcel;
+
+        /// <summary>
         /// GridView1 control.
         /// </summary>
         /// <remarks>

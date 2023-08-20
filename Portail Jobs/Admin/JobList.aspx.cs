@@ -1,9 +1,11 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -205,6 +207,66 @@ namespace Portail_Jobs.Admin
                 conn.Close();
             }
         }
+
+        protected void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (var package = new ExcelPackage())
+            {
+                var ws = package.Workbook.Worksheets.Add("Sheet1");
+                // Adding headers
+                for (int i = 0; i < GridView1.Columns.Count; i++)
+                {
+                    // Exclude columns by header text
+                    if (GridView1.Columns[i].HeaderText != "Edit" && GridView1.Columns[i].HeaderText != "Delete")
+                    {
+                        ws.Cells[1, i + 1].Value = GridView1.Columns[i].HeaderText;
+                    }
+                }
+                // Adding data
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+                    int cellIndex = 0; // Keep track of the index for the Excel cell
+                    for (int j = 0; j < GridView1.Columns.Count; j++)
+                    {
+                        // Exclude columns by header text
+                        if (GridView1.Columns[j].HeaderText != "Edit" && GridView1.Columns[j].HeaderText != "Delete")
+                        {
+                            // Special handling for date columns
+                            if (GridView1.Columns[j].HeaderText == "Valid until" || GridView1.Columns[j].HeaderText == "Post date")
+                            {
+                                DateTime dateValue;
+                                if (DateTime.TryParse(GridView1.Rows[i].Cells[j].Text, out dateValue))
+                                {
+                                    ws.Cells[i + 2, cellIndex + 1].Value = dateValue.ToString("dd MMMM yyyy");
+                                }
+                                else
+                                {
+                                    ws.Cells[i + 2, cellIndex + 1].Value = GridView1.Rows[i].Cells[j].Text;
+                                }
+                            }
+                            else
+                            {
+                                ws.Cells[i + 2, cellIndex + 1].Value = GridView1.Rows[i].Cells[j].Text;
+                            }
+                            cellIndex++;
+                        }
+                    }
+                }
+                // Save the Excel package to a MemoryStream
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    package.SaveAs(ms);
+                    Response.Clear();
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment; filename=JobsList.xlsx");
+                    ms.WriteTo(Response.OutputStream);
+                    Response.End();
+                }
+            }
+        }
+
+
 
         //protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         //{

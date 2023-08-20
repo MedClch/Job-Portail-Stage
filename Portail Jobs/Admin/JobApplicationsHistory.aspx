@@ -15,6 +15,7 @@
 
             <div class="row mb-3 pt-sm-3">
                 <div class="col-md-12">
+                    <asp:Button ID="btnExportToExcel" runat="server" Text="Export to Excel" OnClick="btnExportToExcel_Click" CssClass="btn btn-primary" />
                     <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-bordered" EmptyDataText="No informations to display !" AutoGenerateColumns="False"
                         AllowPaging="True" PageSize="10" DataKeyNames="AppliedJobId" OnPageIndexChanging="GridView1_PageIndexChanging" OnRowDataBound="GridView1_RowDataBound">
                         <Columns>
