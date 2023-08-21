@@ -132,7 +132,7 @@ namespace Portail_Jobs.Admin
             using (SqlConnection conn = new SqlConnection(str))
             {
                 conn.Open();
-                string query = @"SELECT jah.AppliedJobId,j.CompanyName,jah.jobId,j.Title,u.Mobile,u.Name,u.Email,jar.Response from JobApplicationHistory jah
+                string query = @"SELECT jah.AppliedJobId,j.CompanyName,j.Title,u.Mobile,u.Name,u.Email,jar.Response from JobApplicationHistory jah
                             inner join JobApplicationResp jar on jar.AppliedJobId = jah.AppliedJobId
                             inner join [User] u on jah.UserId = u.UserId
                             inner join Jobs j on jah.JobId = j.jobId";
