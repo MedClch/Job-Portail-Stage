@@ -98,6 +98,13 @@
                         </li>
 
                         <li>
+                            <a href="UserList.aspx">
+                                <div class="icon"><i class="fas fa-users"></i></div>
+                                <div class="title">User List</div>
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="ContactList.aspx">
                                 <div class="icon"><i class="fas fa-comment-alt"></i></div>
                                 <div class="title">Contact List</div>

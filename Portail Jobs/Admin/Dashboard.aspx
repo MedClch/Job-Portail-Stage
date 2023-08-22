@@ -92,12 +92,12 @@
                                     <i class="fas fa-users pr-2"></i>
                                 </div>
                                 <div class="mb-4 text-center">
-                                    <h5 class="card-title mb-0">Total users</h5>
+                                    <h5 class="card-title mb-0"><b>Total users</b></h5>
                                 </div>
                                 <div class="row-align-items-center mb-2 d-flex align-items-center justify-content-center">
                                     <div class="col-8 text-center">
                                         <h2 class="mb-0">
-                                            <% Response.Write(Session["Users"]); %>
+                                           <b><% Response.Write(Session["Users"]); %></b> 
                                         </h2>
                                     </div>
                                 </div>
@@ -106,18 +106,18 @@
                     </div>
 
                     <div class="col-xl-3 col-lg-6">
-                        <div class="card l-bg-orange ">
+                        <div class="card l-bg-blue-dark">
                             <div class="card-statistic-3 pt-4">
                                 <div class="card-icon card-icon-large text-center">
                                     <i class="fas fa-briefcase pr-2"></i>
                                 </div>
                                 <div class="mb-4 text-center">
-                                    <h5 class="card-title mb-0">Total jobs</h5>
+                                    <h5 class="card-title mb-0"><b>Total jobs</b></h5>
                                 </div>
                                 <div class="row-align-items-center mb-2 d-flex align-items-center justify-content-center">
                                     <div class="col-8 text-center">
                                         <h2 class="mb-0">
-                                            <% Response.Write(Session["Jobs"]); %>
+                                            <b><% Response.Write(Session["Jobs"]); %></b>
                                         </h2>
                                     </div>
                                 </div>
@@ -132,12 +132,12 @@
                                     <i class="fas fa-check-square pr-2"></i>
                                 </div>
                                 <div class="mb-4 text-center">
-                                    <h5 class="card-title mb-0">Total job applications</h5>
+                                    <h5 class="card-title mb-0"><b>Total job applications</b></h5>
                                 </div>
                                 <div class="row-align-items-center mb-2 d-flex align-items-center justify-content-center">
                                     <div class="col-8 text-center">
                                         <h2 class="mb-0">
-                                            <% Response.Write(Session["Applications"]); %>
+                                           <b><% Response.Write(Session["Applications"]); %></b> 
                                         </h2>
                                     </div>
                                 </div>
@@ -147,18 +147,18 @@
 
 
                     <div class="col-xl-3 col-lg-6">
-                        <div class="card l-bg-warning ">
+                        <div class="card l-bg-orange-dark">
                             <div class="card-statistic-3 pt-4">
                                 <div class="card-icon card-icon-large text-center">
                                     <i class="fas fa-comments pr-2"></i>
                                 </div>
                                 <div class="mb-4 text-center">
-                                    <h5 class="card-title mb-0">Total contacts</h5>
+                                    <h5 class="card-title mb-0"><b>Total contacts</b></h5>
                                 </div>
                                 <div class="row-align-items-center mb-2 d-flex align-items-center justify-content-center">
                                     <div class="col-8 text-center">
                                         <h2 class="mb-0">
-                                            <% Response.Write(Session["Contact"]); %>
+                                           <b><% Response.Write(Session["Contact"]); %></b> 
                                         </h2>
                                     </div>
                                 </div>

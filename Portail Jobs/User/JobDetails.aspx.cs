@@ -296,5 +296,161 @@ namespace Portail_Jobs.User
                 return false;
             }
         }
+
+        private string GetCompanyNameForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT CompanyName FROM Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("An error occurred: " + ex.Message);
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetTitleForJob(int jobId)
+        {
+            string title = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Title FROM Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            title = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("An error occurred: " + ex.Message);
+                    }
+                }
+            }
+            return title;
+        }
+
+        private string GetMobileForUser(int id)
+        {
+            string title = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Mobile FROM [User] WHERE UserId = @id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", id);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            title = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("An error occurred: " + ex.Message);
+                    }
+                }
+            }
+            return title;
+        }
+
+        private string GetNameForUser(int id)
+        {
+            string title = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Name FROM [User] WHERE UserId = @id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", id);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            title = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("An error occurred: " + ex.Message);
+                    }
+                }
+            }
+            return title;
+        }
+
+        private string GetEmailForUser(int id)
+        {
+            string title = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Email FROM [User] WHERE UserId = @id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", id);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            title = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("An error occurred: " + ex.Message);
+                    }
+                }
+            }
+            return title;
+        }
+
+        private string GetResumeForUser(int id)
+        {
+            string title = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Resume FROM [User] WHERE UserId = @id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", id);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            title = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("An error occurred: " + ex.Message);
+                    }
+                }
+            }
+            return title;
+        }
     }
 }
