@@ -80,11 +80,10 @@ namespace Portail_Jobs.Admin
             using (var package = new ExcelPackage())
             {
                 var ws = package.Workbook.Worksheets.Add("Sheet1");
-                // Adding headers
                 int columnIndex = 1;
                 for (int i = 0; i < GridView1.Columns.Count; i++)
                 {
-                    if (GridView1.Columns[i].HeaderText != "Resume") // Exclude the "Resume" column
+                    if (GridView1.Columns[i].HeaderText != "Resume")
                     {
                         ws.Cells[1, columnIndex].Value = GridView1.Columns[i].HeaderText;
                         columnIndex++;
@@ -92,25 +91,23 @@ namespace Portail_Jobs.Admin
                 }
                 DataTable allData = FetchAllData();
 
-                // Adding data from all pages of the GridView
+                // toutes les pages 
                 for (int i = 0; i < allData.Rows.Count; i++)
                 {
                     var row = allData.Rows[i];
                     columnIndex = 1;
                     for (int j = 0; j < allData.Columns.Count; j++)
                     {
-                        if (allData.Columns[j].ColumnName != "Resume") // Exclude the "Resume" column
+                        if (allData.Columns[j].ColumnName != "Resume")
                         {
                             ws.Cells[i + 2, columnIndex].Value = row[j];
                             columnIndex++;
                         }
                     }
                 }
-                // Save the Excel package to a MemoryStream
                 using (MemoryStream ms = new MemoryStream())
                 {
                     package.SaveAs(ms);
-
                     Response.Clear();
                     Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                     Response.AddHeader("content-disposition", "attachment; filename=JobApplicationsHistory.xlsx");
@@ -173,14 +170,10 @@ namespace Portail_Jobs.Admin
             using (var package = new ExcelPackage())
             {
                 var ws = package.Workbook.Worksheets.Add("Sheet1");
-
-                // Adding headers
                 for (int i = 0; i < GridView1.Columns.Count; i++)
                 {
                     ws.Cells[1, i + 1].Value = GridView1.Columns[i].HeaderText;
                 }
-
-                // Adding data
                 for (int i = 0; i < GridView1.Rows.Count; i++)
                 {
                     for (int j = 0; j < GridView1.Columns.Count; j++)
@@ -188,12 +181,9 @@ namespace Portail_Jobs.Admin
                         ws.Cells[i + 2, j + 1].Value = GridView1.Rows[i].Cells[j].Text;
                     }
                 }
-
-                // Save the Excel package to a MemoryStream
                 using (MemoryStream ms = new MemoryStream())
                 {
                     package.SaveAs(ms);
-
                     Response.Clear();
                     Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                     Response.AddHeader("content-disposition", "attachment; filename=JobApplicationsHistory.xlsx");
