@@ -40,35 +40,42 @@
                             <asp:BoundField DataField="AppliedJobId" HeaderText="Sr.No" Visible="false" />
                             <asp:TemplateField HeaderText="Sr.No">
                                 <ItemTemplate>
-                                    <asp:HyperLink ID="lnkAppliedJobId" ForeColor="Black" runat="server" NavigateUrl='<%# "Application_Info.aspx?id=" + Eval("AppliedJobId") %>' Text='<%# Eval("AppliedJobId") %>'></asp:HyperLink>
+                                    <asp:HyperLink ID="lnkAppliedJobId" ForeColor="Black" Font-Bold="true" runat="server" NavigateUrl='<%# "Application_Info.aspx?id=" + Eval("AppliedJobId") %>' Text='<%# Eval("AppliedJobId") %>'></asp:HyperLink>
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Company name">
                                 <ItemTemplate>
-                                    <asp:HyperLink ID="lnkCompanyName" ForeColor="Black" runat="server" Text='<%# Eval("CompanyName") %>' NavigateUrl='<%# "JobList.aspx?id=" + Eval("JobId") %>'></asp:HyperLink>
+                                    <asp:HyperLink ID="lnkCompanyName" ForeColor="Black" Font-Bold="true" runat="server" Text='<%# Eval("CompanyName") %>' NavigateUrl='<%# "JobList.aspx?id=" + Eval("JobId") %>'></asp:HyperLink>
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Job title">
                                 <ItemTemplate>
-                                    <asp:HyperLink ID="lnkJobTitle" ForeColor="Black" runat="server" Text='<%# Eval("Title") %>' NavigateUrl='<%# "JobList.aspx?id=" + Eval("JobId") %>'></asp:HyperLink>
+                                    <asp:HyperLink ID="lnkJobTitle" ForeColor="Black" Font-Bold="true" runat="server" Text='<%# Eval("Title") %>' NavigateUrl='<%# "JobList.aspx?id=" + Eval("JobId") %>'></asp:HyperLink>
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
 
-                            <asp:BoundField DataField="Name" HeaderText="User name">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                            <asp:TemplateField HeaderText="Username">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="lnkUser" ForeColor="Black" Font-Bold="true" runat="server" Text='<%# Eval("Username") %>' NavigateUrl='<%# "UserList.aspx?id=" + Eval("UserId") %>'></asp:HyperLink>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center"/>
+                            </asp:TemplateField>
+
+                            <asp:BoundField DataField="Name" HeaderText="Full name">
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Email" HeaderText="User email">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Mobile" HeaderText="Phone number">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:TemplateField HeaderText="Resume">

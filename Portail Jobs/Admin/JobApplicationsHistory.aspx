@@ -15,7 +15,7 @@
 
             <div class="row mb-3 pt-sm-3">
                 <div class="col-md-12">
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <div class="col-md-3">
                             <asp:TextBox ID="txtFilter" runat="server" CssClass="form-control" placeholder="Enter keyword to filter"></asp:TextBox>
                         </div>

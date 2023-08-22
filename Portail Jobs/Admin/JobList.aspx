@@ -27,7 +27,8 @@
 
             <div class="row mb-3 pt-sm-3">
                 <div class="col-md-12">
-                    <div class="row">
+
+                    <div class="row justify-content-center">
                         <div class="col-md-3">
                             <asp:TextBox ID="txtFilter" runat="server" CssClass="form-control" placeholder="Enter keyword to filter"></asp:TextBox>
                         </div>
@@ -38,6 +39,7 @@
                             <asp:Button ID="btnExportToExcel" runat="server" Text="Export to Excel" OnClick="btnExportToExcel_Click" CssClass="btn btn-primary btn-block" />
                         </div>
                     </div>
+
                     <hr />
                     <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-bordered" EmptyDataText="No informations to display !" AutoGenerateColumns="False"
                         AllowPaging="True" PageSize="5" OnPageIndexChanging="GridView1_PageIndexChanging" DataKeyNames="JobId" OnRowDeleting="GridView1_RowDeleting"
@@ -45,46 +47,46 @@
                         <Columns>
 
                             <asp:BoundField DataField="Sr.No" HeaderText="Sr.No">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:TemplateField HeaderText="Job title">
                                 <ItemTemplate>
-                                    <asp:HyperLink ID="lnkJobTitle" ForeColor="Black" runat="server" NavigateUrl='<%# "Job_Info.aspx?id=" + Eval("JobId") %>' Text='<%# Eval("Title") %>'></asp:HyperLink>
+                                    <asp:HyperLink ID="lnkJobTitle" ForeColor="Black" Font-Bold="true" runat="server" NavigateUrl='<%# "Job_Info.aspx?id=" + Eval("JobId") %>' Text='<%# Eval("Title") %>'></asp:HyperLink>
                                 </ItemTemplate>
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:TemplateField>
 
                             <asp:BoundField DataField="NoOfPost" HeaderText="Number of posts">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Qualification" HeaderText="Qualifications">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Experience" HeaderText="Experience">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="LastDateToApply" HeaderText="Valid until" DataFormatString="{0:dd MMMM yyyy}">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="CompanyName" HeaderText="Company">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Country" HeaderText="Country">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="State" HeaderText="State">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="CreateDate" HeaderText="Post date" DataFormatString="{0:dd MMMM yyyy}">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:TemplateField HeaderText="Edit">

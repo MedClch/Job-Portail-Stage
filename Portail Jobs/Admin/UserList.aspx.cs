@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -81,6 +82,22 @@ namespace Portail_Jobs.Admin
             finally
             {
                 conn.Close();
+            }
+        }
+
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType==DataControlRowType.DataRow)
+            {
+                e.Row.ID=e.Row.RowIndex.ToString();
+                if (Request.QueryString["id"]!=null)
+                {
+                    int jobID = Convert.ToInt32(GridView1.DataKeys[e.Row.RowIndex].Values[0]);
+                    if (jobID == Convert.ToInt32(Request.QueryString["id"]))
+                    {
+                        e.Row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
+                    }
+                }
             }
         }
     }
