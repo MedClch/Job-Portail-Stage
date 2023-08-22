@@ -62,6 +62,7 @@ namespace Portail_Jobs.User
                 {
                     try
                     {
+                        int idU = Convert.ToInt32(Session["userId"]);
                         conn = new SqlConnection(str);
                         string respQuery = @"Insert into JobApplicationResp values (@AppliedJobId, @JobId, @UserId, 'Pending')";
                         cmd = new SqlCommand(respQuery, conn);
@@ -72,11 +73,17 @@ namespace Portail_Jobs.User
                         int respResult = cmd.ExecuteNonQuery();
                         conn.Close();
                         // Insert into JobApplicationHistory
-                        string historyQuery = @"Insert into JobApplicationHistory values (@AppliedJobId, @JobId, @UserId, 'Pending')";
+                        string historyQuery = @"Insert into JobApplicationHistory values (@AppliedJobId, @JobId, @UserId, @Title,@Name,@CompanyName,@Email,@Mobile,@Resume, 'Pending')";
                         cmd = new SqlCommand(historyQuery, conn);
                         cmd.Parameters.AddWithValue("@AppliedJobId", GetLatestInsertedId("AppliedJobs"));
                         cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
                         cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+                        cmd.Parameters.AddWithValue("@Title", GetTitleForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Name", GetNameForUser(idU));
+                        cmd.Parameters.AddWithValue("@CompanyName", GetCompanyNameForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Email", GetEmailForUser(idU));
+                        cmd.Parameters.AddWithValue("@Mobile",GetMobileForUser(idU));
+                        cmd.Parameters.AddWithValue("@Resume",GetResumeForUser(idU));
                         conn.Open();
                         int historyResult = cmd.ExecuteNonQuery();
                         conn.Close();
@@ -355,7 +362,7 @@ namespace Portail_Jobs.User
                 string query = "SELECT Mobile FROM [User] WHERE UserId = @id";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@UserId", id);
+                    command.Parameters.AddWithValue("@id", id);
                     try
                     {
                         connection.Open();
@@ -365,7 +372,7 @@ namespace Portail_Jobs.User
                     }
                     catch (Exception ex)
                     {
-                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                        Response.Write("<script>alert('" + ex.Message + " mobile ');</script>");
                     }
                 }
             }
@@ -380,7 +387,7 @@ namespace Portail_Jobs.User
                 string query = "SELECT Name FROM [User] WHERE UserId = @id";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@UserId", id);
+                    command.Parameters.AddWithValue("@id", id);
                     try
                     {
                         connection.Open();
@@ -390,7 +397,7 @@ namespace Portail_Jobs.User
                     }
                     catch (Exception ex)
                     {
-                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                        Response.Write("<script>alert('" + ex.Message + " name ');</script>");
                     }
                 }
             }
@@ -405,7 +412,7 @@ namespace Portail_Jobs.User
                 string query = "SELECT Email FROM [User] WHERE UserId = @id";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@UserId", id);
+                    command.Parameters.AddWithValue("@id", id);
                     try
                     {
                         connection.Open();
@@ -415,7 +422,7 @@ namespace Portail_Jobs.User
                     }
                     catch (Exception ex)
                     {
-                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                        Response.Write("<script>alert('" + ex.Message + " email ');</script>");
                     }
                 }
             }
@@ -430,7 +437,7 @@ namespace Portail_Jobs.User
                 string query = "SELECT Resume FROM [User] WHERE UserId = @id";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@UserId", id);
+                    command.Parameters.AddWithValue("@id", id);
                     try
                     {
                         connection.Open();
@@ -440,7 +447,7 @@ namespace Portail_Jobs.User
                     }
                     catch (Exception ex)
                     {
-                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                        Response.Write("<script>alert('" + ex.Message + " resume ');</script>");
                     }
                 }
             }

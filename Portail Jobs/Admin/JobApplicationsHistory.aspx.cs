@@ -35,11 +35,13 @@ namespace Portail_Jobs.Admin
         {
             string query = string.Empty;
             conn = new SqlConnection(str);
-            query = @"Select Row_Number() over(Order by (Select 1)) as [Sr.No],jah.AppliedJobId,j.CompanyName,jah.jobId,j.Title,u.Mobile,u.Name,u.Email,u.Resume,jar.Response 
-                            from JobApplicationHistory jah
-                            inner join JobApplicationResp jar on jar.AppliedJobId = jah.AppliedJobId
-                            inner join [User] u on jah.UserId = u.UserId
-                            inner join Jobs j on jah.JobId = j.jobId";
+            query = @"Select Row_Number() over(Order by (Select 1)) as [Sr.No],AppliedJobId,CompanyName,jobId,Title,Mobile,Name,Email,Resume,Response 
+                            from JobApplicationHistory";
+            //query = @"Select Row_Number() over(Order by (Select 1)) as [Sr.No],jah.AppliedJobId,j.CompanyName,jah.jobId,j.Title,u.Mobile,u.Name,u.Email,u.Resume,jar.Response 
+            //                from JobApplicationHistory jah
+            //                inner join JobApplicationResp jar on jar.AppliedJobId = jah.AppliedJobId
+            //                inner join [User] u on jah.UserId = u.UserId
+            //                inner join Jobs j on jah.JobId = j.jobId";
             cmd = new SqlCommand(query, conn);
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -63,6 +65,10 @@ namespace Portail_Jobs.Admin
                     else if (response == "Rejected")
                     {
                         e.Row.Cells[7].BackColor = System.Drawing.Color.Red;
+                    }
+                    else if (response == "Pending")
+                    {
+                        e.Row.Cells[7].BackColor = System.Drawing.Color.Gray;
                     }
                 }
             }
