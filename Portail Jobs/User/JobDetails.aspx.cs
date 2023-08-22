@@ -315,8 +315,7 @@ namespace Portail_Jobs.User
                     }
                     catch (Exception ex)
                     {
-                        // Handle exceptions here
-                        Console.WriteLine("An error occurred: " + ex.Message);
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
                     }
                 }
             }
@@ -341,8 +340,7 @@ namespace Portail_Jobs.User
                     }
                     catch (Exception ex)
                     {
-                        // Handle exceptions here
-                        Console.WriteLine("An error occurred: " + ex.Message);
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
                     }
                 }
             }
@@ -367,8 +365,7 @@ namespace Portail_Jobs.User
                     }
                     catch (Exception ex)
                     {
-                        // Handle exceptions here
-                        Console.WriteLine("An error occurred: " + ex.Message);
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
                     }
                 }
             }
@@ -393,8 +390,7 @@ namespace Portail_Jobs.User
                     }
                     catch (Exception ex)
                     {
-                        // Handle exceptions here
-                        Console.WriteLine("An error occurred: " + ex.Message);
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
                     }
                 }
             }
@@ -419,8 +415,7 @@ namespace Portail_Jobs.User
                     }
                     catch (Exception ex)
                     {
-                        // Handle exceptions here
-                        Console.WriteLine("An error occurred: " + ex.Message);
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
                     }
                 }
             }
@@ -445,8 +440,7 @@ namespace Portail_Jobs.User
                     }
                     catch (Exception ex)
                     {
-                        // Handle exceptions here
-                        Console.WriteLine("An error occurred: " + ex.Message);
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
                     }
                 }
             }
