@@ -52,23 +52,17 @@ namespace Portail_Jobs.Admin
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                // Find the index of the "Response" column
-                int responseColumnIndex = GridView1.Columns.Cast<DataControlField>().ToList().FindIndex(field => field.HeaderText == "Application response");
-
-                // Make sure the index is valid
-                if (responseColumnIndex >= 0)
+                DataRowView rowView = e.Row.DataItem as DataRowView;
+                if (rowView != null)
                 {
-                    // Get the cell value in the "Response" column for the current row
-                    string responseValue = e.Row.Cells[responseColumnIndex].Text.Trim();
-
-                    // Set the row's background color based on the response value
-                    if (responseValue == "Accepted")
+                    string response = rowView["Response"].ToString();
+                    if (response == "Accepted")
                     {
-                        e.Row.BackColor = System.Drawing.Color.Green; // Green color for 'Accepted'
+                        e.Row.Cells[7].BackColor = System.Drawing.Color.Green;
                     }
-                    else if (responseValue == "Rejected")
+                    else if (response == "Rejected")
                     {
-                        e.Row.BackColor = System.Drawing.Color.Red; // Red color for 'Rejected'
+                        e.Row.Cells[7].BackColor = System.Drawing.Color.Red;
                     }
                 }
             }
@@ -132,7 +126,7 @@ namespace Portail_Jobs.Admin
             using (SqlConnection conn = new SqlConnection(str))
             {
                 conn.Open();
-                string query = @"SELECT jah.AppliedJobId,j.CompanyName,j.Title,u.Mobile,u.Name,u.Email,jar.Response from JobApplicationHistory jah
+                string query = @"SELECT jah.AppliedJobId,j.CompanyName,j.Title,u.Name,u.Email,u.Mobile,jar.Response from JobApplicationHistory jah
                             inner join JobApplicationResp jar on jar.AppliedJobId = jah.AppliedJobId
                             inner join [User] u on jah.UserId = u.UserId
                             inner join Jobs j on jah.JobId = j.jobId";
@@ -147,42 +141,67 @@ namespace Portail_Jobs.Admin
             return dataTable;
         }
 
-        //protected void btnExportToExcel_Click(object sender, EventArgs e)
-        //{
-        //    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        protected void btnFilter_Click(object sender, EventArgs e)
+        {
+            string filterKeyword = txtFilter.Text.Trim();
+            filter(filterKeyword);
+        }
 
-        //    using (var package = new ExcelPackage())
-        //    {
-        //        var ws = package.Workbook.Worksheets.Add("Sheet1");
+        private void filter(string filterKeyword)
+        {
+            string query = string.Empty;
+            conn = new SqlConnection(str);
+            query = @"SELECT Row_Number() over(Order by (Select 1)) as [Sr.No],jah.AppliedJobId,j.CompanyName,jah.jobId,j.Title,u.Mobile,u.Name,u.Email,u.Resume,jar.Response 
+                FROM JobApplicationHistory jah
+                INNER JOIN JobApplicationResp jar ON jar.AppliedJobId = jah.AppliedJobId
+                INNER JOIN [User] u ON jah.UserId = u.UserId
+                INNER JOIN Jobs j ON jah.JobId = j.jobId
+                WHERE j.CompanyName LIKE @Keyword OR j.Title LIKE @Keyword OR u.Name LIKE @Keyword OR u.Email LIKE @Keyword OR u.Mobile LIKE @Keyword OR jar.Response LIKE @Keyword";
+            cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@Keyword", "%" + filterKeyword + "%");
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sqlDataAdapter.Fill(dt);
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+        }
 
-        //        // Adding headers
-        //        for (int i = 0; i < GridView1.Columns.Count; i++)
-        //        {
-        //            ws.Cells[1, i + 1].Value = GridView1.Columns[i].HeaderText;
-        //        }
+        private void ExportToExcel() 
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-        //        // Adding data
-        //        for (int i = 0; i < GridView1.Rows.Count; i++)
-        //        {
-        //            for (int j = 0; j < GridView1.Columns.Count; j++)
-        //            {
-        //                ws.Cells[i + 2, j + 1].Value = GridView1.Rows[i].Cells[j].Text;
-        //            }
-        //        }
+            using (var package = new ExcelPackage())
+            {
+                var ws = package.Workbook.Worksheets.Add("Sheet1");
 
-        //        // Save the Excel package to a MemoryStream
-        //        using (MemoryStream ms = new MemoryStream())
-        //        {
-        //            package.SaveAs(ms);
+                // Adding headers
+                for (int i = 0; i < GridView1.Columns.Count; i++)
+                {
+                    ws.Cells[1, i + 1].Value = GridView1.Columns[i].HeaderText;
+                }
 
-        //            Response.Clear();
-        //            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        //            Response.AddHeader("content-disposition", "attachment; filename=JobApplicationsHistory.xlsx");
-        //            ms.WriteTo(Response.OutputStream);
-        //            Response.End();
-        //        }
-        //    }
-        //}
+                // Adding data
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+                    for (int j = 0; j < GridView1.Columns.Count; j++)
+                    {
+                        ws.Cells[i + 2, j + 1].Value = GridView1.Rows[i].Cells[j].Text;
+                    }
+                }
+
+                // Save the Excel package to a MemoryStream
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    package.SaveAs(ms);
+
+                    Response.Clear();
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment; filename=JobApplicationsHistory.xlsx");
+                    ms.WriteTo(Response.OutputStream);
+                    Response.End();
+                }
+            }
+        }
 
         //protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         //{

@@ -15,33 +15,44 @@
 
             <div class="row mb-3 pt-sm-3">
                 <div class="col-md-12">
-                    <asp:Button ID="btnExportToExcel" runat="server" Text="Export to Excel" OnClick="btnExportToExcel_Click" CssClass="btn btn-primary" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <asp:TextBox ID="txtFilter" runat="server" CssClass="form-control" placeholder="Enter keyword to filter"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Button ID="btnFilter" runat="server" Text="Filter" OnClick="btnFilter_Click" CssClass="btn btn-primary btn-block" />
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Button ID="btnExportToExcel" runat="server" Text="Export to Excel" OnClick="btnExportToExcel_Click" CssClass="btn btn-primary btn-block" />
+                        </div>
+                    </div>
+                    <hr />
                     <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-bordered" EmptyDataText="No informations to display !" AutoGenerateColumns="False"
                         AllowPaging="True" PageSize="10" DataKeyNames="AppliedJobId" OnPageIndexChanging="GridView1_PageIndexChanging" OnRowDataBound="GridView1_RowDataBound">
                         <Columns>
 
                             <asp:BoundField DataField="Sr.No" HeaderText="Sr.No">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"/>
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="CompanyName" HeaderText="Company name">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"/>
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Title" HeaderText="Job title">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"/>
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Name" HeaderText="User name">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"/>
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Email" HeaderText="User email">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"/>
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Mobile" HeaderText="Phone number">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"/>
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:TemplateField HeaderText="Resume">
@@ -54,7 +65,7 @@
                             </asp:TemplateField>
 
                             <asp:BoundField DataField="Response" HeaderText="Application response">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"/>
+                                <ItemStyle HorizontalAlign="Center" ForeColor="White" Font-Bold="true" />
                             </asp:BoundField>
 
                         </Columns>
