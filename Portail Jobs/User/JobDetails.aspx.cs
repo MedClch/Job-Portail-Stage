@@ -72,8 +72,8 @@ namespace Portail_Jobs.User
                         conn.Open();
                         int respResult = cmd.ExecuteNonQuery();
                         conn.Close();
-                        // Insert into JobApplicationHistory
-                        string historyQuery = @"Insert into JobApplicationHistory values (@AppliedJobId, @JobId, @UserId, @Title,@Name,@CompanyName,@Email,@Mobile,@Resume, 'Pending')";
+
+                        string historyQuery = @"Insert into JobApplicationHistory values (@AppliedJobId, @JobId, @UserId, @Title, @Name, @CompanyName, @Email, @Mobile, @Resume, 'Pending')";
                         cmd = new SqlCommand(historyQuery, conn);
                         cmd.Parameters.AddWithValue("@AppliedJobId", GetLatestInsertedId("AppliedJobs"));
                         cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
@@ -89,7 +89,6 @@ namespace Portail_Jobs.User
                         conn.Close();
                         if (respResult > 0 && historyResult > 0)
                         {
-                            // Successful insertion
                             lblMsg.Visible = true;
                             lblMsg.Text = "Job application sent successfully!";
                             lblMsg.CssClass = "alert alert-success";
@@ -222,14 +221,12 @@ namespace Portail_Jobs.User
         public int GetLatestInsertedId(string tableName)
         {
             int latestId = -1; // Initialize with a default value
-
             try
             {
                 using (SqlConnection connection = new SqlConnection(str))
                 {
                     connection.Open();
                     string query = $"SELECT IDENT_CURRENT('{tableName}') AS LatestId";
-
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         object result = command.ExecuteScalar();
@@ -242,9 +239,7 @@ namespace Portail_Jobs.User
             }
             catch (Exception ex)
             {
-                // Handle the exception as needed
-                // For debugging, you can output the exception message
-                Console.WriteLine("Error: " + ex.Message);
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
             }
 
             return latestId;
