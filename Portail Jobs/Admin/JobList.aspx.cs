@@ -208,65 +208,145 @@ namespace Portail_Jobs.Admin
             }
         }
 
+        //protected void btnExportToExcel_Click(object sender, EventArgs e)
+        //{
+        //    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        //    using (var package = new ExcelPackage())
+        //    {
+        //        var ws = package.Workbook.Worksheets.Add("Sheet1");
+        //        // Adding headers
+        //        for (int i = 0; i < GridView1.Columns.Count; i++)
+        //        {
+        //            // Exclude columns by header text
+        //            if (GridView1.Columns[i].HeaderText != "Edit" && GridView1.Columns[i].HeaderText != "Delete")
+        //            {
+        //                ws.Cells[1, i + 1].Value = GridView1.Columns[i].HeaderText;
+        //            }
+        //        }
+        //        // Adding data
+        //        for (int i = 0; i < GridView1.Rows.Count; i++)
+        //        {
+        //            int cellIndex = 0; // Keep track of the index for the Excel cell
+        //            for (int j = 0; j < GridView1.Columns.Count; j++)
+        //            {
+        //                // Exclude columns by header text
+        //                if (GridView1.Columns[j].HeaderText != "Edit" && GridView1.Columns[j].HeaderText != "Delete")
+        //                {
+        //                    // Special handling for date columns
+        //                    if (GridView1.Columns[j].HeaderText == "Valid until" || GridView1.Columns[j].HeaderText == "Post date")
+        //                    {
+        //                        DateTime dateValue;
+        //                        if (DateTime.TryParse(GridView1.Rows[i].Cells[j].Text, out dateValue))
+        //                        {
+        //                            ws.Cells[i + 2, cellIndex + 1].Value = dateValue.ToString("dd MMMM yyyy");
+        //                        }
+        //                        else
+        //                        {
+        //                            ws.Cells[i + 2, cellIndex + 1].Value = GridView1.Rows[i].Cells[j].Text;
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        ws.Cells[i + 2, cellIndex + 1].Value = GridView1.Rows[i].Cells[j].Text;
+        //                    }
+        //                    cellIndex++;
+        //                }
+        //            }
+        //        }
+        //        // Save the Excel package to a MemoryStream
+        //        using (MemoryStream ms = new MemoryStream())
+        //        {
+        //            package.SaveAs(ms);
+        //            Response.Clear();
+        //            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        //            Response.AddHeader("content-disposition", "attachment; filename=JobsList.xlsx");
+        //            ms.WriteTo(Response.OutputStream);
+        //            Response.End();
+        //        }
+        //    }
+        //}
+
         protected void btnExportToExcel_Click(object sender, EventArgs e)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (var package = new ExcelPackage())
             {
                 var ws = package.Workbook.Worksheets.Add("Sheet1");
-                // Adding headers
+                int columnIndex = 1;
                 for (int i = 0; i < GridView1.Columns.Count; i++)
                 {
-                    // Exclude columns by header text
-                    if (GridView1.Columns[i].HeaderText != "Edit" && GridView1.Columns[i].HeaderText != "Delete")
+                    if (GridView1.Columns[i].HeaderText != "Resume")
                     {
-                        ws.Cells[1, i + 1].Value = GridView1.Columns[i].HeaderText;
+                        ws.Cells[1, columnIndex].Value = GridView1.Columns[i].HeaderText;
+                        columnIndex++;
                     }
                 }
-                // Adding data
-                for (int i = 0; i < GridView1.Rows.Count; i++)
+                DataTable allData = FetchAllData();
+
+                // toutes les pages 
+                for (int i = 0; i < allData.Rows.Count; i++)
                 {
-                    int cellIndex = 0; // Keep track of the index for the Excel cell
-                    for (int j = 0; j < GridView1.Columns.Count; j++)
+                    var row = allData.Rows[i];
+                    columnIndex = 1;
+                    for (int j = 0; j < allData.Columns.Count; j++)
                     {
-                        // Exclude columns by header text
-                        if (GridView1.Columns[j].HeaderText != "Edit" && GridView1.Columns[j].HeaderText != "Delete")
+                        if (allData.Columns[j].ColumnName != "Resume")
                         {
-                            // Special handling for date columns
-                            if (GridView1.Columns[j].HeaderText == "Valid until" || GridView1.Columns[j].HeaderText == "Post date")
-                            {
-                                DateTime dateValue;
-                                if (DateTime.TryParse(GridView1.Rows[i].Cells[j].Text, out dateValue))
-                                {
-                                    ws.Cells[i + 2, cellIndex + 1].Value = dateValue.ToString("dd MMMM yyyy");
-                                }
-                                else
-                                {
-                                    ws.Cells[i + 2, cellIndex + 1].Value = GridView1.Rows[i].Cells[j].Text;
-                                }
-                            }
-                            else
-                            {
-                                ws.Cells[i + 2, cellIndex + 1].Value = GridView1.Rows[i].Cells[j].Text;
-                            }
-                            cellIndex++;
+                            ws.Cells[i + 2, columnIndex].Value = row[j];
+                            columnIndex++;
                         }
                     }
                 }
-                // Save the Excel package to a MemoryStream
                 using (MemoryStream ms = new MemoryStream())
                 {
                     package.SaveAs(ms);
                     Response.Clear();
                     Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                    Response.AddHeader("content-disposition", "attachment; filename=JobsList.xlsx");
+                    Response.AddHeader("content-disposition", "attachment; filename=JobApplicationsHistory.xlsx");
                     ms.WriteTo(Response.OutputStream);
                     Response.End();
                 }
             }
         }
 
+        private DataTable FetchAllData()
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection conn = new SqlConnection(str))
+            {
+                conn.Open();
+                string query = @"SELECT JobId,Title,NoOfPost,Qualification,Experience,LastDateToApply,CompanyName,Country,State,CreateDate from Jobs";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+            return dataTable;
+        }
 
+        protected void btnFilter_Click(object sender, EventArgs e)
+        {
+            string filterKeyword = txtFilter.Text.Trim();
+            filter(filterKeyword);
+        }
+
+        private void filter(string filterKeyword)
+        {
+            string query = string.Empty;
+            conn = new SqlConnection(str);
+            query = @"Select Row_Number() over(Order by (Select 1)) as [Sr.No],JobId,Title,NoOfPost,Qualification,Experience,LastDateToApply,CompanyName,Country,State,CreateDate from Jobs
+                WHERE Title LIKE @Keyword OR NoOfPost LIKE @Keyword OR Qualification LIKE @Keyword OR Experience LIKE @Keyword OR CompanyName LIKE @Keyword OR Country LIKE @Keyword OR State LIKE @Keyword";
+            cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@Keyword", "%" + filterKeyword + "%");
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sqlDataAdapter.Fill(dt);
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+        }
 
         //protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         //{
