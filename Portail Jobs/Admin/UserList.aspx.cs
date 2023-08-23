@@ -100,5 +100,10 @@ namespace Portail_Jobs.Admin
                 }
             }
         }
+
+        protected void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
