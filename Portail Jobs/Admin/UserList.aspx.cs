@@ -169,6 +169,7 @@ namespace Portail_Jobs.Admin
             string filterKeyword = txtFilter.Text.Trim();
             filter(filterKeyword);
         }
+
         private void filter(string filterKeyword)
         {
             string query = string.Empty;
