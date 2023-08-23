@@ -48,7 +48,6 @@ namespace Portail_Jobs.Admin
                         txtUsername.Enabled=false;
                         txtUsername.ForeColor = Color.Black;
                         txtFullName.Text = reader["Name"].ToString();
-                        //txtPass.Text = reader["Password"].ToString();
                         txtAddress.Text = reader["Address"].ToString();
                         txtMobile.Text = reader["Mobile"].ToString();
                         txtEmail.Text = reader["Email"].ToString();
