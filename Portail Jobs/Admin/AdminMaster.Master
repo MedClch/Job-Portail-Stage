@@ -85,7 +85,7 @@
 
                         <li>
                             <a href="JobList.aspx">
-                                <div class="icon"><i class="fas fa-file-alt"></i></div>
+                                <div class="icon"><i class="fas fa-briefcase"></i></div>
                                 <div class="title">Job List</div>
                             </a>
                         </li>
@@ -93,7 +93,7 @@
                         <li>
                             <a href="ViewResume.aspx">
                                 <div class="icon"><i class="fas fa-file-download"></i></div>
-                                <div class="title">View Resume</div>
+                                <div class="title">Applications & resumes</div>
                             </a>
                         </li>
 

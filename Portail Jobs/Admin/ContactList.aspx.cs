@@ -84,5 +84,15 @@ namespace Portail_Jobs.Admin
                 conn.Close();
             }
         }
+
+        protected void btnFilter_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
