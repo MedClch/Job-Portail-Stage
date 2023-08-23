@@ -62,7 +62,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Phone number</label>
-                                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" placeholder="Enter phone number" required></asp:TextBox>
+                                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" placeholder="Enter phone number" TextMode="Phone" required></asp:TextBox>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Phone number must have 10 digits !"
                                         ForeColor="Red" Display="Dynamic" SetFocusOnError="true" Font-Size="Small" ValidationExpression="^[0-9]{10}$"
                                         ControlToValidate="txtMobile"></asp:RegularExpressionValidator>
