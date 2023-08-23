@@ -232,7 +232,6 @@ namespace Portail_Jobs.Admin
 
         public static string HashPassword(string password)
         {
-            // Generate a random salt and hash the password
             return BCrypt.Net.BCrypt.HashPassword(password, BCrypt.Net.BCrypt.GenerateSalt());
         }
     }
