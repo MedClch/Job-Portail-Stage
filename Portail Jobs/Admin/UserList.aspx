@@ -29,7 +29,7 @@
                             <asp:TextBox ID="txtFilter" runat="server" CssClass="form-control" placeholder="Enter keyword to filter"></asp:TextBox>
                         </div>
                         <div class="col-md-1">
-                            <asp:Button ID="btnFilter" runat="server" Text="Filter" OnClick="btnExportToExcel_Click" CssClass="btn btn-primary btn-block" />
+                            <asp:Button ID="btnFilter" runat="server" Text="Filter" OnClick="btnFilter_Click" CssClass="btn btn-primary btn-block" />
                         </div>
                         <div class="col-md-2">
                             <asp:Button ID="btnExportToExcel" runat="server" Text="Export to Excel" OnClick="btnExportToExcel_Click" CssClass="btn btn-primary btn-block" />
