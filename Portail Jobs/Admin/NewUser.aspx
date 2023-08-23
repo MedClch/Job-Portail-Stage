@@ -21,22 +21,22 @@
             <div class="row mr-lg-5 ml-lg-5 mb-3">
                 <div class="col-md-6 pt-3">
                     <label for="lblJobTitle" style="font-weight: 600">Username</label>
-                    <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" placeholder="Ex. Web Developer ..." required></asp:TextBox>
+                    <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" placeholder="Enter username" required></asp:TextBox>
                 </div>
                 <div class="col-md-6 pt-3">
                     <label for="lblNbPost" style="font-weight: 600">Full name</label>
-                    <asp:TextBox ID="txtFullName" runat="server" CssClass="form-control" placeholder="Enter number of posts" required></asp:TextBox>
+                    <asp:TextBox ID="txtFullName" runat="server" CssClass="form-control" placeholder="Enter full name" required></asp:TextBox>
                 </div>
             </div>
 
             <div class="row mr-lg-5 ml-lg-5 mb-3">
                 <div class="col-md-6 pt-3">
                     <label for="lblQualiEdu" style="font-weight: 600">Password</label>
-                    <asp:TextBox ID="txtPass" runat="server" CssClass="form-control" placeholder="Ex. MCA, MBA ..." TextMode="Password" required></asp:TextBox>
+                    <asp:TextBox ID="txtPass" runat="server" CssClass="form-control" placeholder="Enter password" TextMode="Password" required></asp:TextBox>
                 </div>
                 <div class="col-md-6 pt-3">
                     <label for="lblExperience" style="font-weight: 600">Confirm password</label>
-                    <asp:TextBox ID="txtConfirmPass" runat="server" CssClass="form-control" placeholder="Ex. 2 years, 1.5 years ..." TextMode="Password" required></asp:TextBox>
+                    <asp:TextBox ID="txtConfirmPass" runat="server" CssClass="form-control" placeholder="Confirm password" TextMode="Password" required></asp:TextBox>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Password and confirm password should match !"
                         ControlToCompare="txtPass" ControlToValidate="txtConfirmPass" ForeColor="Red" Display="Dynamic"
                         SetFocusOnError="true" Font-Size="Small"></asp:CompareValidator>
@@ -46,21 +46,21 @@
             <div class="row mr-lg-5 ml-lg-5 mb-3">
                 <div class="col-md-12 pt-3">
                     <label for="lblJobDesc" style="font-weight: 600">Address</label>
-                    <asp:TextBox ID="txtAddress" runat="server" CssClass="form-control" placeholder="Enter job description" TextMode="MultiLine" required></asp:TextBox>
+                    <asp:TextBox ID="txtAddress" runat="server" CssClass="form-control" placeholder="Enter adrress" TextMode="MultiLine" required></asp:TextBox>
                 </div>
             </div>
 
             <div class="row mr-lg-5 ml-lg-5 mb-3">
                 <div class="col-md-6 pt-3">
                     <label for="lblSpecialization" style="font-weight: 600">Phone number</label>
-                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" placeholder="Enter specialization" TextMode="Phone" required></asp:TextBox>
+                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" placeholder="Enter phone number" TextMode="Phone" required></asp:TextBox>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Phone number must have 10 digits !"
                         ForeColor="Red" Display="Dynamic" SetFocusOnError="true" Font-Size="Small" ValidationExpression="^[0-9]{10}$"
                         ControlToValidate="txtMobile"></asp:RegularExpressionValidator>
                 </div>
                 <div class="col-md-6 pt-3">
                     <label for="lblLastDate" style="font-weight: 600">Email</label>
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Enter the last date to apply" required TextMode="Email"></asp:TextBox>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Enter email" required TextMode="Email"></asp:TextBox>
                 </div>
             </div>
 
