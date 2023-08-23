@@ -20,28 +20,37 @@
                         <Columns>
 
                             <asp:BoundField DataField="Sr.No" HeaderText="Sr.No">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"  />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
-                            
+
                             <asp:BoundField DataField="Username" HeaderText="Username">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"  />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Name" HeaderText="Name">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"  />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Email" HeaderText="Email">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"  />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Mobile" HeaderText="Phone number">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"  />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Country" HeaderText="Country">
-                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"  />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
+
+                            <asp:TemplateField HeaderText="Edit">
+                                <ItemTemplate>
+                                    <a href='<%# "NewUser.aspx?id=" + Eval("UserId") %>'>
+                                        <asp:Image ID="Img" runat="server" ImageUrl="../assets/img/icon/edit.png" Height="25px" />
+                                    </a>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" Width="50px" />
+                            </asp:TemplateField>
 
                             <asp:CommandField CausesValidation="false" HeaderText="Delete" ShowDeleteButton="true" DeleteImageUrl="../assets/img/icon/delete.png" ButtonType="Image">
                                 <ControlStyle Height="25px" Width="25px" />
