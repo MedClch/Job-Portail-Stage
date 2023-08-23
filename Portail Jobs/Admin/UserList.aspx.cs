@@ -174,8 +174,8 @@ namespace Portail_Jobs.Admin
         {
             string query = string.Empty;
             conn = new SqlConnection(str);
-            query = @"Select Row_Number() over(Order by (Select 1)) as [Sr.No],JobId,Title,NoOfPost,Qualification,Experience,LastDateToApply,CompanyName,Country,State,CreateDate from Jobs
-                WHERE Title LIKE @Keyword OR NoOfPost LIKE @Keyword OR Qualification LIKE @Keyword OR Experience LIKE @Keyword OR CompanyName LIKE @Keyword OR Country LIKE @Keyword OR State LIKE @Keyword";
+            query = @"Select Row_Number() over(Order by (Select 1)) as [Sr.No],UserId,Username,Name,Email,Mobile,Country from [User]
+                WHERE Username LIKE @Keyword OR Name LIKE @Keyword OR Email LIKE @Keyword OR Mobile LIKE @Keyword OR Country LIKE @Keyword";
             cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@Keyword", "%" + filterKeyword + "%");
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);

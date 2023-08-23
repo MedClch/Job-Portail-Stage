@@ -39,7 +39,7 @@
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" placeholder="Enter username" disabled></asp:TextBox>
+                                    <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" placeholder="Enter username" required></asp:TextBox>
                                 </div>
                             </div>
 
