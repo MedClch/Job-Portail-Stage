@@ -45,8 +45,6 @@ namespace Portail_Jobs.Admin
                     while (reader.Read())
                     {
                         txtUsername.Text = reader["Username"].ToString();
-                        txtUsername.Enabled=false;
-                        txtUsername.ForeColor = Color.Black;
                         txtFullName.Text = reader["Name"].ToString();
                         txtAddress.Text = reader["Address"].ToString();
                         txtMobile.Text = reader["Mobile"].ToString();
@@ -71,89 +69,102 @@ namespace Portail_Jobs.Admin
         {
             if (Request.QueryString["id"]!=null)
             {
-                if(txtPass.Text.Trim() == null)
+                int userId = Convert.ToInt32(Request.QueryString["id"]);
+                string newUsername = txtUsername.Text.Trim();
+                if (IsUsernameAvailable(newUsername, userId))
                 {
-                    try
+                    if (txtPass.Text.Trim() == null)
                     {
-                        conn = new SqlConnection(str);
-                        string query = @"Update [User] set Name=@Name,Mobile=@Mobile,Email=@Email,
+                        try
+                        {
+                            conn = new SqlConnection(str);
+                            string query = @"Update [User] set Username=@Username,Name=@Name,Mobile=@Mobile,Email=@Email,
                                 Address=@Address,Country=@Country where UserId=@id";
-                        cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
-                        cmd.Parameters.AddWithValue("@id", Request.QueryString["id"].ToString());
-                        conn.Open();
-                        int res = cmd.ExecuteNonQuery();
-                        if (res > 0)
-                        {
-                            lblMsg.Visible = true;
-                            lblMsg.Text = "User informations updated uccessfully !";
-                            lblMsg.CssClass = "alert alert-success";
-                            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
-                            clear();
+                            cmd = new SqlCommand(query, conn);
+                            cmd.Parameters.AddWithValue("@Username", txtUsername.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
+                            cmd.Parameters.AddWithValue("@id", Request.QueryString["id"].ToString());
+                            conn.Open();
+                            int res = cmd.ExecuteNonQuery();
+                            if (res > 0)
+                            {
+                                lblMsg.Visible = true;
+                                lblMsg.Text = "User informations updated uccessfully !";
+                                lblMsg.CssClass = "alert alert-success";
+                                ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                            }
+                            else
+                            {
+                                lblMsg.Visible = true;
+                                lblMsg.Text = "Couldn't update this user informations, please try again!";
+                                lblMsg.CssClass = "alert alert-danger";
+                                ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                            }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            lblMsg.Visible = true;
-                            lblMsg.Text = "Couldn't update this user informations, please try again!";
-                            lblMsg.CssClass = "alert alert-danger";
-                            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                            Response.Write("<script>alert('" + ex.Message + "');</script>");
+                        }
+                        finally
+                        {
+                            conn.Close();
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Response.Write("<script>alert('" + ex.Message + "');</script>");
-                    }
-                    finally
-                    {
-                        conn.Close();
+                        try
+                        {
+                            conn = new SqlConnection(str);
+                            string query = @"Update [User] set Username=@Username,Name=@Name,Password=@Password,Mobile=@Mobile,Email=@Email,
+                                Address=@Address,Country=@Country where UserId=@id";
+                            cmd = new SqlCommand(query, conn);
+                            cmd.Parameters.AddWithValue("@Username", txtUsername.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
+                            string hashedPassword = HashPassword(txtConfirmPass.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Password", hashedPassword);
+                            cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
+                            cmd.Parameters.AddWithValue("@id", Request.QueryString["id"].ToString());
+                            conn.Open();
+                            int res = cmd.ExecuteNonQuery();
+                            if (res > 0)
+                            {
+                                lblMsg.Visible = true;
+                                lblMsg.Text = "User informations updated uccessfully !";
+                                lblMsg.CssClass = "alert alert-success";
+                                ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                            }
+                            else
+                            {
+                                lblMsg.Visible = true;
+                                lblMsg.Text = "Couldn't update this user informations, please try again!";
+                                lblMsg.CssClass = "alert alert-danger";
+                                ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Response.Write("<script>alert('" + ex.Message + "');</script>");
+                        }
+                        finally
+                        {
+                            conn.Close();
+                        }
                     }
                 }
                 else
                 {
-                    try
-                    {
-                        conn = new SqlConnection(str);
-                        string query = @"Update [User] set Name=@Name,Password=@Password,Mobile=@Mobile,Email=@Email,
-                                Address=@Address,Country=@Country where UserId=@id";
-                        cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
-                        string hashedPassword = HashPassword(txtConfirmPass.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Password", hashedPassword);
-                        cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
-                        cmd.Parameters.AddWithValue("@id", Request.QueryString["id"].ToString());
-                        conn.Open();
-                        int res = cmd.ExecuteNonQuery();
-                        if (res > 0)
-                        {
-                            lblMsg.Visible = true;
-                            lblMsg.Text = "User informations updated uccessfully !";
-                            lblMsg.CssClass = "alert alert-success";
-                            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
-                            clear();
-                        }
-                        else
-                        {
-                            lblMsg.Visible = true;
-                            lblMsg.Text = "Couldn't update this user informations, please try again!";
-                            lblMsg.CssClass = "alert alert-danger";
-                            ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Response.Write("<script>alert('" + ex.Message + "');</script>");
-                    }
-                    finally
-                    {
-                        conn.Close();
-                    }
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "<b>" + txtUsername.Text.Trim() + "<b> already exists, please try again!";
+                    lblMsg.CssClass = "alert alert-danger";
+                    ClientScript.RegisterStartupScript(this.GetType(), "HideMessage", "setTimeout(function() { document.getElementById('" + lblMsg.ClientID + "').style.display = 'none'; }, 4500);", true);
+                    clear();
                 }
             }
             else
@@ -168,7 +179,6 @@ namespace Portail_Jobs.Admin
                     // Hash the password using bcrypt before storing it in the database
                     string hashedPassword = HashPassword(txtConfirmPass.Text.Trim());
                     cmd.Parameters.AddWithValue("@Password", hashedPassword);
-
                     cmd.Parameters.AddWithValue("@Name", txtFullName.Text.Trim());
                     cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
                     cmd.Parameters.AddWithValue("@Mobile", txtMobile.Text.Trim());
@@ -233,6 +243,27 @@ namespace Portail_Jobs.Admin
         public static string HashPassword(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password, BCrypt.Net.BCrypt.GenerateSalt());
+        }
+
+        private bool IsUsernameAvailable(string newUsername, int currentUserId)
+        {
+            bool isAvailable = true;
+            using (SqlConnection conn = new SqlConnection(str))
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM [User] WHERE Username = @Username AND UserId != @CurrentUserId";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Username", newUsername);
+                    cmd.Parameters.AddWithValue("@CurrentUserId", currentUserId);
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    if (count > 0)
+                    {
+                        isAvailable = false;
+                    }
+                }
+            }
+            return isAvailable;
         }
     }
 }
