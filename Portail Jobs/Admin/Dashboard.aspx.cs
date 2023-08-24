@@ -90,6 +90,41 @@ namespace Portail_Jobs.Admin
             return dataTable;
         }
 
+        public string GetPieChartDataAsJson()
+        {
+            int usersWithNullResume = GetCountFromQuery("SELECT COUNT(*) FROM [User] WHERE Resume IS NULL");
+            int appliedJobsCount = GetCountFromQuery("SELECT COUNT(a.AppliedJobId) FROM Jobs j LEFT JOIN AppliedJobs a ON j.JobId = a.JobId");
+            int pendingApplicationsCount = GetCountFromQuery("SELECT COUNT(*) FROM JobApplicationHistory WHERE Response='Pending'");
+
+            // Combine the pie chart data into an object
+            var pieChartData = new
+            {
+                Labels = new string[] { "Users with Null Resume", "Applied Jobs", "Pending Applications" },
+                Values = new int[] { usersWithNullResume, appliedJobsCount, pendingApplicationsCount }
+            };
+
+            // Convert the pieChartData object to a JSON string
+            string jsonData = JsonConvert.SerializeObject(pieChartData);
+            return jsonData;
+        }
+
+        // Fetch a count from the database using the provided query
+        private int GetCountFromQuery(string query)
+        {
+            int count = 0;
+            using (SqlConnection conn = new SqlConnection(str))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    count = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                conn.Close();
+            }
+            return count;
+        }
+
+
         private void showContactStats()
         {
             conn = new SqlConnection(str);

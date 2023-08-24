@@ -97,7 +97,7 @@
                                 <div class="row-align-items-center mb-2 d-flex align-items-center justify-content-center">
                                     <div class="col-8 text-center">
                                         <h2 class="mb-0">
-                                           <b><% Response.Write(Session["Users"]); %></b> 
+                                            <b><% Response.Write(Session["Users"]); %></b>
                                         </h2>
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@
                                 <div class="row-align-items-center mb-2 d-flex align-items-center justify-content-center">
                                     <div class="col-8 text-center">
                                         <h2 class="mb-0">
-                                           <b><% Response.Write(Session["Applications"]); %></b> 
+                                            <b><% Response.Write(Session["Applications"]); %></b>
                                         </h2>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@
                                 <div class="row-align-items-center mb-2 d-flex align-items-center justify-content-center">
                                     <div class="col-8 text-center">
                                         <h2 class="mb-0">
-                                           <b><% Response.Write(Session["Contact"]); %></b> 
+                                            <b><% Response.Write(Session["Contact"]); %></b>
                                         </h2>
                                     </div>
                                 </div>
@@ -171,14 +171,35 @@
             </div>
         </div>
 
+
         <div class="col-md-10 mx-auto mt-5">
+            <div class="row">
+                <!-- Bar Chart Card -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="myChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pie Chart Card -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="myPieChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%--        <div class="col-md-10 mx-auto mt-5">
             <div class="row">
                 <div class="col">
                     <canvas id="myChart" width="400" height="200"></canvas>
                 </div>
             </div>
-        </div>
-
+        </div>--%>
     </div>
 
     <script>
@@ -208,6 +229,36 @@
                         beginAtZero: true
                     }
                 }
+            }
+        });
+
+        // Fetch pie chart data from the server using ASP.NET code-behind
+        var pieJsonData = '<%= GetPieChartDataAsJson() %>';
+        var pieChartData = JSON.parse(pieJsonData);
+
+        // Get the canvas element for the pie chart
+        var pieCtx = document.getElementById('myPieChart').getContext('2d');
+
+        // Create a pie chart
+        var myPieChart = new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: pieChartData.Labels,
+                datasets: [{
+                    label: 'Pie Chart Data',
+                    data: pieChartData.Values,
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        // ... Add more colors if needed ...
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        // ... Add more colors if needed ...
+                    ],
+                    borderWidth: 1
+                }]
             }
         });
     </script>
