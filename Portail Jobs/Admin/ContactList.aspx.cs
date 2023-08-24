@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
+using OfficeOpenXml;
 
 namespace Portail_Jobs.Admin
 {
@@ -87,12 +89,84 @@ namespace Portail_Jobs.Admin
 
         protected void btnFilter_Click(object sender, EventArgs e)
         {
+            string filterKeyword = txtFilter.Text.Trim();
+            filter(filterKeyword);
+        }
 
+        private void filter(string filterKeyword)
+        {
+            string query = string.Empty;
+            conn = new SqlConnection(str);
+            query = @"Select Row_Number() over(Order by (Select 1)) as [Sr.No],ContactId,Name,Email,Subject,Message from Contact
+                WHERE Name LIKE @Keyword OR Email LIKE @Keyword OR Subject LIKE @Keyword OR Message LIKE @Keyword";
+            cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@Keyword", "%" + filterKeyword + "%");
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sqlDataAdapter.Fill(dt);
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
         }
 
         protected void btnExportToExcel_Click(object sender, EventArgs e)
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (var package = new ExcelPackage())
+            {
+                var ws = package.Workbook.Worksheets.Add("Sheet1");
+                int columnIndex = 1;
+                for (int i = 0; i < GridView1.Columns.Count; i++)
+                {
+                    if (GridView1.Columns[i].HeaderText != "Delete")
+                    {
+                        ws.Cells[1, columnIndex].Value = GridView1.Columns[i].HeaderText;
+                        columnIndex++;
+                    }
+                }
+                DataTable allData = FetchAllData();
 
+                // toutes les pages 
+                for (int i = 0; i < allData.Rows.Count; i++)
+                {
+                    var row = allData.Rows[i];
+                    columnIndex = 1;
+                    for (int j = 0; j < allData.Columns.Count; j++)
+                    {
+                        if (allData.Columns[j].ColumnName != "Delete")
+                        {
+                            ws.Cells[i + 2, columnIndex].Value = row[j];
+                            columnIndex++;
+                        }
+                    }
+                }
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    package.SaveAs(ms);
+                    Response.Clear();
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment; filename=ContactList.xlsx");
+                    ms.WriteTo(Response.OutputStream);
+                    Response.End();
+                }
+            }
+        }
+
+        private DataTable FetchAllData()
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection conn = new SqlConnection(str))
+            {
+                conn.Open();
+                string query = @"SELECT ContactId,Name,Email,Subject,Message from Contact";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+            return dataTable;
         }
     }
 }
