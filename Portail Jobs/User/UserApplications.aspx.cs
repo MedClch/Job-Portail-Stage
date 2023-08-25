@@ -40,8 +40,7 @@ namespace Portail_Jobs.User
             {
                 int idU = Convert.ToInt32(Session["userId"]);
                 conn = new SqlConnection(str);
-                string query = @"Select j.JobId,j.Title,j.Salary,j.JobType,j.CompanyName,j.CompanyImage,j.Country,j.State,jah.Response,jah.ReplyDate from Jobs j 
-                               inner join JobApplicationHistory jah on j.JobId = jah.jobId and jah.UserId="+idU+"";
+                string query = @"Select JobId,Title,Salary,JobType,CompanyName,CompanyImage,Country,State,Response,ReplyDate from JobApplicationHistory where UserId="+idU+"";
                 cmd = new SqlCommand(query, conn);
                 adapter = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -94,8 +93,9 @@ namespace Portail_Jobs.User
             jobType = selectedCheckBox();
             if (jobType!="")
             {
+                int idU = Convert.ToInt32(Session["userId"]);
                 conn = new SqlConnection(str);
-                string query = @"Select JobId,Title,Salary,JobType,CompanyName,CompanyImage,Country,State,CreateDate from Jobs where JobType IN ("+jobType+")";
+                string query = @"Select JobId,Title,Salary,JobType,CompanyName,CompanyImage,Country,State,ReplyDate,Response from JobApplicationHistory where JobType IN ("+jobType+") and UserId="+idU+"";
                 cmd = new SqlCommand(query, conn);
                 adapter = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -125,10 +125,11 @@ namespace Portail_Jobs.User
         {
             if (RadioButtonList1.SelectedValue!="0")
             {
+                int idU = Convert.ToInt32(Session["userId"]);
                 string postedDate = string.Empty;
                 postedDate = selectedRadioButton();
                 conn = new SqlConnection(str);
-                string query = @"Select JobId,Title,Salary,JobType,CompanyName,CompanyImage,Country,State,CreateDate from Jobs where Convert(DATE,CreateDate) "+postedDate+" ";
+                string query = @"Select JobId,Title,Salary,JobType,CompanyName,CompanyImage,Country,State,ReplyDate,Response from JobApplicationHistory where Convert(DATE,ReplyDate) "+postedDate+" and UserId="+idU+"";
                 cmd = new SqlCommand(query, conn);
                 adapter = new SqlDataAdapter(cmd);
                 dt = new DataTable();
@@ -196,7 +197,7 @@ namespace Portail_Jobs.User
                 if (RadioButtonList1.SelectedValue!="0")
                 {
                     postedDate = selectedRadioButton();
-                    queryList.Add(" Convert(DATE,CreateDate) "+postedDate);
+                    queryList.Add(" Convert(DATE,ReplyDate) "+postedDate);
                     isCondition = true;
                 }
                 if (isCondition)
@@ -206,11 +207,11 @@ namespace Portail_Jobs.User
                         subQuery += s + " and ";
                     }
                     subQuery = subQuery.Remove(subQuery.LastIndexOf("and"), 3);
-                    query = @"Select JobId,Title,Salary,JobType,CompanyName,CompanyImage,Country,State,CreateDate from Jobs where "+subQuery+" ";
+                    query = @"Select JobId,Title,Salary,JobType,CompanyName,CompanyImage,Country,State,ReplyDate,Response from JobApplicationHistory where "+subQuery+" ";
                 }
                 else
                 {
-                    query = @"Select JobId,Title,Salary,JobType,CompanyName,CompanyImage,Country,State,CreateDate from Jobs";
+                    query = @"Select JobId,Title,Salary,JobType,CompanyName,CompanyImage,Country,State,ReplyDate,Response from JobApplicationHistory";
                 }
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                 dt = new DataTable();
@@ -266,13 +267,14 @@ namespace Portail_Jobs.User
                 if (AppResCheckBox.Items[i].Selected)
                     selectedResponses.Add(AppResCheckBox.Items[i].Text);
             }
+
             if (selectedResponses.Count > 0)
             {
                 int idU = Convert.ToInt32(Session["userId"]);
                 conn = new SqlConnection(str);
                 string responseParameters = string.Join(",", selectedResponses.Select((response, index) => "@Response" + index));
-                string query = $@"SELECT j.JobId, j.Title, j.Salary, j.JobType, j.CompanyName, j.CompanyImage, j.Country, j.State, j.CreateDate FROM Jobs j
-                        INNER JOIN JobApplicationHistory jah ON j.JobId = jah.jobId WHERE Response IN ({responseParameters}) AND jah.UserId = @UserId";
+                string query = $@"SELECT JobId, Title, Salary, JobType, CompanyName, CompanyImage, Country, State, Response, ReplyDate FROM JobApplicationHistory WHERE Response IN ({responseParameters}) AND UserId = @UserId";
+
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     for (int i = 0; i < selectedResponses.Count; i++)
@@ -281,12 +283,44 @@ namespace Portail_Jobs.User
                     adapter = new SqlDataAdapter(cmd);
                     dt = new DataTable();
                     adapter.Fill(dt);
-                    showJobList();
+
+                    // Set the DataTable as the DataSource for DataList
+                    DataList1.DataSource = dt;
+                    DataList1.DataBind();
+
+                    // Modify CSS classes based on "Response" column
+                    foreach (DataListItem item in DataList1.Items)
+                    {
+                        DataRowView rowView = item.DataItem as DataRowView;
+                        if (rowView != null)
+                        {
+                            string response = rowView["Response"].ToString();
+                            string cssClass = GetResponseCssClass(response);
+                            item.CssClass = cssClass;
+                        }
+                    }
+
+                    // Call this method to apply color changes to radiobuttons
                     RBSelectedColorChange();
                 }
             }
             else
+            {
+                // No responses selected, show the default job list
                 showJobList();
+            }
+        }
+
+        private string GetResponseCssClass(string response)
+        {
+            if (response == "Accepted")
+                return "accepted";
+            else if (response == "Rejected")
+                return "rejected";
+            else if (response == "Pending")
+                return "pending";
+            else
+                return string.Empty;
         }
 
 

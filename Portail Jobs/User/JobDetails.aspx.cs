@@ -73,14 +73,29 @@ namespace Portail_Jobs.User
                         int respResult = cmd.ExecuteNonQuery();
                         conn.Close();
 
-                        string historyQuery = @"Insert into JobApplicationHistory values (@AppliedJobId, @JobId, @UserId, @Title, @Name, @CompanyName, @Email, @Mobile, @Resume, 'Pending',@ReplyDate)";
+                        string historyQuery = @"Insert into JobApplicationHistory values (@AppliedJobId, @JobId, @UserId, @Title, @NoOfPost, @Description, @Qualification, @Experience, @Specialization, @LastDateToApply, 
+                                   @Salary, @JobType, @CompanyName, @CompanyImage, @Website, @JEmail, @Address, @Country, @State, @Name, @Email, @Mobile, @Resume, 'Pending',@ReplyDate)";
                         cmd = new SqlCommand(historyQuery, conn);
                         cmd.Parameters.AddWithValue("@AppliedJobId", GetLatestInsertedId("AppliedJobs"));
                         cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
                         cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
                         cmd.Parameters.AddWithValue("@Title", GetTitleForJob(Convert.ToInt32(Request.QueryString["id"])));
-                        cmd.Parameters.AddWithValue("@Name", GetNameForUser(idU));
+                        cmd.Parameters.AddWithValue("@NoOfPost", GetPostsForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Description", GetDescriptionForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Qualification", GetQualificationForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Experience", GetExperienceForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Specialization", GetSpecializationForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@LastDateToApply", GetApplyDateForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Salary", GetSalaryForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@JobType", GetTypeForJob(Convert.ToInt32(Request.QueryString["id"])));
                         cmd.Parameters.AddWithValue("@CompanyName", GetCompanyNameForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@CompanyImage", GetCompanyImageForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Website", GetWebsiteForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@JEmail", GetEmailForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Address", GetAddressForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Country", GetCountryForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@State", GetStateForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Name", GetNameForUser(idU));
                         cmd.Parameters.AddWithValue("@Email", GetEmailForUser(idU));
                         cmd.Parameters.AddWithValue("@Mobile",GetMobileForUser(idU));
                         cmd.Parameters.AddWithValue("@Resume",GetResumeForUser(idU));
@@ -246,8 +261,6 @@ namespace Portail_Jobs.User
             return latestId;
         }
 
-
-
         protected void DataList1_ItemDataBound(object sender, DataListItemEventArgs e)
         {
             if (Session["user"]!=null)
@@ -333,6 +346,356 @@ namespace Portail_Jobs.User
             using (SqlConnection connection = new SqlConnection(str))
             {
                 string query = "SELECT CompanyName FROM Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetPostsForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT NoOfPost FROM Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetDescriptionForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Description FROM Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetExperienceForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Experience FROM Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetSpecializationForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Specialization FROM Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetQualificationForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Qualification FROM Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetApplyDateForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT LastDateToApply FROM Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetSalaryForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Salary FROM Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetTypeForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT JobType from Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetCompanyImageForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT CompanyImage from  Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetWebsiteForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Website from  Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetEmailForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Email from Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetAddressForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Address from Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetCountryForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Country from Jobs WHERE JobId = @JobId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@JobId", jobId);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            companyName = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + "');</script>");
+                    }
+                }
+            }
+            return companyName;
+        }
+
+        private string GetStateForJob(int jobId)
+        {
+            string companyName = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT State from Jobs WHERE JobId = @JobId";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@JobId", jobId);
