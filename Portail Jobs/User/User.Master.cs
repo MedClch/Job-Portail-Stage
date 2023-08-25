@@ -4,11 +4,16 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Portail_Jobs.User
 {
     public partial class UserMaster : System.Web.UI.MasterPage
     {
+        SqlConnection conn;
+        SqlCommand cmd;
+        string str = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user"]!=null)
@@ -49,5 +54,27 @@ namespace Portail_Jobs.User
                 Response.Redirect("Login.aspx");
             }
         }
+
+        protected bool hasAcceptedApplications()
+        {
+            if (Session["user"] != null)
+            {
+                int idU = (int)Session["userId"];
+                SqlConnection conn = new SqlConnection(str);
+                string query = @"Select j.JobId from Jobs j inner join JobApplicationHistory jah on j.JobId = jah.jobId and Response='Accepted' and jah.UserId=" + idU;
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                bool hasAcceptedApplications = reader.HasRows;
+                reader.Close();
+                conn.Close();
+                return hasAcceptedApplications;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

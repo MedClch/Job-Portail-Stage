@@ -1,6 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/User/User.Master" AutoEventWireup="true" CodeBehind="JobListing.aspx.cs" Inherits="Portail_Jobs.User.JobListing" %>
-<%--<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>--%>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/User/User.Master" AutoEventWireup="true" CodeBehind="UserApplications.aspx.cs" Inherits="Portail_Jobs.User.UserApplications" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"
         rel="stylesheet" type="text/css" />
@@ -136,7 +134,7 @@
                         <div class="job-category-listing mb-50 pb-0">
                             <!-- single one -->
                             <div class="single-listing">
-                                <div class="small-section-tittle2">
+<%--                                <div class="small-section-tittle2">
                                     <h4>Job Location</h4>
                                 </div>
                                 <!-- Select job items start -->
@@ -149,10 +147,10 @@
                                     </asp:DropDownList>
                                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:cs %>"
                                         SelectCommand="SELECT [CountryName] FROM [Country]"></asp:SqlDataSource>
-                                </div>
+                                </div>--%>
                                 <!--  Select job items End-->
                                 <!-- select-Categories start -->
-                                <div class="select-Categories pt-80 pb-50">
+<%--                                <div class="select-Categories pt-80 pb-50">--%>
                                     <div class="small-section-tittle2">
                                         <h4>Job Type</h4>
                                     </div>
@@ -166,7 +164,23 @@
                                             <asp:ListItem>Freelance</asp:ListItem>
                                         </asp:CheckBoxList>
                                     </div>
-                                </div>
+<%--                                </div>--%>
+
+<%--                                                                <div class="select-Categories pt-80 pb-50">--%>
+                                    <div class="small-section-tittle2">
+                                        <h4>Response</h4>
+                                    </div>
+                                    <div class="checkbox checkbox-primary">
+                                        <asp:CheckBoxList ID="AppResCheckBox" runat="server" AutoPostBack="True"
+                                            RepeatDirection="Vertical" RepeatLayout="Flow" CssClass="styled"
+                                            TextAlign="Right" OnSelectedIndexChanged="AppResCheckBox_SelectedIndexChanged">
+                                            <asp:ListItem>Accepted</asp:ListItem>
+                                            <asp:ListItem>Rejected</asp:ListItem>
+                                            <asp:ListItem>Pending</asp:ListItem>
+                                            <asp:ListItem></asp:ListItem>
+                                        </asp:CheckBoxList>
+                                    </div>
+<%--                                </div>--%>
                                 <!-- select-Categories End -->
                             </div>
                             <!-- single two -->

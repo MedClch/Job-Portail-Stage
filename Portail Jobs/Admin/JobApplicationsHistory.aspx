@@ -57,12 +57,14 @@
 
                             <asp:TemplateField HeaderText="Resume">
                                 <ItemTemplate>
-                                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# DataBinder.Eval(Container,"DataItem.Resume","../{0}") %>'>
-                                        <i class="fa fa-download"></i><b>Download</b></asp:HyperLink>
+                                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# DataBinder.Eval(Container,"DataItem.Resume","../{0}") %>'
+                                        Enabled='<%# !string.IsNullOrEmpty(Eval("Resume").ToString()) %>'>
+                                    <i class="fa fa-download"></i><b>Download</b></asp:HyperLink>
                                     <asp:HiddenField ID="hdnJobId" runat="server" Value='<%# Eval("JobId") %>' Visible="false" />
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
+
 
                             <asp:BoundField DataField="Response" HeaderText="Application response">
                                 <ItemStyle HorizontalAlign="Center" ForeColor="White" Font-Bold="true" />

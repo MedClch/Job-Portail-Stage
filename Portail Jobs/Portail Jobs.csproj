@@ -301,6 +301,7 @@
     <Content Include="User\Profile.aspx" />
     <Content Include="User\Register.aspx" />
     <Content Include="User\ResumeBuild.aspx" />
+    <Content Include="User\UserApplications.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -454,6 +455,13 @@
     </Compile>
     <Compile Include="User\User.Master.designer.cs">
       <DependentUpon>User.Master</DependentUpon>
+    </Compile>
+    <Compile Include="User\UserApplications.aspx.cs">
+      <DependentUpon>UserApplications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\UserApplications.aspx.designer.cs">
+      <DependentUpon>UserApplications.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
   </ItemGroup>

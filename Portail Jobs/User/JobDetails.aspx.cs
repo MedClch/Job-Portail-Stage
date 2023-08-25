@@ -252,10 +252,17 @@ namespace Portail_Jobs.User
             if (Session["user"]!=null)
             {
                 LinkButton btnApplyJob = e.Item.FindControl("lbApplyJob") as LinkButton;
-                if (hasApplied())
+                if (hasApplied() && !app_Accepted())
                 {
                     btnApplyJob.Enabled = false;
                     btnApplyJob.Text = "Applied";
+                    btnApplyJob.Font.Bold = true;
+                }
+                else if (hasApplied() && app_Accepted())
+                {
+                    btnApplyJob.Enabled = false;
+                    btnApplyJob.Text = "Accepted";
+                    btnApplyJob.Font.Bold = true;
                 }
                 else
                 {
@@ -291,6 +298,26 @@ namespace Portail_Jobs.User
             adapter.Fill(dt1);
             if(dt1.Rows.Count == 1)
             { 
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        bool app_Accepted()
+        {
+            conn = new SqlConnection(str);
+            string query = @"Select * from JobApplicationHistory where UserId=@UserId and JobId=@JobId and Response='Accepted'";
+            cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+            cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
+            adapter = new SqlDataAdapter(cmd);
+            dt1 = new DataTable();
+            adapter.Fill(dt1);
+            if (dt1.Rows.Count == 1)
+            {
                 return true;
             }
             else
