@@ -59,9 +59,30 @@ namespace Portail_Jobs.User
         {
             if (Session["user"] != null)
             {
-                int idU = (int)Session["userId"];
+                int idU = Convert.ToInt32(Session["userId"]);
                 SqlConnection conn = new SqlConnection(str);
                 string query = @"Select j.JobId from Jobs j inner join JobApplicationHistory jah on j.JobId = jah.jobId and Response='Accepted' and jah.UserId=" + idU;
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                bool hasAcceptedApplications = reader.HasRows;
+                reader.Close();
+                conn.Close();
+                return hasAcceptedApplications;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        protected bool hasApplied()
+        {
+            if (Session["user"] != null)
+            {
+                int idU = Convert.ToInt32(Session["userId"]);
+                SqlConnection conn = new SqlConnection(str);
+                string query = @"Select j.JobId from Jobs j inner join JobApplicationHistory jah on j.JobId = jah.jobId and jah.UserId=" + idU;
                 SqlCommand cmd = new SqlCommand(query, conn);
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();

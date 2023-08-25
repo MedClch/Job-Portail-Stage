@@ -251,8 +251,9 @@ namespace Portail_Jobs.Admin
                 // Update JobApplicationHistory
                 if (result > 0)
                 {
-                    cmd = new SqlCommand("Update JobApplicationHistory set Response='Rejected' where AppliedJobId=@Id", conn);
+                    cmd = new SqlCommand("Update JobApplicationHistory set Response='Rejected',ReplyDate=@rDate where AppliedJobId=@Id", conn);
                     cmd.Parameters.AddWithValue("@Id", appliedJobID);
+                    cmd.Parameters.AddWithValue("@rDate", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"));
                     int historyResult = cmd.ExecuteNonQuery();
 
                     if (historyResult > 0)
@@ -344,8 +345,9 @@ namespace Portail_Jobs.Admin
                 // Update JobApplicationHistory
                 if (respResult > 0)
                 {
-                    cmd = new SqlCommand("Update JobApplicationHistory set Response='Accepted' where AppliedJobId=@appliedJobID", conn);
+                    cmd = new SqlCommand("Update JobApplicationHistory set Response='Accepted',ReplyDate=@rDate where AppliedJobId=@appliedJobID", conn);
                     cmd.Parameters.AddWithValue("@appliedJobID", appliedJobID);
+                    cmd.Parameters.AddWithValue("@rDate", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"));
                     int historyResult = cmd.ExecuteNonQuery();
 
                     if (historyResult > 0)
@@ -419,8 +421,9 @@ namespace Portail_Jobs.Admin
                 // Update JobApplicationHistory
                 if (respResult > 0)
                 {
-                    cmd = new SqlCommand("Update JobApplicationHistory set Response='Accepted' where AppliedJobId=@appliedJobID", conn);
+                    cmd = new SqlCommand("Update JobApplicationHistory set Response='Accepted',ReplyDate=@rDate where AppliedJobId=@appliedJobID", conn);
                     cmd.Parameters.AddWithValue("@appliedJobID", appliedJobID);
+                    cmd.Parameters.AddWithValue("@rDate", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"));
                     int historyResult = cmd.ExecuteNonQuery();
 
                     if (historyResult > 0)

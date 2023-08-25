@@ -40,7 +40,7 @@ namespace Portail_Jobs.User
             {
                 int idU = Convert.ToInt32(Session["userId"]);
                 conn = new SqlConnection(str);
-                string query = @"Select j.JobId,j.Title,j.Salary,j.JobType,j.CompanyName,j.CompanyImage,j.Country,j.State,j.CreateDate from Jobs j 
+                string query = @"Select j.JobId,j.Title,j.Salary,j.JobType,j.CompanyName,j.CompanyImage,j.Country,j.State,jah.Response,jah.ReplyDate from Jobs j 
                                inner join JobApplicationHistory jah on j.JobId = jah.jobId and jah.UserId="+idU+"";
                 cmd = new SqlCommand(query, conn);
                 adapter = new SqlDataAdapter(cmd);

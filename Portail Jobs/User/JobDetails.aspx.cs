@@ -73,7 +73,7 @@ namespace Portail_Jobs.User
                         int respResult = cmd.ExecuteNonQuery();
                         conn.Close();
 
-                        string historyQuery = @"Insert into JobApplicationHistory values (@AppliedJobId, @JobId, @UserId, @Title, @Name, @CompanyName, @Email, @Mobile, @Resume, 'Pending')";
+                        string historyQuery = @"Insert into JobApplicationHistory values (@AppliedJobId, @JobId, @UserId, @Title, @Name, @CompanyName, @Email, @Mobile, @Resume, 'Pending',@ReplyDate)";
                         cmd = new SqlCommand(historyQuery, conn);
                         cmd.Parameters.AddWithValue("@AppliedJobId", GetLatestInsertedId("AppliedJobs"));
                         cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
@@ -84,6 +84,7 @@ namespace Portail_Jobs.User
                         cmd.Parameters.AddWithValue("@Email", GetEmailForUser(idU));
                         cmd.Parameters.AddWithValue("@Mobile",GetMobileForUser(idU));
                         cmd.Parameters.AddWithValue("@Resume",GetResumeForUser(idU));
+                        cmd.Parameters.AddWithValue("@ReplyDate", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"));
                         conn.Open();
                         int historyResult = cmd.ExecuteNonQuery();
                         conn.Close();

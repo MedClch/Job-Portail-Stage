@@ -1,18 +1,42 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/User/User.Master" AutoEventWireup="true" CodeBehind="UserApplications.aspx.cs" Inherits="Portail_Jobs.User.UserApplications" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"
         rel="stylesheet" type="text/css" />
+
+    <style>
+        .accepted {
+            background-color: green;
+            color: white;
+            font-weight: bold;
+        }
+
+        .pending {
+            background-color: gray;
+            color: white;
+            font-weight: bold;
+        }
+
+        .rejected {
+            background-color: red;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+
     <style type="text/css">
         .checkbox {
             padding-left: 20px;
         }
+
             .checkbox label {
                 display: inline-block;
                 vertical-align: middle;
                 position: relative;
                 padding-left: 5px;
             }
-            .checkbox label::before {
+
+                .checkbox label::before {
                     content: "";
                     display: inline-block;
                     position: absolute;
@@ -27,7 +51,8 @@
                     -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
                     transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
                 }
-            .checkbox label::after {
+
+                .checkbox label::after {
                     display: inline-block;
                     position: absolute;
                     width: 16px;
@@ -40,19 +65,23 @@
                     font-size: 11px;
                     color: #FF4357;
                 }
+
             .checkbox input[type="checkbox"] {
                 opacity: 0;
                 z-index: 1;
             }
-            .checkbox input[type="checkbox"]:checked + label::after {
+
+                .checkbox input[type="checkbox"]:checked + label::after {
                     font-family: "FontAwesome";
                     content: "\f00c";
                 }
-            .checkbox-primary input[type="checkbox"]:checked + label::before {
-                background-color: #FF4357;
-                border-color: #FF4357;
-            }
-            .checkbox-primary input[type="checkbox"]:checked + label::after {
+
+        .checkbox-primary input[type="checkbox"]:checked + label::before {
+            background-color: #FF4357;
+            border-color: #FF4357;
+        }
+
+        .checkbox-primary input[type="checkbox"]:checked + label::after {
             color: #fff;
         }
     </style>
@@ -62,11 +91,13 @@
             font: 12px Verdana, sans-serif;
             color: #000; /* non selected color */
         }
-        .radiobuttonlist input {
+
+            .radiobuttonlist input {
                 width: 0px;
                 height: 20px;
             }
-        .radiobuttonlist label {
+
+            .radiobuttonlist label {
                 color: #FF4357;
                 background-color: #FFF;
                 padding-left: 6px;
@@ -80,21 +111,25 @@
                 clear: left;
                 margin-right: 5px;
             }
-        .radiobuttonlist span.selectedradio label {
+
+            .radiobuttonlist span.selectedradio label {
                 background-color: #FF4357;
                 color: #FFF;
                 font-weight: bold;
                 border-bottom-color: #F3F2E7;
                 padding-top: 4px;
             }
-        .radiobuttonlist label:hover {
+
+            .radiobuttonlist label:hover {
                 color: #CC3300;
                 background: #D1CFC2;
             }
+
         .radiobuttoncontainer {
             position: relative;
             z-index: 1;
         }
+
         .radiobuttonbackground {
             position: relative;
             z-index: 0;
@@ -134,7 +169,7 @@
                         <div class="job-category-listing mb-50 pb-0">
                             <!-- single one -->
                             <div class="single-listing">
-<%--                                <div class="small-section-tittle2">
+                                <%--                                <div class="small-section-tittle2">
                                     <h4>Job Location</h4>
                                 </div>
                                 <!-- Select job items start -->
@@ -150,37 +185,37 @@
                                 </div>--%>
                                 <!--  Select job items End-->
                                 <!-- select-Categories start -->
-<%--                                <div class="select-Categories pt-80 pb-50">--%>
-                                    <div class="small-section-tittle2">
-                                        <h4>Job Type</h4>
-                                    </div>
-                                    <div class="checkbox checkbox-primary">
-                                        <asp:CheckBoxList ID="jobTypeCheckBox" runat="server" AutoPostBack="True"
-                                            RepeatDirection="Vertical" RepeatLayout="Flow" CssClass="styled"
-                                            TextAlign="Right" OnSelectedIndexChanged="jobTypeCheckBox_SelectedIndexChanged">
-                                            <asp:ListItem>Full Time</asp:ListItem>
-                                            <asp:ListItem>Part Time</asp:ListItem>
-                                            <asp:ListItem>Remote</asp:ListItem>
-                                            <asp:ListItem>Freelance</asp:ListItem>
-                                        </asp:CheckBoxList>
-                                    </div>
-<%--                                </div>--%>
+                                <%--                                <div class="select-Categories pt-80 pb-50">--%>
+                                <div class="small-section-tittle2">
+                                    <h4>Job Type</h4>
+                                </div>
+                                <div class="checkbox checkbox-primary">
+                                    <asp:CheckBoxList ID="jobTypeCheckBox" runat="server" AutoPostBack="True"
+                                        RepeatDirection="Vertical" RepeatLayout="Flow" CssClass="styled"
+                                        TextAlign="Right" OnSelectedIndexChanged="jobTypeCheckBox_SelectedIndexChanged">
+                                        <asp:ListItem>Full Time</asp:ListItem>
+                                        <asp:ListItem>Part Time</asp:ListItem>
+                                        <asp:ListItem>Remote</asp:ListItem>
+                                        <asp:ListItem>Freelance</asp:ListItem>
+                                    </asp:CheckBoxList>
+                                </div>
+                                <%--                                </div>--%>
 
-<%--                                                                <div class="select-Categories pt-80 pb-50">--%>
-                                    <div class="small-section-tittle2">
-                                        <h4>Response</h4>
-                                    </div>
-                                    <div class="checkbox checkbox-primary">
-                                        <asp:CheckBoxList ID="AppResCheckBox" runat="server" AutoPostBack="True"
-                                            RepeatDirection="Vertical" RepeatLayout="Flow" CssClass="styled"
-                                            TextAlign="Right" OnSelectedIndexChanged="AppResCheckBox_SelectedIndexChanged">
-                                            <asp:ListItem>Accepted</asp:ListItem>
-                                            <asp:ListItem>Rejected</asp:ListItem>
-                                            <asp:ListItem>Pending</asp:ListItem>
-                                            <asp:ListItem></asp:ListItem>
-                                        </asp:CheckBoxList>
-                                    </div>
-<%--                                </div>--%>
+                                <%--                                                                <div class="select-Categories pt-80 pb-50">--%>
+                                <div class="small-section-tittle2">
+                                    <h4>Response</h4>
+                                </div>
+                                <div class="checkbox checkbox-primary">
+                                    <asp:CheckBoxList ID="AppResCheckBox" runat="server" AutoPostBack="True"
+                                        RepeatDirection="Vertical" RepeatLayout="Flow" CssClass="styled"
+                                        TextAlign="Right" OnSelectedIndexChanged="AppResCheckBox_SelectedIndexChanged">
+                                        <asp:ListItem>Accepted</asp:ListItem>
+                                        <asp:ListItem>Rejected</asp:ListItem>
+                                        <asp:ListItem>Pending</asp:ListItem>
+                                        <asp:ListItem></asp:ListItem>
+                                    </asp:CheckBoxList>
+                                </div>
+                                <%--                                </div>--%>
                                 <!-- select-Categories End -->
                             </div>
                             <!-- single two -->
@@ -252,10 +287,13 @@
                                                 </div>
                                             </div>
                                             <div class="items-link items-link2 f-right">
-                                                <a href="JobDetails.aspx?id=<%# Eval("JobId") %>"><%# Eval("JobType") %></a>
+                                                <a href="JobDetails.aspx?id=<%# Eval("JobId") %>"
+                                                    class='<%# Eval("Response").ToString() == "Accepted" ? "accepted" : Eval("Response").ToString() == "Rejected" ? "rejected" : Eval("Response").ToString() == "Pending" ? "pending" : "" %>'>
+                                                    <b style="color: white;"><%# Eval("Response") %></b>
+                                                </a>
                                                 <span class="text-secondary">
                                                     <i class="fas fa-clock pr-1"></i>
-                                                    Posted <%# RelativeDate(Convert.ToDateTime(Eval("CreateDate"))) %>
+                                                    <%# Eval("Response").ToString() == "Pending" ? "Application sent" : "Answered" %> <%# RelativeDate(Convert.ToDateTime(Eval("ReplyDate"))) %>
                                                 </span>
                                             </div>
                                         </div>

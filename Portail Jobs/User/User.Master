@@ -64,7 +64,7 @@
                                             <ul id="navigation">
                                                 <li><a href="Default.aspx">Home</a></li>
                                                 <li><a href="JobListing.aspx">Find a job </a></li>
-                                                <% if (Session["user"] != null || hasAcceptedApplications())
+                                                <% if (Session["user"] != null && (hasAcceptedApplications() || hasApplied()))
                                                     { %>
                                                 <li><a href="UserApplications.aspx">Job applications responses</a></li>
                                                 <% } %>
