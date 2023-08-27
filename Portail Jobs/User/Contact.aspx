@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
         #map {
-            height: 400px;
+            height: 500px;
         }
     </style>
     <div class="slider-area ">
@@ -26,6 +26,9 @@
     <section class="contact-section">
         <div class="container">
             <div class="d-none d-sm-block mb-5 pb-4">
+                <div class="col-12">
+                    <h2 class="contact-title">Our location </h2>
+                </div>
                 <div id="map"></div>
 
                 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -36,7 +39,7 @@
                             "lightness": 50
                         };
                         var map = L.map('map').setView([33.995581, -6.718662], 15);
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {style: grayStyles}).addTo(map);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { style: grayStyles }).addTo(map);
                         var marker = L.marker([33.995581, -6.718662]).addTo(map);
                         marker.bindPopup("Our Location").openPopup();
                     }
