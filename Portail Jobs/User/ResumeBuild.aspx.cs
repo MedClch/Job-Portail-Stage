@@ -407,13 +407,10 @@ namespace Portail_Jobs.User
                     string query = "SELECT Password FROM [User] WHERE UserId = @UserId";
                     cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@UserId", userID);
-
                     using (reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
-                        {
                             password = reader["Password"].ToString();
-                        }
                     }
                 }
             }
