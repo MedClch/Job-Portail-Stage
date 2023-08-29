@@ -73,7 +73,7 @@ namespace Portail_Jobs.Admin
                 string newUsername = txtUsername.Text.Trim();
                 if (IsUsernameAvailable(newUsername, userId))
                 {
-                    if (txtPass.Text.Trim() == null)
+                    if (txtPass.Text.Trim() == null && txtConfirmPass.Text.Trim() == null)
                     {
                         try
                         {

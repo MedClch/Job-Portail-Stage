@@ -119,8 +119,6 @@ namespace Portail_Jobs.Admin
                     }
                 }
                 DataTable allData = FetchAllData();
-
-                // toutes les pages 
                 for (int i = 0; i < allData.Rows.Count; i++)
                 {
                     var row = allData.Rows[i];
