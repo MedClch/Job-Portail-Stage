@@ -127,7 +127,11 @@
                                 <div class="footer-tittle">
                                     <h4>Contact Info</h4>
                                     <ul>
-                                        <li><a href="https://www.google.com/maps?q=33.995581,-6.718662" target="_blank"><p>Address : Rabat, Morrocoo.</p></a></li>
+                                        <li>
+                                            <a href="https://www.google.com/maps/place/DXC+Technology+Maroc/@33.995566,-6.7212323,17z/data=!3m1!4b1!4m6!3m5!1s0xda7404317f483cd:0x52507c33095c743!8m2!3d33.9955616!4d-6.7186574!16s%2Fg%2F1hdzlh5_p?entry=ttu" target="_blank">
+                                                <p>Address : Rabat, Morrocoo.</p>
+                                            </a>
+                                        </li>
 <%--                                        <a href="https://www.google.com/maps?q=33.995581,-6.718662" target="_blank">Open in Google Maps</a>--%>
                                         <%--<li><a href="#">Phone : +212 6 20 30 99 16</a></li>--%>
                                         <li><a href="https://wa.me/212620309916" target="_blank">Phone : +212 6 20 30 99 16</a></li>

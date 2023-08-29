@@ -92,8 +92,10 @@
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-home"></i></span>
                         <div class="media-body">
-                            <h3>Rabat, Morrocco.</h3>
-                            <p>10 000</p>
+                            <a href="https://www.google.com/maps/place/DXC+Technology+Maroc/@33.995566,-6.7212323,17z/data=!3m1!4b1!4m6!3m5!1s0xda7404317f483cd:0x52507c33095c743!8m2!3d33.9955616!4d-6.7186574!16s%2Fg%2F1hdzlh5_p?entry=ttu" target="_blank">
+                                <h3>Rabat, Morrocco.</h3>
+                                <p>10 000</p>
+                            </a>
                         </div>
                     </div>
                     <div class="media contact-info">
