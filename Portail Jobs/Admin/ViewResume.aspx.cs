@@ -518,11 +518,36 @@ namespace Portail_Jobs.Admin
                     package.SaveAs(ms);
                     Response.Clear();
                     Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                    Response.AddHeader("content-disposition", "attachment; filename=JobApplications.xlsx");
+                    Response.AddHeader("content-disposition", "attachment; filename=JobApplicationsList.xlsx");
                     ms.WriteTo(Response.OutputStream);
                     Response.End();
                 }
             }
+        }
+
+        protected void btnFilter_Click(object sender, EventArgs e)
+        {
+            string filterKeyword = txtFilter.Text.Trim();
+            filter(filterKeyword);
+        }
+
+        private void filter(string filterKeyword)
+        {
+            string query = string.Empty;
+            conn = new SqlConnection(str);
+
+            query = @"Select Row_Number() over(Order by (Select 1)) as [Sr.No],aj.AppliedJobId,aj.UserId,j.CompanyName,aj.jobId,j.Title,u.Mobile,u.Username,u.Name,u.Email,u.Resume from AppliedJobs aj
+                      inner join [User] u on aj.UserId = u.UserId
+                      inner join Jobs j on aj.JobId = j.jobId
+                      WHERE aj.AppliedJobId LIKE @Keyword OR aj.UserId LIKE @Keyword OR j.CompanyName LIKE @Keyword OR aj.jobId LIKE @Keyword OR j.Title LIKE @Keyword OR u.Mobile LIKE @Keyword
+                       OR u.Username LIKE @Keyword OR u.Name LIKE @Keyword OR u.Email LIKE @Keyword";
+            cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@Keyword", "%" + filterKeyword + "%");
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            sqlDataAdapter.Fill(dt);
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
         }
     }
 }
