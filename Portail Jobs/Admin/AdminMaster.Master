@@ -76,12 +76,12 @@
                             </a>
                         </li>
 
-                        <li>
+<%--                        <li>
                             <a href="NewJob.aspx">
                                 <div class="icon"><i class="fas fa-plus-square"></i></div>
                                 <div class="title">New Job</div>
                             </a>
-                        </li>
+                        </li>--%>
 
                         <li>
                             <a href="JobList.aspx">
