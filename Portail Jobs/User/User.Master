@@ -129,7 +129,7 @@
                                     <ul>
                                         <li>
                                             <a href="https://www.google.com/maps/place/DXC+Technology+Maroc/@33.995566,-6.7212323,17z/data=!3m1!4b1!4m6!3m5!1s0xda7404317f483cd:0x52507c33095c743!8m2!3d33.9955616!4d-6.7186574!16s%2Fg%2F1hdzlh5_p?entry=ttu" target="_blank">
-                                                <p>Address : Rabat, Morrocoo.</p>
+                                                Address : Rabat, Morrocoo.
                                             </a>
                                         </li>
 <%--                                        <a href="https://www.google.com/maps?q=33.995581,-6.718662" target="_blank">Open in Google Maps</a>--%>
@@ -144,18 +144,18 @@
                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
                             <div class="single-footer-caption mb-50">
                                 <div class="footer-tittle">
-                                    <h4>Important Link</h4>
+                                    <h4>Shortcuts</h4>
                                     <ul>
-                                        <li><a href="#">View Project</a></li>
+                                        <li><a href="JobListing.aspx">View jobs</a></li>
                                         <li><a href="Contact.aspx">Contact Us</a></li>
-                                        <li><a href="#">Testimonial</a></li>
-                                        <li><a href="#">Proparties</a></li>
-                                        <li><a href="#">Support</a></li>
+                                        <li><a href="mailto:chlouchi.med4@gmail.com" target="_blank">Email us</a></li>
+<%--                                        <li><a href="#">Proparties</a></li>
+                                        <li><a href="#">Support</a></li>--%>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
+                        <%--<div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
                             <div class="single-footer-caption mb-50">
                                 <div class="footer-tittle">
                                     <h4>Newsletter</h4>
@@ -165,22 +165,22 @@
                                     <!-- Form -->
                                     <div class="footer-form">
                                         <div id="mc_embed_signup">
-                                            <%--                                     <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                     method="get" class="subscribe_form relative mail_part">--%>
+                                         <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                                     method="get" class="subscribe_form relative mail_part">
                                             <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address"
                                                 class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
                                                 onblur="this.placeholder = ' Email Address '">
                                             <div class="form-icon">
-                                                <%--                                             <button type="submit" name="submit" id="newsletter-submit"
-                                             class="email_icon newsletter-submit button-contactForm"><img src="../assets/img/icon/form.png" alt=""></button>--%>
+                                                                                            <button type="submit" name="submit" id="newsletter-submit"
+                                             class="email_icon newsletter-submit button-contactForm"><img src="../assets/img/icon/form.png" alt=""></button>
                                             </div>
                                             <div class="mt-10 info"></div>
-                                            <%--                                     </form>--%>
+                                                                                 </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
                     <!--  -->
                     <div class="row footer-wejed justify-content-between">
