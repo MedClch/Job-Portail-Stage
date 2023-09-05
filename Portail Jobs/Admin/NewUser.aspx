@@ -12,7 +12,7 @@
                     <asp:Label ID="lblMsg" runat="server"></asp:Label>
                 </div>
                 <div class="input-group h-25">
-                    <asp:HyperLink ID="linkBack" runat="server" NavigateUrl="~/Admin/JobList.aspx" CssClass="btn btn-secondary" Visible="false">< Back</asp:HyperLink>
+                    <asp:HyperLink ID="linkBack" runat="server" NavigateUrl="~/Admin/UserList.aspx" CssClass="btn btn-secondary" Visible="false">< Back</asp:HyperLink>
                 </div>
             </div>
 
@@ -66,9 +66,9 @@
 
 
             <div class="row mr-lg-5 ml-lg-5 mb-3">
-                <div class="col-md-6 pt-3">
+                <div class="col-md-4 pt-3">
                     <label for="lblCountry" style="font-weight: 600">Country</label>
-                    <asp:DropDownList ID="ddlCountry" runat="server" DataSourceID="SqlDataSource1" CssClass="form-contact w-100"
+                    <asp:DropDownList ID="ddlCountry" runat="server" DataSourceID="SqlDataSource1" CssClass="form-control"
                         AppendDataBoundItems="true" DataTextField="CountryName" DataValueField="CountryName">
                         <asp:ListItem Value="0">Select country</asp:ListItem>
                     </asp:DropDownList>

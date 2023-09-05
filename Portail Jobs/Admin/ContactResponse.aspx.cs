@@ -63,7 +63,7 @@ namespace Portail_Jobs.Admin
         protected void btnSend_Click(object sender, EventArgs e)
         {
             string recipientEmail = txtEmail.Text.Trim();
-            string replyMessage = txtReply.Text.Trim();
+            string replyMessage = txtReply.Text;
             if (!string.IsNullOrEmpty(recipientEmail))
             {
                 try
@@ -76,7 +76,7 @@ namespace Portail_Jobs.Admin
                     MailMessage mailMessage = new MailMessage();
                     mailMessage.From = new MailAddress("chlouchi.med@gmail.com");
                     mailMessage.To.Add(recipientEmail);
-                    mailMessage.Subject = txtSubject.Text.Trim(); // Customize the subject as needed.
+                    mailMessage.Subject = txtSubject.Text.Trim();
                     mailMessage.Body = replyMessage;
 
                     smtpClient.Send(mailMessage);
