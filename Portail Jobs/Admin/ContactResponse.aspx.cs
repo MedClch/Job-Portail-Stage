@@ -64,8 +64,7 @@ namespace Portail_Jobs.Admin
 
         protected void btnSend_Click(object sender, EventArgs e)
         {
-            // Create a SendinBlue API request
-            var apiKey = "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 "; // Replace with your SendinBlue API key
+            var apiKey = "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 ";
             var apiUrl = "https://api.brevo.com/v3/emailCampaigns";
 
             var sendinBlueRequest = (HttpWebRequest)WebRequest.Create(apiUrl);
@@ -73,7 +72,6 @@ namespace Portail_Jobs.Admin
             sendinBlueRequest.Headers.Add("api-key", apiKey);
             sendinBlueRequest.ContentType = "application/json";
 
-            // Define the email content
             var emailContent = new
             {
                 sender = new
@@ -85,19 +83,15 @@ namespace Portail_Jobs.Admin
                 {
                 new
                 {
-                    email = txtEmail.Text.Trim(), // Replace with the recipient's email address
-                    name = txtUsername.Text // Replace with the recipient's name (optional)
+                    email = txtEmail.Text.Trim(), 
+                    name = txtUsername.Text 
                 }
             },
                 subject = txtSubject.Text,
                 textContent = txtReply.Text,
                 htmlContent = "<p>"+txtReply.Text+"</p>"
             };
-
-            // Serialize the email content to JSON
             var jsonContent = JsonConvert.SerializeObject(emailContent);
-
-            // Send the email using the SendinBlue API
             using (var streamWriter = new StreamWriter(sendinBlueRequest.GetRequestStream()))
             {
                 streamWriter.Write(jsonContent);
@@ -107,25 +101,20 @@ namespace Portail_Jobs.Admin
 
             try
             {
-                // Get the SendinBlue API response
                 var sendinBlueResponse = (HttpWebResponse)sendinBlueRequest.GetResponse();
-
                 if (sendinBlueResponse.StatusCode == HttpStatusCode.OK)
                 {
-                    // Email sent successfully
                     lblMsg.Text = "Email sent successfully!";
                     lblMsg.CssClass = "alert alert-success";
                 }
                 else
                 {
-                    // Handle errors or display an error message
                     lblMsg.Text = "Error sending email.";
                     lblMsg.CssClass = "alert alert-danger";
                 }
             }
             catch (WebException ex)
             {
-                // Handle exceptions
                 lblMsg.Text = "Error sending email: " + ex.Message;
                 lblMsg.CssClass = "alert alert-danger";
             }
