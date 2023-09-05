@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
 using OfficeOpenXml;
+using System.Drawing;
 
 namespace Portail_Jobs.Admin
 {
@@ -167,6 +168,22 @@ namespace Portail_Jobs.Admin
                 }
             }
             return dataTable;
+        }
+
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType==DataControlRowType.DataRow)
+            {
+                e.Row.ID=e.Row.RowIndex.ToString();
+                if (Request.QueryString["id"]!=null)
+                {
+                    int jobID = Convert.ToInt32(GridView1.DataKeys[e.Row.RowIndex].Values[0]);
+                    if (jobID == Convert.ToInt32(Request.QueryString["id"]))
+                    {
+                        e.Row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
+                    }
+                }
+            }
         }
     }
 }

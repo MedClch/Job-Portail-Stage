@@ -125,6 +125,7 @@
   <ItemGroup>
     <Content Include="Admin\Application_Info.aspx" />
     <Content Include="Admin\ContactList.aspx" />
+    <Content Include="Admin\ContactResponse.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Admin\JobApplicationsHistory.aspx" />
     <Content Include="Admin\JobList.aspx" />
@@ -218,6 +219,7 @@
     <Content Include="assets\img\icon\job-list2.png" />
     <Content Include="assets\img\icon\job-list3.png" />
     <Content Include="assets\img\icon\job-list4.png" />
+    <Content Include="assets\img\icon\message.png" />
     <Content Include="assets\img\icon\no.png" />
     <Content Include="assets\img\icon\no1.png" />
     <Content Include="assets\img\icon\yes.png" />
@@ -225,7 +227,10 @@
     <Content Include="assets\img\logo\form-iocn.jpg" />
     <Content Include="assets\img\logo\loder.jpg" />
     <Content Include="assets\img\logo\logo.png" />
+    <Content Include="assets\img\logo\logo1.jpg" />
+    <Content Include="assets\img\logo\logo2.png" />
     <Content Include="assets\img\logo\logo2_footer.png" />
+    <Content Include="assets\img\logo\logo3.png" />
     <Content Include="assets\img\logo\select-items-icon.jpg" />
     <Content Include="assets\img\logo\testimonial.png" />
     <Content Include="assets\img\offers\1.png" />
@@ -325,6 +330,13 @@
     </Compile>
     <Compile Include="Admin\ContactList.aspx.designer.cs">
       <DependentUpon>ContactList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContactResponse.aspx.cs">
+      <DependentUpon>ContactResponse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContactResponse.aspx.designer.cs">
+      <DependentUpon>ContactResponse.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>

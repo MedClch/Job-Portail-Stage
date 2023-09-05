@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMaster.Master" AutoEventWireup="true" CodeBehind="ContactList.aspx.cs" Inherits="Portail_Jobs.Admin.ContactList" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -27,36 +28,45 @@
 
                     <hr />
                     <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-bordered" EmptyDataText="No informations to display !" AutoGenerateColumns="False"
-                        AllowPaging="True" PageSize="5" OnPageIndexChanging="GridView1_PageIndexChanging" DataKeyNames="ContactId" OnRowDeleting="GridView1_RowDeleting">
+                        AllowPaging="True" PageSize="5" OnPageIndexChanging="GridView1_PageIndexChanging" DataKeyNames="ContactId" OnRowDeleting="GridView1_RowDeleting" OnRowDataBound="GridView1_RowDataBound">
                         <Columns>
 
                             <asp:BoundField DataField="Sr.No" HeaderText="Sr.No">
-                            <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"  />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Name" HeaderText="Username">
-                            <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"  />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Email" HeaderText="Email">
-                            <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"  />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Subject" HeaderText="Subject">
-                            <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"  />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
                             <asp:BoundField DataField="Message" HeaderText="Message">
-                            <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true"  />
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
                             </asp:BoundField>
 
+                            <asp:TemplateField HeaderText="Reply">
+                                <ItemTemplate>
+                                    <a href='<%# "ContactResponse.aspx?id=" + Eval("ContactId") %>'>
+                                        <asp:Image ID="Img" runat="server" ImageUrl="../assets/img/icon/message.png" Height="25px" />
+                                    </a>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" Width="50px" />
+                            </asp:TemplateField>
+
                             <asp:CommandField CausesValidation="false" HeaderText="Delete" ShowDeleteButton="true" DeleteImageUrl="../assets/img/icon/delete.png" ButtonType="Image">
-                                <ControlStyle Height="25px" Width="25px"/>
-                                <ItemStyle HorizontalAlign="Center"/>
-                                </asp:CommandField>
+                                <ControlStyle Height="25px" Width="25px" />
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:CommandField>
 
                         </Columns>
-                        <HeaderStyle BackColor="#7200cf" ForeColor="White"/>
+                        <HeaderStyle BackColor="#7200cf" ForeColor="White" />
                     </asp:GridView>
                 </div>
             </div>

@@ -11,8 +11,6 @@ namespace Portail_Jobs.User
 {
     public partial class UserMaster : System.Web.UI.MasterPage
     {
-        SqlConnection conn;
-        SqlCommand cmd;
         string str = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
