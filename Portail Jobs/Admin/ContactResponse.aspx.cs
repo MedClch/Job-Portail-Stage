@@ -64,7 +64,7 @@ namespace Portail_Jobs.Admin
 
         protected void btnSend_Click(object sender, EventArgs e)
         {
-            var apiKey = "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 ";
+            var apiKey = "apiKey";
             var apiUrl = "https://api.brevo.com/v3/emailCampaigns";
 
             var sendinBlueRequest = (HttpWebRequest)WebRequest.Create(apiUrl);
