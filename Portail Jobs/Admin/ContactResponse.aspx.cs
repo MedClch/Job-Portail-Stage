@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -62,36 +64,69 @@ namespace Portail_Jobs.Admin
 
         protected void btnSend_Click(object sender, EventArgs e)
         {
-            string recipientEmail = txtEmail.Text.Trim();
-            string replyMessage = txtReply.Text;
-            if (!string.IsNullOrEmpty(recipientEmail))
+            // Create a SendinBlue API request
+            var apiKey = "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 "; // Replace with your SendinBlue API key
+            var apiUrl = "https://api.brevo.com/v3/emailCampaigns";
+
+            var sendinBlueRequest = (HttpWebRequest)WebRequest.Create(apiUrl);
+            sendinBlueRequest.Method = "POST";
+            sendinBlueRequest.Headers.Add("api-key", apiKey);
+            sendinBlueRequest.ContentType = "application/json";
+
+            // Define the email content
+            var emailContent = new
             {
-                try
+                sender = new
                 {
-                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
-                    smtpClient.Port = 587;
-                    smtpClient.Credentials = new NetworkCredential("chlouchi.med@gmail.com", "moha1234567890");
-                    smtpClient.EnableSsl = true;
+                    name = "JobFinder",
+                    email = "chlouchi.med@gmail.com"
+                },
+                to = new[]
+                {
+                new
+                {
+                    email = txtEmail.Text.Trim(), // Replace with the recipient's email address
+                    name = txtUsername.Text // Replace with the recipient's name (optional)
+                }
+            },
+                subject = txtSubject.Text,
+                textContent = txtReply.Text,
+                htmlContent = "<p>"+txtReply.Text+"</p>"
+            };
 
-                    MailMessage mailMessage = new MailMessage();
-                    mailMessage.From = new MailAddress("chlouchi.med@gmail.com");
-                    mailMessage.To.Add(recipientEmail);
-                    mailMessage.Subject = txtSubject.Text.Trim();
-                    mailMessage.Body = replyMessage;
+            // Serialize the email content to JSON
+            var jsonContent = JsonConvert.SerializeObject(emailContent);
 
-                    smtpClient.Send(mailMessage);
-                    lblMsg.Text = "Email sent successfully !";
+            // Send the email using the SendinBlue API
+            using (var streamWriter = new StreamWriter(sendinBlueRequest.GetRequestStream()))
+            {
+                streamWriter.Write(jsonContent);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            try
+            {
+                // Get the SendinBlue API response
+                var sendinBlueResponse = (HttpWebResponse)sendinBlueRequest.GetResponse();
+
+                if (sendinBlueResponse.StatusCode == HttpStatusCode.OK)
+                {
+                    // Email sent successfully
+                    lblMsg.Text = "Email sent successfully!";
                     lblMsg.CssClass = "alert alert-success";
                 }
-                catch (Exception ex)
+                else
                 {
-                    lblMsg.Text = "An error occurred while sending the email: " + ex.Message;
+                    // Handle errors or display an error message
+                    lblMsg.Text = "Error sending email.";
                     lblMsg.CssClass = "alert alert-danger";
                 }
             }
-            else
+            catch (WebException ex)
             {
-                lblMsg.Text = "Recipient's email address is empty. Please provide a valid email address.";
+                // Handle exceptions
+                lblMsg.Text = "Error sending email: " + ex.Message;
                 lblMsg.CssClass = "alert alert-danger";
             }
         }

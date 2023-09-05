@@ -45,7 +45,7 @@
             <div class="row mr-lg-5 ml-lg-5 mb-3">
                 <div class="col-md-12 pt-3">
                     <label for="lblJobDesc" style="font-weight: 600">Reply</label>
-                    <asp:TextBox ID="txtReply" runat="server" CssClass="form-control" placeholder="Enter job description" TextMode="MultiLine" required></asp:TextBox>
+                    <asp:TextBox ID="txtReply" runat="server" CssClass="form-control" placeholder="Enter text" TextMode="MultiLine" required></asp:TextBox>
                 </div>
             </div>
 
