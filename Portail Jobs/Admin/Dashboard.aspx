@@ -178,15 +178,15 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="myChart" width="400" height="200"></canvas>
+                            <canvas id="myChart" width="400" height="400"></canvas>
                         </div>
                     </div>
                 </div>
-                <!-- Pie Chart Card -->
+                <!-- Bar Chart Card 2 -->
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="myPieChart" width="400" height="200"></canvas>
+                            <canvas id="mySecondChart" width="400" height="400"></canvas>
                         </div>
                     </div>
                 </div>
@@ -233,32 +233,31 @@
         });
 
         // Fetch pie chart data from the server using ASP.NET code-behind
-        var pieJsonData = '<%= GetPieChartDataAsJson() %>';
-        var pieChartData = JSON.parse(pieJsonData);
+        var chartJsonData = '<%= GetCombinedDataAsJson_Chart2() %>';
+        var chartChartData = JSON.parse(chartJsonData);
 
         // Get the canvas element for the pie chart
-        var pieCtx = document.getElementById('myPieChart').getContext('2d');
+        var pieCtx = document.getElementById('mySecondChart').getContext('2d');
 
         // Create a pie chart
-        var myPieChart = new Chart(pieCtx, {
-            type: 'pie',
+        var mySecondChart = new Chart(pieCtx, {
+            type: 'bar',
             data: {
-                labels: pieChartData.Labels,
+                labels: chartChartData.Labels1,
                 datasets: [{
-                    label: 'Pie Chart Data',
-                    data: pieChartData.Values,
-                    backgroundColor: [
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        // ... Add more colors if needed ...
-                    ],
-                    borderColor: [
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        // ... Add more colors if needed ...
-                    ],
+                    label: 'Chart Data',
+                    data: chartChartData.Values2,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
                 }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
         });
     </script>

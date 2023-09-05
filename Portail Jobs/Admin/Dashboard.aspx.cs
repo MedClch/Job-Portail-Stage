@@ -54,20 +54,39 @@ namespace Portail_Jobs.Admin
             DataTable dataFromAppliedJobsTable = FetchDataFromTable("SELECT count(*) FROM AppliedJobs");
             DataTable dataFromContactTable = FetchDataFromTable("SELECT count(*) FROM Contact");
             DataTable dataFromJobsTable = FetchDataFromTable("SELECT count(*) FROM Jobs");
-            DataTable dataFromJobApplicationResp_Declined = FetchDataFromTable("SELECT count(*) FROM JobApplicationResp where Response='Rejected'");
-            DataTable dataFromJobApplicationResp_Accepted = FetchDataFromTable("SELECT count(*) FROM JobApplicationResp where Response='Accepted'");
             // Get the counts from each table
             int userCount = Convert.ToInt32(dataFromUserTable.Rows[0][0]);
             int appliedJobsCount = Convert.ToInt32(dataFromAppliedJobsTable.Rows[0][0]);
             int contactCount = Convert.ToInt32(dataFromContactTable.Rows[0][0]);
             int jobsCount = Convert.ToInt32(dataFromJobsTable.Rows[0][0]);
+            // Combine the data into a single object
+            var combinedData = new
+            {
+                Labels = new string[] { "Users", "Applied Jobs", "Contacts", "Jobs"},
+                Values1 = new int[] { userCount, appliedJobsCount, contactCount, jobsCount}
+            };
+            // Convert the combinedData object to a JSON string
+            string jsonData = JsonConvert.SerializeObject(combinedData);
+            return jsonData;
+        }
+
+        public string GetCombinedDataAsJson_Chart2()
+        {
+            // Fetch data from each table
+            DataTable dataFromAppliedJobsTable = FetchDataFromTable("SELECT count(*) FROM AppliedJobs");
+            DataTable dataFromJobApplicationResp_Declined = FetchDataFromTable("SELECT count(*) FROM JobApplicationHistory where Response='Rejected'");
+            DataTable dataFromJobApplicationResp_Accepted = FetchDataFromTable("SELECT count(*) FROM JobApplicationHistory where Response='Accepted'");
+            DataTable dataFromJobApplicationResp_Pending = FetchDataFromTable("SELECT count(*) FROM JobApplicationHistory where Response='Pending'");
+            // Get the counts from each table
+            int appliedJobsCount = Convert.ToInt32(dataFromAppliedJobsTable.Rows[0][0]);
+            int pendingJobsCount = Convert.ToInt32(dataFromJobApplicationResp_Pending.Rows[0][0]);
             int declinedAppCount = Convert.ToInt32(dataFromJobApplicationResp_Declined.Rows[0][0]);
             int acceptedAppCount = Convert.ToInt32(dataFromJobApplicationResp_Accepted.Rows[0][0]);
             // Combine the data into a single object
             var combinedData = new
             {
-                Labels = new string[] { "Users", "Applied Jobs", "Contacts", "Jobs", "Rejected applications", "Accepted applications" },
-                Values1 = new int[] { userCount, appliedJobsCount, contactCount, jobsCount, declinedAppCount, acceptedAppCount}
+                Labels1 = new string[] { "Applied Jobs", "Pending applications", "Rejected applications", "Accepted applications" },
+                Values2 = new int[] { appliedJobsCount, pendingJobsCount, declinedAppCount, acceptedAppCount }
             };
             // Convert the combinedData object to a JSON string
             string jsonData = JsonConvert.SerializeObject(combinedData);
