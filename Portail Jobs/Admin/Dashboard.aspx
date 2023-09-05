@@ -203,6 +203,11 @@
     </div>
 
     <script>
+        function getRandomColor() {
+            // Generate a random color in hexadecimal format
+            return '#' + Math.floor(Math.random() * 16777215).toString(16);
+        }
+
         // Fetch combined data from the server using ASP.NET code-behind
         var jsonData = '<%= GetCombinedDataAsJson() %>';
         var chartData = JSON.parse(jsonData);
@@ -218,7 +223,7 @@
                 datasets: [{
                     label: 'Chart Data',
                     data: chartData.Values1, // Use the retrieved values
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    backgroundColor: chartData.Values1.map(() => getRandomColor()),
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
                 }]
@@ -247,7 +252,8 @@
                 datasets: [{
                     label: 'Chart Data',
                     data: chartChartData.Values2,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    //backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    backgroundColor: chartChartData.Values2.map(() => getRandomColor()),
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
                 }]
