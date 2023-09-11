@@ -48,7 +48,8 @@
                             </asp:BoundField>
                             <asp:TemplateField HeaderText="Reply">
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnReply" runat="server" ImageUrl="../assets/img/icon/message.png" Width="26" Height="26" CommandName="Reply" CommandArgument='<%# Eval("Email") + "&" + Eval("Subject") %>' OnCommand="btnReply_Command" />
+                                    <asp:ImageButton ID="btnReply" runat="server" ImageUrl="../assets/img/icon/message.png" Width="26" Height="26" CommandName="Reply"
+                                        CommandArgument='<%# Eval("Email") + "&" + Eval("Subject") %>' OnCommand="btnReply_Command" />
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" Width="50px" />
                             </asp:TemplateField>
