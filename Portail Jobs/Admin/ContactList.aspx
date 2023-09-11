@@ -27,7 +27,40 @@
                     </div>
 
                     <hr />
+
                     <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-bordered" EmptyDataText="No informations to display !" AutoGenerateColumns="False"
+                        AllowPaging="True" PageSize="5" OnPageIndexChanging="GridView1_PageIndexChanging" DataKeyNames="ContactId" OnRowDeleting="GridView1_RowDeleting" OnRowDataBound="GridView1_RowDataBound">
+                        <Columns>
+                            <asp:BoundField DataField="Sr.No" HeaderText="Sr.No">
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="Name" HeaderText="Username">
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="Email" HeaderText="Email">
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="Subject" HeaderText="Subject">
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="Message" HeaderText="Message">
+                                <ItemStyle HorizontalAlign="Center" ForeColor="Black" Font-Bold="true" />
+                            </asp:BoundField>
+                            <asp:TemplateField HeaderText="Reply">
+                                <ItemTemplate>
+                                    <asp:ImageButton ID="btnReply" runat="server" ImageUrl="../assets/img/icon/message.png" Width="26" Height="26" CommandName="Reply" CommandArgument='<%# Eval("Email") + "&" + Eval("Subject") %>' OnCommand="btnReply_Command" />
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" Width="50px" />
+                            </asp:TemplateField>
+                            <asp:CommandField CausesValidation="false" HeaderText="Delete" ShowDeleteButton="true" DeleteImageUrl="../assets/img/icon/delete.png" ButtonType="Image">
+                                <ControlStyle Height="25px" Width="25px" />
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:CommandField>
+                        </Columns>
+                        <HeaderStyle BackColor="#7200cf" ForeColor="White" />
+                    </asp:GridView>
+
+                    <%--                    <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-bordered" EmptyDataText="No informations to display !" AutoGenerateColumns="False"
                         AllowPaging="True" PageSize="5" OnPageIndexChanging="GridView1_PageIndexChanging" DataKeyNames="ContactId" OnRowDeleting="GridView1_RowDeleting" OnRowDataBound="GridView1_RowDataBound">
                         <Columns>
 
@@ -67,7 +100,7 @@
 
                         </Columns>
                         <HeaderStyle BackColor="#7200cf" ForeColor="White" />
-                    </asp:GridView>
+                    </asp:GridView>--%>
                 </div>
             </div>
 

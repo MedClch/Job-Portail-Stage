@@ -185,5 +185,33 @@ namespace Portail_Jobs.Admin
                 }
             }
         }
+
+        protected void btnReply_Click(object sender, EventArgs e)
+        {
+            ImageButton btnReply = (ImageButton)sender;
+            string subject = "Reply to your message about : "+ btnReply.CommandArgument;
+            Response.Redirect($"mailto:?subject={subject}");
+
+            //Response.Redirect($"mailto:?subject={Server.UrlEncode(subject)}");
+
+            //Button btnReply = (Button)sender;
+            //string subject = btnReply.CommandArgument;
+
+            //// Redirect to your mailbox with the subject as the object of the email
+            //// You'll need to implement this part based on your email system.
+            //Response.Redirect($"mailto:?subject={Server.UrlEncode(subject)}");
+        }
+
+        protected void btnReply_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Reply")
+            {
+                string[] args = e.CommandArgument.ToString().Split('&');
+                string recipientEmail = args[0];
+                string subject = args[1];
+                string mailtoLink = $"mailto:{recipientEmail}?subject={Uri.EscapeDataString(subject)}";
+                Response.Redirect(mailtoLink);
+            }
+        }
     }
 }
