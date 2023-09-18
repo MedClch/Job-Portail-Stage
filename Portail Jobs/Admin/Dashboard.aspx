@@ -208,14 +208,9 @@
             return '#' + Math.floor(Math.random() * 16777215).toString(16);
         }
 
-        // Fetch combined data from the server using ASP.NET code-behind
         var jsonData = '<%= GetCombinedDataAsJson() %>';
         var chartData = JSON.parse(jsonData);
-
-        // Get the canvas element
         var ctx = document.getElementById('myChart').getContext('2d');
-
-        // Create a bar chart
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -237,14 +232,9 @@
             }
         });
 
-        // Fetch pie chart data from the server using ASP.NET code-behind
         var chartJsonData = '<%= GetCombinedDataAsJson_Chart2() %>';
         var chartChartData = JSON.parse(chartJsonData);
-
-        // Get the canvas element for the pie chart
         var pieCtx = document.getElementById('mySecondChart').getContext('2d');
-
-        // Create a pie chart
         var mySecondChart = new Chart(pieCtx, {
             type: 'bar',
             data: {
