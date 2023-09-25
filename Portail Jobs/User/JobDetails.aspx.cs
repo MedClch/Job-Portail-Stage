@@ -200,10 +200,33 @@ namespace Portail_Jobs.User
                     try
                     {
                         conn = new SqlConnection(str);
-                        string query = @"Insert into AppliedJobs values (@JobId,@UserId)";
+                        int idU = Convert.ToInt32(Session["userId"]);
+                        string query = @"Insert into AppliedJobs values (@JobId, @UserId, @Username, @Title, @NoOfPost, @Description, @Qualification, @Experience, @Specialization, @LastDateToApply, 
+                                   @Salary, @JobType, @CompanyName, @CompanyImage, @Website, @JEmail, @Address, @Country, @State, @Name, @Email, @Mobile, @Resume)";
                         cmd = new SqlCommand(query, conn);
                         cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
                         cmd.Parameters.AddWithValue("@UserId", Session["userId"]);
+                        cmd.Parameters.AddWithValue("@Username", GetUsernameForUser(idU));
+                        cmd.Parameters.AddWithValue("@Title", GetTitleForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@NoOfPost", GetPostsForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Description", GetDescriptionForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Qualification", GetQualificationForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Experience", GetExperienceForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Specialization", GetSpecializationForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@LastDateToApply", GetApplyDateForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Salary", GetSalaryForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@JobType", GetTypeForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@CompanyName", GetCompanyNameForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@CompanyImage", GetCompanyImageForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Website", GetWebsiteForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@JEmail", GetEmailForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Address", GetAddressForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Country", GetCountryForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@State", GetStateForJob(Convert.ToInt32(Request.QueryString["id"])));
+                        cmd.Parameters.AddWithValue("@Name", GetNameForUser(idU));
+                        cmd.Parameters.AddWithValue("@Email", GetEmailForUser(idU));
+                        cmd.Parameters.AddWithValue("@Mobile", GetMobileForUser(idU));
+                        cmd.Parameters.AddWithValue("@Resume", GetResumeForUser(idU));
                         conn.Open();
                         int res = cmd.ExecuteNonQuery();
                         if (res > 0)
@@ -821,6 +844,30 @@ namespace Portail_Jobs.User
             using (SqlConnection connection = new SqlConnection(str))
             {
                 string query = "SELECT Resume FROM [User] WHERE UserId = @id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            title = result.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write("<script>alert('" + ex.Message + " resume ');</script>");
+                    }
+                }
+            }
+            return title;
+        }
+        private string GetUsernameForUser(int id)
+        {
+            string title = string.Empty;
+            using (SqlConnection connection = new SqlConnection(str))
+            {
+                string query = "SELECT Username FROM [User] WHERE UserId = @id";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@id", id);
